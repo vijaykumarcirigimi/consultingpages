@@ -28,28 +28,87 @@ interface TemplateParts {
 function parseSections(docText: string): ParsedSection[] {
   const sections: ParsedSection[] = [];
 
-  // Match every "DESIGN MODULE: <filename>.html" marker
-  const regex = /DESIGN MODULE:\s*([\w\-\.]+\.html)/gi;
-  const matches = [...docText.matchAll(regex)];
+  // The docx (via mammoth raw text) produces this pattern:
+  //   "  DESIGN MODULE  \n\n  edstellar-xxx.html  \n"
+  // The label and filename are on SEPARATE lines with whitespace padding.
+  // We also handle the inline format "DESIGN MODULE: edstellar-xxx.html" as a fallback.
 
-  if (matches.length === 0) return [];
+  // Strategy: find every line that looks like an edstellar-*.html filename.
+  // Only count those that appear shortly after a "DESIGN MODULE" line.
+  const lines = docText.split("\n");
 
-  for (let i = 0; i < matches.length; i++) {
-    const m = matches[i];
-    const afterTag = m.index! + m[0].length;
-    const nextTag =
-      i + 1 < matches.length ? matches[i + 1].index! : docText.length;
+  interface Marker {
+    module: string;
+    lineIdx: number;
+    charPos: number; // character offset in full text for slicing content
+  }
+  const markers: Marker[] = [];
 
-    // Everything between this marker and the next is section content
-    let content = docText.substring(afterTag, nextTag).trim();
+  // Build a char-offset map for each line
+  let charOffset = 0;
+  const lineOffsets: number[] = [];
+  for (const line of lines) {
+    lineOffsets.push(charOffset);
+    charOffset += line.length + 1; // +1 for the \n
+  }
 
-    // Strip any trailing section header that belongs to the NEXT section
-    // (e.g. "S05 | Three Pillars" at the very end)
-    content = content.replace(/\n\s*S\d+\s*\|[^\n]*\s*$/i, "").trim();
+  for (let i = 0; i < lines.length; i++) {
+    const trimmed = lines[i].trim();
+
+    // Pattern 1: inline "DESIGN MODULE: filename.html"
+    const inlineMatch = trimmed.match(
+      /DESIGN MODULE\s*:\s*(edstellar[\w\-]+\.html)/i
+    );
+    if (inlineMatch) {
+      markers.push({
+        module: inlineMatch[1].trim(),
+        lineIdx: i,
+        charPos: lineOffsets[i] + lines[i].length,
+      });
+      continue;
+    }
+
+    // Pattern 2: standalone filename line preceded by a "DESIGN MODULE" line
+    // (possibly with a blank line in between)
+    const filenameMatch = trimmed.match(/^(edstellar[\w\-]+\.html)\s*$/i);
+    if (filenameMatch) {
+      // Look back up to 3 lines for "DESIGN MODULE"
+      let foundTag = false;
+      for (let j = 1; j <= 3 && i - j >= 0; j++) {
+        if (/DESIGN\s+MODULE/i.test(lines[i - j].trim())) {
+          foundTag = true;
+          break;
+        }
+      }
+      if (foundTag) {
+        markers.push({
+          module: filenameMatch[1].trim(),
+          lineIdx: i,
+          charPos: lineOffsets[i] + lines[i].length,
+        });
+      }
+    }
+  }
+
+  if (markers.length === 0) return [];
+
+  // Extract content between markers
+  for (let i = 0; i < markers.length; i++) {
+    const start = markers[i].charPos;
+    const end =
+      i + 1 < markers.length
+        ? // Go back to the DESIGN MODULE label line (a few lines before the filename)
+          lineOffsets[Math.max(0, markers[i + 1].lineIdx - 3)]
+        : docText.length;
+
+    let content = docText.substring(start, end).trim();
+
+    // Strip trailing "DESIGN MODULE" label that belongs to the next section
+    content = content.replace(/\s*DESIGN\s+MODULE\s*$/i, "").trim();
 
     sections.push({
       index: i + 1,
-      module: m[1],
+      module: markers[i].module,
       content,
     });
   }
