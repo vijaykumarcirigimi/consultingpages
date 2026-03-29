@@ -504,6 +504,7 @@ function CanvasBlock({
 }) {
   const shortMod = item.module.replace("edstellar-", "").replace(".html", "");
   const [editing, setEditing] = useState(false);
+  const snapshotRef = useRef(item.contentHtml);
 
   const editor = useEditor({
     extensions: [
@@ -513,7 +514,6 @@ function CanvasBlock({
       Underline,
     ],
     content: item.contentHtml,
-    editable: false,
     editorProps: {
       attributes: { class: "tiptap" },
     },
@@ -521,13 +521,16 @@ function CanvasBlock({
 
   // Sync content when item changes from outside (design change, reorder, etc.)
   useEffect(() => {
-    if (editor && !editing && editor.getHTML() !== item.contentHtml) {
-      editor.commands.setContent(item.contentHtml);
+    if (editor && !editing) {
+      const current = editor.getHTML();
+      if (current !== item.contentHtml) {
+        editor.commands.setContent(item.contentHtml);
+      }
     }
   }, [item.contentHtml, editor, editing]);
 
   const startEdit = () => {
-    editor?.setEditable(true);
+    snapshotRef.current = editor?.getHTML() || item.contentHtml;
     setEditing(true);
     requestAnimationFrame(() => editor?.commands.focus());
   };
@@ -536,13 +539,11 @@ function CanvasBlock({
     if (editor) {
       onUpdateHtml(editor.getHTML());
     }
-    editor?.setEditable(false);
     setEditing(false);
   };
 
   const cancelEdit = () => {
-    editor?.commands.setContent(item.contentHtml);
-    editor?.setEditable(false);
+    editor?.commands.setContent(snapshotRef.current);
     setEditing(false);
   };
 
@@ -600,8 +601,8 @@ function CanvasBlock({
         </div>
       )}
 
-      {/* Content — always visible, full height */}
-      <div className={`px-4 pb-3 ${EDITOR_CLASSES} ${editing ? "bg-black/20 rounded-b-xl border-t border-white/5 pt-3" : ""}`}>
+      {/* Content — always visible, full height, editor always mounted */}
+      <div className={`px-4 pb-3 ${EDITOR_CLASSES} ${editing ? "bg-black/20 rounded-b-xl border-t border-white/5 pt-3" : "[&_.tiptap]:cursor-default [&_.tiptap]:select-text"}`}>
         <EditorContent editor={editor} />
       </div>
     </div>
