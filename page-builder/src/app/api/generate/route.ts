@@ -35,11 +35,9 @@ export async function POST(req: Request) {
     const { prompt } = await req.json();
 
     // 1. Locate the Library
-    // Fallback switch: Local environments read from root, Vercel reads from compiled internal copy.
-    const isVercel = process.env.VERCEL === "1";
-    const libraryPath = isVercel 
-      ? path.join(process.cwd(), "library") 
-      : path.join(process.cwd(), "..", "library");
+    // Fallback switch removed: The application now explicitly packages a local copy
+    // of the library folder during both the `npm run dev` and `npm run build` steps.
+    const libraryPath = path.join(process.cwd(), "library");
     const indexPath = path.join(libraryPath, "library-index.json");
     
     let indexData = "";

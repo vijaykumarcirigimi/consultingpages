@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "prebuild": "node -e \"require('fs').cpSync('../library', './library', {recursive: true})\"",
-    "build": "next build",
+    "copy-lib": "node -e \"require('fs').cpSync('../library', './library', {recursive: true})\"",
+    "dev": "npm run copy-lib && next dev",
+    "build": "npm run copy-lib && next build",
     "start": "next start",
     "lint": "eslint"
   },
