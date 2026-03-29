@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, DragEvent } from "react";
+import React, { useState, useEffect, useRef, useCallback, DragEvent } from "react";
 
 /* ────────────────────────────────────────────
    Types
@@ -482,12 +482,74 @@ function CanvasBlock({
 }) {
   const shortMod = item.module.replace("edstellar-", "").replace(".html", "");
   const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState(item.content);
   const [expanded, setExpanded] = useState(false);
+  const editorRef = useRef<HTMLDivElement>(null);
+  const snapshotRef = useRef<string>("");
 
-  const startEdit = () => { setDraft(item.content); setEditing(true); setExpanded(true); };
-  const saveEdit = () => { onUpdateContent(draft); setEditing(false); };
-  const cancelEdit = () => { setDraft(item.content); setEditing(false); };
+  // Convert plain text to simple HTML for the editor
+  const textToHtml = (text: string) =>
+    text.split("\n").map(line => {
+      const t = line.trim();
+      if (!t) return "";
+      if (t.startsWith("- ") || t.startsWith("• ")) return `<li>${t.replace(/^[-•]\s*/, "")}</li>`;
+      if (t.length < 80 && !t.endsWith(".")) return `<h3>${t}</h3>`;
+      return `<p>${t}</p>`;
+    }).join("");
+
+  // Convert editor HTML back to plain text
+  const htmlToText = (html: string): string => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    const lines: string[] = [];
+    div.childNodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const t = (node.textContent || "").trim();
+        if (t) lines.push(t);
+        return;
+      }
+      const el = node as HTMLElement;
+      const tag = el.tagName?.toLowerCase();
+      const text = (el.textContent || "").trim();
+      if (!text) return;
+      if (tag === "li") { lines.push(`- ${text}`); return; }
+      if (tag === "ul" || tag === "ol") {
+        el.querySelectorAll("li").forEach(li => lines.push(`- ${(li.textContent || "").trim()}`));
+        return;
+      }
+      lines.push(text);
+    });
+    return lines.join("\n");
+  };
+
+  const startEdit = () => {
+    snapshotRef.current = item.content;
+    setEditing(true);
+    setExpanded(true);
+    // Set editor HTML after render
+    requestAnimationFrame(() => {
+      if (editorRef.current) {
+        editorRef.current.innerHTML = textToHtml(item.content);
+        editorRef.current.focus();
+      }
+    });
+  };
+
+  const saveEdit = () => {
+    if (editorRef.current) {
+      const newContent = htmlToText(editorRef.current.innerHTML);
+      onUpdateContent(newContent);
+    }
+    setEditing(false);
+  };
+
+  const cancelEdit = () => {
+    setEditing(false);
+  };
+
+  const execCmd = (cmd: string, value?: string) => {
+    document.execCommand(cmd, false, value);
+    editorRef.current?.focus();
+  };
 
   return (
     <div
@@ -500,21 +562,13 @@ function CanvasBlock({
     >
       {/* Header */}
       <div className="flex items-center gap-3 px-4 py-3">
-        {/* Grip handle */}
         <div className="text-gray-600 shrink-0">
           <svg width="12" height="12" viewBox="0 0 12 12"><circle cx="3" cy="2" r="1.2" fill="currentColor"/><circle cx="9" cy="2" r="1.2" fill="currentColor"/><circle cx="3" cy="6" r="1.2" fill="currentColor"/><circle cx="9" cy="6" r="1.2" fill="currentColor"/><circle cx="3" cy="10" r="1.2" fill="currentColor"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/></svg>
         </div>
-
         <span className="text-[10px] font-bold text-[#C5E826]/60 shrink-0">{idx + 1}</span>
         <span className="text-sm font-medium text-white truncate flex-1">{item.title}</span>
-
-        {/* Actions */}
         <div className="flex items-center gap-1.5 shrink-0">
-          <button
-            onClick={onChangeDesign}
-            className="text-[10px] px-2 py-1 rounded bg-[#2D2F6B]/40 text-[#C5E826]/80 font-mono hover:bg-[#2D2F6B]/60 transition-colors truncate max-w-[160px]"
-            title="Change design"
-          >
+          <button onClick={onChangeDesign} className="text-[10px] px-2 py-1 rounded bg-[#2D2F6B]/40 text-[#C5E826]/80 font-mono hover:bg-[#2D2F6B]/60 transition-colors truncate max-w-[160px]" title="Change design">
             {shortMod}
           </button>
           {!editing ? (
@@ -533,23 +587,49 @@ function CanvasBlock({
         </div>
       </div>
 
-      {/* Content: view or edit */}
+      {/* Content: view or rich text edit */}
       <div className="px-4 pb-3">
         {editing ? (
-          <textarea
-            value={draft}
-            onChange={e => setDraft(e.target.value)}
-            className="w-full bg-black/40 border border-white/10 rounded-lg p-3 text-[11px] text-gray-300 font-mono leading-relaxed outline-none focus:border-[#C5E826]/40 resize-y min-h-[120px] max-h-[400px]"
-            rows={Math.min(20, Math.max(6, draft.split("\n").length))}
-            autoFocus
-          />
+          <div>
+            {/* Toolbar */}
+            <div className="flex items-center gap-1 mb-2 p-1.5 bg-black/30 rounded-lg border border-white/5 flex-wrap">
+              <ToolbarBtn label="B" title="Bold" onClick={() => execCmd("bold")} bold />
+              <ToolbarBtn label="I" title="Italic" onClick={() => execCmd("italic")} italic />
+              <ToolbarBtn label="U" title="Underline" onClick={() => execCmd("underline")} underline />
+              <div className="w-px h-4 bg-white/10 mx-1" />
+              <ToolbarBtn label="H2" title="Heading 2" onClick={() => execCmd("formatBlock", "h2")} />
+              <ToolbarBtn label="H3" title="Heading 3" onClick={() => execCmd("formatBlock", "h3")} />
+              <ToolbarBtn label="P" title="Paragraph" onClick={() => execCmd("formatBlock", "p")} />
+              <div className="w-px h-4 bg-white/10 mx-1" />
+              <ToolbarBtn label="&bull; List" title="Bullet list" onClick={() => execCmd("insertUnorderedList")} />
+              <ToolbarBtn label="1. List" title="Numbered list" onClick={() => execCmd("insertOrderedList")} />
+              <div className="w-px h-4 bg-white/10 mx-1" />
+              <ToolbarBtn label="Undo" title="Undo" onClick={() => execCmd("undo")} />
+              <ToolbarBtn label="Redo" title="Redo" onClick={() => execCmd("redo")} />
+            </div>
+            {/* Editable area */}
+            <div
+              ref={editorRef}
+              contentEditable
+              suppressContentEditableWarning
+              className="w-full bg-black/40 border border-white/10 rounded-lg p-4 text-[12px] text-gray-200 leading-relaxed outline-none focus:border-[#C5E826]/40 min-h-[150px] max-h-[450px] overflow-y-auto
+                [&_h2]:text-[15px] [&_h2]:font-bold [&_h2]:text-white [&_h2]:mb-2 [&_h2]:mt-3
+                [&_h3]:text-[13px] [&_h3]:font-semibold [&_h3]:text-[#C5E826]/80 [&_h3]:mb-1 [&_h3]:mt-2
+                [&_p]:mb-1.5 [&_p]:text-gray-300
+                [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-2 [&_ul]:text-gray-300
+                [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-2 [&_ol]:text-gray-300
+                [&_li]:mb-1 [&_li]:text-gray-300
+                [&_b]:text-white [&_strong]:text-white
+                [&_i]:text-gray-400 [&_em]:text-gray-400"
+            />
+          </div>
         ) : (
           <>
             <button onClick={() => setExpanded(!expanded)} className="text-[10px] text-gray-600 hover:text-gray-400 transition-colors">
               {expanded ? "Hide content" : "Show content"}
             </button>
             {expanded && (
-              <pre className="mt-2 text-[10px] text-gray-500 bg-black/30 rounded-lg p-3 max-h-48 overflow-y-auto whitespace-pre-wrap break-words">
+              <pre className="mt-2 text-[11px] text-gray-400 bg-black/30 rounded-lg p-3 max-h-48 overflow-y-auto whitespace-pre-wrap break-words leading-relaxed">
                 {item.content}
               </pre>
             )}
@@ -557,6 +637,21 @@ function CanvasBlock({
         )}
       </div>
     </div>
+  );
+}
+
+/* ── Toolbar Button ── */
+function ToolbarBtn({ label, title, onClick, bold, italic, underline }: {
+  label: string; title: string; onClick: () => void; bold?: boolean; italic?: boolean; underline?: boolean;
+}) {
+  return (
+    <button
+      onMouseDown={e => { e.preventDefault(); onClick(); }}
+      title={title}
+      className={`px-2 py-1 rounded text-[10px] text-gray-400 hover:text-white hover:bg-white/10 transition-colors
+        ${bold ? "font-bold" : ""} ${italic ? "italic" : ""} ${underline ? "underline" : ""}`}
+      dangerouslySetInnerHTML={{ __html: label }}
+    />
   );
 }
 
