@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback, DragEvent } from "react";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Underline from "@tiptap/extension-underline";
 
 /* ────────────────────────────────────────────
    Types
@@ -14,11 +17,11 @@ interface Section {
 }
 
 interface CanvasItem {
-  uid: string;          // unique for React keys
+  uid: string;
   sectionIndex: number;
   title: string;
-  module: string;       // chosen design file
-  content: string;
+  module: string;
+  contentHtml: string;  // HTML for display and editing (Tiptap)
 }
 
 interface SeoData { title: string; description: string; }
@@ -152,7 +155,7 @@ export default function PageBuilder() {
         sectionIndex: pickerPending.index,
         title: pickerPending.title,
         module: file,
-        content: cleanContent(pickerPending.content),
+        contentHtml: textToHtml(cleanContent(pickerPending.content)),
       };
       setCanvas(prev => {
         const next = [...prev];
@@ -195,7 +198,7 @@ export default function PageBuilder() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          sections: canvas.map(c => ({ module: c.module, content: c.content })),
+          sections: canvas.map(c => ({ module: c.module, content: htmlToPlainText(c.contentHtml) })),
           seo,
         }),
       });
@@ -315,7 +318,8 @@ export default function PageBuilder() {
               <button
                 onClick={() => {
                   const items: CanvasItem[] = sections.map(s => ({
-                    uid: uid(), sectionIndex: s.index, title: s.title, module: s.module, content: cleanContent(s.content),
+                    uid: uid(), sectionIndex: s.index, title: s.title, module: s.module,
+                    contentHtml: textToHtml(cleanContent(s.content)),
                   }));
                   setCanvas(items);
                   setPreviewHtml("");
@@ -371,8 +375,8 @@ export default function PageBuilder() {
                         item={item}
                         idx={idx}
                         onRemove={() => removeFromCanvas(item.uid)}
-                        onChangeDesign={() => { setChangingUid(item.uid); setPickerPending({ index: item.sectionIndex, title: item.title, module: item.module, content: item.content }); }}
-                        onUpdateContent={(newContent) => { setCanvas(prev => prev.map(c => c.uid === item.uid ? { ...c, content: newContent } : c)); setPreviewHtml(""); }}
+                        onChangeDesign={() => { setChangingUid(item.uid); setPickerPending({ index: item.sectionIndex, title: item.title, module: item.module, content: htmlToPlainText(item.contentHtml) }); }}
+                        onUpdateHtml={(html) => { setCanvas(prev => prev.map(c => c.uid === item.uid ? { ...c, contentHtml: html } : c)); setPreviewHtml(""); }}
                         onDragStart={() => setDragCanvasUid(item.uid)}
                         onDragOver={(e) => { e.preventDefault(); setReorderIdx(idx); }}
                         onDrop={() => { if (dragCanvasUid && dragCanvasUid !== item.uid) { handleCanvasReorder(dragCanvasUid, idx); } setDragCanvasUid(null); }}
@@ -472,7 +476,7 @@ function UploadScreen({ onUpload, error }: { onUpload: (f: File) => void; error:
    Canvas Block
    ──────────────────────────────────────────── */
 
-/** Convert plain section text → structured HTML for display and editing */
+/** Convert plain section text → structured HTML */
 function textToHtml(text: string): string {
   let inList = false;
   let foundH2 = false;
@@ -482,19 +486,16 @@ function textToHtml(text: string): string {
     if (!t) { if (inList) { parts.push("</ul>"); inList = false; } return; }
     if (t.startsWith("- ") || t.startsWith("• ")) {
       if (!inList) { parts.push("<ul>"); inList = true; }
-      parts.push(`<li>${t.replace(/^[-•]\s*/, "")}</li>`);
+      parts.push(`<li><p>${t.replace(/^[-•]\s*/, "")}</p></li>`);
       return;
     }
     if (inList) { parts.push("</ul>"); inList = false; }
-    // Title-like line: short, starts uppercase, no period at end, no mid-sentence period
     const isTitle = t.length < 120 && !t.endsWith(".") && !t.endsWith(",") && !/\.\s[a-z]/.test(t) && /^[A-Z]/.test(t);
     if (isTitle) {
-      // First title → H2, rest → H3
       if (!foundH2) { parts.push(`<h2>${t}</h2>`); foundH2 = true; }
       else parts.push(`<h3>${t}</h3>`);
       return;
     }
-    // Long paragraphs: split at sentence boundaries for readability
     if (t.length > 500) {
       const sentences = t.match(/[^.!?]+[.!?]+/g) || [t];
       const chunks: string[] = [];
@@ -513,12 +514,12 @@ function textToHtml(text: string): string {
   return parts.join("");
 }
 
-/** Convert editor HTML back to plain text (recursive walk, no content lost) */
-function htmlToText(html: string): string {
+/** Convert Tiptap HTML → plain text for the stitch API */
+function htmlToPlainText(html: string): string {
+  if (typeof document === "undefined") return html.replace(/<[^>]+>/g, "\n");
   const div = document.createElement("div");
   div.innerHTML = html;
   const lines: string[] = [];
-
   function walk(node: Node) {
     if (node.nodeType === Node.TEXT_NODE) {
       const t = (node.textContent || "").trim();
@@ -528,37 +529,43 @@ function htmlToText(html: string): string {
     const el = node as HTMLElement;
     if (!el.tagName) return;
     const tag = el.tagName.toLowerCase();
-    if (tag === "br") { return; }
-    if (tag === "li") {
-      lines.push(`- ${(el.textContent || "").trim()}`);
-      return;
-    }
-    if (tag === "ul" || tag === "ol") {
-      el.childNodes.forEach(walk);
-      return;
-    }
-    // Block elements: extract text, don't recurse into children to avoid duplicates
-    if (["h1","h2","h3","h4","h5","h6","p","div","blockquote","td","th"].includes(tag)) {
+    if (tag === "li") { lines.push(`- ${(el.textContent || "").trim()}`); return; }
+    if (tag === "ul" || tag === "ol") { el.childNodes.forEach(walk); return; }
+    if (["h1","h2","h3","h4","h5","h6","p","div","blockquote"].includes(tag)) {
       const text = (el.textContent || "").trim();
       if (text) lines.push(text);
       return;
     }
-    // Inline elements: recurse
     el.childNodes.forEach(walk);
   }
-
   div.childNodes.forEach(walk);
   return lines.join("\n");
 }
 
+/* ── Shared Tiptap editor styles ── */
+const EDITOR_CLASSES = `
+  [&_.tiptap]:outline-none [&_.tiptap]:min-h-[100px]
+  [&_h2]:text-[15px] [&_h2]:font-bold [&_h2]:text-white [&_h2]:mb-2 [&_h2]:mt-3
+  [&_h3]:text-[13px] [&_h3]:font-semibold [&_h3]:text-[#C5E826]/80 [&_h3]:mb-1 [&_h3]:mt-2
+  [&_p]:mb-2 [&_p]:text-gray-300 [&_p]:leading-relaxed [&_p]:text-[12px]
+  [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-2 [&_ul]:text-gray-300
+  [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-2 [&_ol]:text-gray-300
+  [&_li]:mb-1 [&_li]:text-gray-300 [&_li]:text-[12px]
+  [&_strong]:text-white [&_em]:text-gray-400 [&_u]:underline
+`.trim();
+
+/* ────────────────────────────────────────────
+   Canvas Block with Tiptap Editor
+   ──────────────────────────────────────────── */
+
 function CanvasBlock({
-  item, idx, onRemove, onChangeDesign, onUpdateContent, onDragStart, onDragOver, onDrop, isReorderTarget,
+  item, idx, onRemove, onChangeDesign, onUpdateHtml, onDragStart, onDragOver, onDrop, isReorderTarget,
 }: {
   item: CanvasItem;
   idx: number;
   onRemove: () => void;
   onChangeDesign: () => void;
-  onUpdateContent: (content: string) => void;
+  onUpdateHtml: (html: string) => void;
   onDragStart: () => void;
   onDragOver: (e: DragEvent<HTMLDivElement>) => void;
   onDrop: () => void;
@@ -566,30 +573,46 @@ function CanvasBlock({
 }) {
   const shortMod = item.module.replace("edstellar-", "").replace(".html", "");
   const [editing, setEditing] = useState(false);
-  const editorRef = useRef<HTMLDivElement>(null);
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit.configure({
+        heading: { levels: [2, 3] },
+      }),
+      Underline,
+    ],
+    content: item.contentHtml,
+    editable: false,
+    editorProps: {
+      attributes: { class: "tiptap" },
+    },
+  });
+
+  // Sync content when item changes from outside (design change, reorder, etc.)
+  useEffect(() => {
+    if (editor && !editing && editor.getHTML() !== item.contentHtml) {
+      editor.commands.setContent(item.contentHtml);
+    }
+  }, [item.contentHtml, editor, editing]);
 
   const startEdit = () => {
+    editor?.setEditable(true);
     setEditing(true);
-    requestAnimationFrame(() => {
-      if (editorRef.current) {
-        editorRef.current.innerHTML = textToHtml(item.content);
-        editorRef.current.focus();
-      }
-    });
+    requestAnimationFrame(() => editor?.commands.focus());
   };
 
   const saveEdit = () => {
-    if (editorRef.current) {
-      onUpdateContent(htmlToText(editorRef.current.innerHTML));
+    if (editor) {
+      onUpdateHtml(editor.getHTML());
     }
+    editor?.setEditable(false);
     setEditing(false);
   };
 
-  const cancelEdit = () => { setEditing(false); };
-
-  const execCmd = (cmd: string, value?: string) => {
-    document.execCommand(cmd, false, value);
-    editorRef.current?.focus();
+  const cancelEdit = () => {
+    editor?.commands.setContent(item.contentHtml);
+    editor?.setEditable(false);
+    setEditing(false);
   };
 
   return (
@@ -628,70 +651,39 @@ function CanvasBlock({
         </div>
       </div>
 
-      {/* Content: always visible, formatted or editing */}
-      <div className="px-4 pb-3">
-        {editing ? (
-          <div>
-            {/* Toolbar */}
-            <div className="flex items-center gap-1 mb-2 p-1.5 bg-black/30 rounded-lg border border-white/5 flex-wrap">
-              <ToolbarBtn label="B" title="Bold" onClick={() => execCmd("bold")} bold />
-              <ToolbarBtn label="I" title="Italic" onClick={() => execCmd("italic")} italic />
-              <ToolbarBtn label="U" title="Underline" onClick={() => execCmd("underline")} underline />
-              <div className="w-px h-4 bg-white/10 mx-1" />
-              <ToolbarBtn label="H2" title="Heading 2" onClick={() => execCmd("formatBlock", "h2")} />
-              <ToolbarBtn label="H3" title="Heading 3" onClick={() => execCmd("formatBlock", "h3")} />
-              <ToolbarBtn label="P" title="Paragraph" onClick={() => execCmd("formatBlock", "p")} />
-              <div className="w-px h-4 bg-white/10 mx-1" />
-              <ToolbarBtn label="&bull; List" title="Bullet list" onClick={() => execCmd("insertUnorderedList")} />
-              <ToolbarBtn label="1. List" title="Numbered list" onClick={() => execCmd("insertOrderedList")} />
-              <div className="w-px h-4 bg-white/10 mx-1" />
-              <ToolbarBtn label="Undo" title="Undo" onClick={() => execCmd("undo")} />
-              <ToolbarBtn label="Redo" title="Redo" onClick={() => execCmd("redo")} />
-            </div>
-            {/* Editable area */}
-            <div
-              ref={editorRef}
-              contentEditable
-              suppressContentEditableWarning
-              className="w-full bg-black/40 border border-white/10 rounded-lg p-4 text-[12px] text-gray-200 leading-relaxed outline-none focus:border-[#C5E826]/40 min-h-[150px] overflow-y-auto
-                [&_h2]:text-[15px] [&_h2]:font-bold [&_h2]:text-white [&_h2]:mb-2 [&_h2]:mt-3
-                [&_h3]:text-[13px] [&_h3]:font-semibold [&_h3]:text-[#C5E826]/80 [&_h3]:mb-1 [&_h3]:mt-2
-                [&_p]:mb-2 [&_p]:text-gray-300 [&_p]:leading-relaxed
-                [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-2 [&_ul]:text-gray-300
-                [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-2 [&_ol]:text-gray-300
-                [&_li]:mb-1 [&_li]:text-gray-300
-                [&_b]:text-white [&_strong]:text-white
-                [&_i]:text-gray-400 [&_em]:text-gray-400"
-            />
-          </div>
-        ) : (
-          /* Read-only rendered view — full content, no truncation */
-          <div
-            className="text-[11px] text-gray-400 leading-relaxed
-              [&_h2]:text-[14px] [&_h2]:font-bold [&_h2]:text-white [&_h2]:mb-2 [&_h2]:mt-1
-              [&_h3]:text-[12px] [&_h3]:font-semibold [&_h3]:text-[#C5E826]/70 [&_h3]:mb-1 [&_h3]:mt-2
-              [&_p]:mb-2 [&_p]:text-gray-400 [&_p]:leading-relaxed
-              [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-2
-              [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-2
-              [&_li]:mb-0.5"
-            dangerouslySetInnerHTML={{ __html: textToHtml(item.content) }}
-          />
-        )}
+      {/* Toolbar — only when editing */}
+      {editing && editor && (
+        <div className="flex items-center gap-1 mx-4 mb-2 p-1.5 bg-black/30 rounded-lg border border-white/5 flex-wrap">
+          <TBtn active={editor.isActive("bold")} onClick={() => editor.chain().focus().toggleBold().run()} label="B" cls="font-bold" />
+          <TBtn active={editor.isActive("italic")} onClick={() => editor.chain().focus().toggleItalic().run()} label="I" cls="italic" />
+          <TBtn active={editor.isActive("underline")} onClick={() => editor.chain().focus().toggleUnderline().run()} label="U" cls="underline" />
+          <div className="w-px h-4 bg-white/10 mx-1" />
+          <TBtn active={editor.isActive("heading", { level: 2 })} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} label="H2" />
+          <TBtn active={editor.isActive("heading", { level: 3 })} onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()} label="H3" />
+          <div className="w-px h-4 bg-white/10 mx-1" />
+          <TBtn active={editor.isActive("bulletList")} onClick={() => editor.chain().focus().toggleBulletList().run()} label="&bull; List" />
+          <TBtn active={editor.isActive("orderedList")} onClick={() => editor.chain().focus().toggleOrderedList().run()} label="1. List" />
+          <div className="w-px h-4 bg-white/10 mx-1" />
+          <TBtn onClick={() => editor.chain().focus().undo().run()} label="Undo" />
+          <TBtn onClick={() => editor.chain().focus().redo().run()} label="Redo" />
+        </div>
+      )}
+
+      {/* Content — always visible, full height */}
+      <div className={`px-4 pb-3 ${EDITOR_CLASSES} ${editing ? "bg-black/20 rounded-b-xl border-t border-white/5 pt-3" : ""}`}>
+        <EditorContent editor={editor} />
       </div>
     </div>
   );
 }
 
 /* ── Toolbar Button ── */
-function ToolbarBtn({ label, title, onClick, bold, italic, underline }: {
-  label: string; title: string; onClick: () => void; bold?: boolean; italic?: boolean; underline?: boolean;
-}) {
+function TBtn({ label, onClick, active, cls }: { label: string; onClick: () => void; active?: boolean; cls?: string }) {
   return (
     <button
       onMouseDown={e => { e.preventDefault(); onClick(); }}
-      title={title}
-      className={`px-2 py-1 rounded text-[10px] text-gray-400 hover:text-white hover:bg-white/10 transition-colors
-        ${bold ? "font-bold" : ""} ${italic ? "italic" : ""} ${underline ? "underline" : ""}`}
+      className={`px-2 py-1 rounded text-[10px] transition-colors ${cls || ""}
+        ${active ? "bg-[#C5E826]/20 text-[#C5E826]" : "text-gray-400 hover:text-white hover:bg-white/10"}`}
       dangerouslySetInnerHTML={{ __html: label }}
     />
   );
