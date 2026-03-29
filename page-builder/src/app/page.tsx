@@ -49,14 +49,19 @@ function cleanContent(raw: string): string {
     .split("\n")
     .map(line => {
       const t = line.trim();
-      // Remove pure marker lines
+      // Remove pure marker / structural lines
       if (/^DESIGN\s+MODULE/i.test(t)) return "";
       if (/^edstellar[\w\-]+\.html\s*$/i.test(t)) return "";
       if (/^TRUST POINTS\s*(\(.*\))?\s*$/i.test(t)) return "";
       if (/^BADGE\s/i.test(t)) return "";
+      if (/^SECTION LABEL\s*$/i.test(t)) return "";           // standalone label marker
+      if (/^S\d+\s*\|/i.test(t)) return "";                   // section header (S01 | ...)
+      if (/^_{5,}$/.test(t)) return "";                        // horizontal rules (___...)
+      if (/^-{5,}$/.test(t)) return "";                        // horizontal rules (---)
+      if (/^\*Source:.*\*\s*$/i.test(t)) return "";            // standalone source citations
       // Strip label prefixes but keep the value
+      if (/^SECTION LABEL\s+/i.test(t)) return t.replace(/^SECTION LABEL\s+/i, "");
       if (/^BREADCRUMB\s/i.test(t)) return t.replace(/^BREADCRUMB\s*/i, "");
-      if (/^SECTION LABEL\s/i.test(t)) return t.replace(/^SECTION LABEL\s*/i, "");
       if (/^\[PRIMARY CTA\]\s*/i.test(t)) return t.replace(/^\[PRIMARY CTA\]\s*/i, "");
       if (/^\[SECONDARY CTA\]\s*/i.test(t)) return t.replace(/^\[SECONDARY CTA\]\s*/i, "");
       if (/^\[(BOTTOM )?CTA\]\s*/i.test(t)) return t.replace(/^\[(BOTTOM )?CTA\]\s*/i, "");
@@ -67,8 +72,8 @@ function cleanContent(raw: string): string {
       if (/^Impact tag:\s*/i.test(t)) return t.replace(/^Impact tag:\s*/i, "");
       if (/^Duration:\s*/i.test(t)) return t.replace(/^Duration:\s*/i, "");
       if (/^\*Icon:.*\*\s*$/i.test(t)) return "";
-      // Strip trailing icon hints inline
-      return t.replace(/\s*\*Icon:[^*]*\*/gi, "");
+      // Strip inline source citations and icon hints
+      return t.replace(/\s*\*Source:[^*]*\*/gi, "").replace(/\s*\*Icon:[^*]*\*/gi, "");
     })
     .filter(line => line.trim() !== "")
     .join("\n");
@@ -487,14 +492,41 @@ function CanvasBlock({
   const snapshotRef = useRef<string>("");
 
   // Convert plain text to simple HTML for the editor
-  const textToHtml = (text: string) =>
-    text.split("\n").map(line => {
+  const textToHtml = (text: string) => {
+    let inList = false;
+    const parts: string[] = [];
+    text.split("\n").forEach(line => {
       const t = line.trim();
-      if (!t) return "";
-      if (t.startsWith("- ") || t.startsWith("• ")) return `<li>${t.replace(/^[-•]\s*/, "")}</li>`;
-      if (t.length < 80 && !t.endsWith(".")) return `<h3>${t}</h3>`;
-      return `<p>${t}</p>`;
-    }).join("");
+      if (!t) { if (inList) { parts.push("</ul>"); inList = false; } return; }
+      if (t.startsWith("- ") || t.startsWith("• ")) {
+        if (!inList) { parts.push("<ul>"); inList = true; }
+        parts.push(`<li>${t.replace(/^[-•]\s*/, "")}</li>`);
+        return;
+      }
+      if (inList) { parts.push("</ul>"); inList = false; }
+      // Treat as heading only if it's short, not a sentence, and looks like a title
+      if (t.length < 100 && !t.endsWith(".") && !t.endsWith(",") && !t.includes(". ") && /^[A-Z]/.test(t)) {
+        parts.push(`<h3>${t}</h3>`);
+        return;
+      }
+      // Long paragraphs: split on sentence boundaries for readability
+      if (t.length > 500) {
+        const sentences = t.match(/[^.!?]+[.!?]+/g) || [t];
+        const chunks: string[] = [];
+        let current = "";
+        for (const s of sentences) {
+          if ((current + s).length > 400 && current) { chunks.push(current.trim()); current = ""; }
+          current += s;
+        }
+        if (current.trim()) chunks.push(current.trim());
+        chunks.forEach(c => parts.push(`<p>${c}</p>`));
+        return;
+      }
+      parts.push(`<p>${t}</p>`);
+    });
+    if (inList) parts.push("</ul>");
+    return parts.join("");
+  };
 
   // Convert editor HTML back to plain text
   const htmlToText = (html: string): string => {
@@ -629,9 +661,15 @@ function CanvasBlock({
               {expanded ? "Hide content" : "Show content"}
             </button>
             {expanded && (
-              <pre className="mt-2 text-[11px] text-gray-400 bg-black/30 rounded-lg p-3 max-h-48 overflow-y-auto whitespace-pre-wrap break-words leading-relaxed">
-                {item.content}
-              </pre>
+              <div className="mt-2 text-[11px] text-gray-400 bg-black/30 rounded-lg p-3 max-h-64 overflow-y-auto leading-relaxed space-y-2">
+                {item.content.split("\n").map((line, li) => {
+                  const t = line.trim();
+                  if (!t) return null;
+                  if (t.startsWith("- ") || t.startsWith("• ")) return <div key={li} className="pl-3 text-gray-400">• {t.replace(/^[-•]\s*/, "")}</div>;
+                  if (t.length < 100 && !t.endsWith(".") && /^[A-Z]/.test(t)) return <div key={li} className="font-semibold text-gray-300 text-xs mt-1">{t}</div>;
+                  return <p key={li} className="text-gray-400">{t}</p>;
+                })}
+              </div>
             )}
           </>
         )}
