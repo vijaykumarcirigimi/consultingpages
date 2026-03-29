@@ -16,8 +16,7 @@ interface ParsedSection {
 interface TemplateParts {
   css: string;
   fonts: string[];
-  nav: string;
-  body: string;
+  body: string;       // full body content (including nav if present)
   scripts: string[];
 }
 
@@ -27,35 +26,25 @@ interface TemplateParts {
 
 function parseSections(docText: string): ParsedSection[] {
   const sections: ParsedSection[] = [];
-
-  // The docx (via mammoth raw text) produces this pattern:
-  //   "  DESIGN MODULE  \n\n  edstellar-xxx.html  \n"
-  // The label and filename are on SEPARATE lines with whitespace padding.
-  // We also handle the inline format "DESIGN MODULE: edstellar-xxx.html" as a fallback.
-
-  // Strategy: find every line that looks like an edstellar-*.html filename.
-  // Only count those that appear shortly after a "DESIGN MODULE" line.
   const lines = docText.split("\n");
 
   interface Marker {
     module: string;
     lineIdx: number;
-    charPos: number; // character offset in full text for slicing content
+    charPos: number;
   }
   const markers: Marker[] = [];
 
-  // Build a char-offset map for each line
   let charOffset = 0;
   const lineOffsets: number[] = [];
   for (const line of lines) {
     lineOffsets.push(charOffset);
-    charOffset += line.length + 1; // +1 for the \n
+    charOffset += line.length + 1;
   }
 
   for (let i = 0; i < lines.length; i++) {
     const trimmed = lines[i].trim();
 
-    // Pattern 1: inline "DESIGN MODULE: filename.html"
     const inlineMatch = trimmed.match(
       /DESIGN MODULE\s*:\s*(edstellar[\w\-]+\.html)/i
     );
@@ -68,11 +57,8 @@ function parseSections(docText: string): ParsedSection[] {
       continue;
     }
 
-    // Pattern 2: standalone filename line preceded by a "DESIGN MODULE" line
-    // (possibly with a blank line in between)
     const filenameMatch = trimmed.match(/^(edstellar[\w\-]+\.html)\s*$/i);
     if (filenameMatch) {
-      // Look back up to 3 lines for "DESIGN MODULE"
       let foundTag = false;
       for (let j = 1; j <= 3 && i - j >= 0; j++) {
         if (/DESIGN\s+MODULE/i.test(lines[i - j].trim())) {
@@ -92,18 +78,14 @@ function parseSections(docText: string): ParsedSection[] {
 
   if (markers.length === 0) return [];
 
-  // Extract content between markers
   for (let i = 0; i < markers.length; i++) {
     const start = markers[i].charPos;
     const end =
       i + 1 < markers.length
-        ? // Go back to the DESIGN MODULE label line (a few lines before the filename)
-          lineOffsets[Math.max(0, markers[i + 1].lineIdx - 3)]
+        ? lineOffsets[Math.max(0, markers[i + 1].lineIdx - 3)]
         : docText.length;
 
     let content = docText.substring(start, end).trim();
-
-    // Strip trailing "DESIGN MODULE" label that belongs to the next section
     content = content.replace(/\s*DESIGN\s+MODULE\s*$/i, "").trim();
 
     sections.push({
@@ -117,48 +99,129 @@ function parseSections(docText: string): ParsedSection[] {
 }
 
 /* ────────────────────────────────────────────
-   2. Extract reusable parts from a template
+   2. CSS Scoping Engine
+   Scopes section-specific CSS under [data-es="sN"]
+   and extracts global rules (:root, *, body, html, .page-wrap)
+   ──────────────────────────────────────────── */
+
+const GLOBAL_SELECTOR_RE = /^(:root|\*|body|html|\.page-wrap)\b/;
+
+function scopeCss(
+  rawCss: string,
+  scopeAttr: string
+): { global: string; scoped: string } {
+  const globalChunks: string[] = [];
+  const scopedChunks: string[] = [];
+
+  let pos = 0;
+  const len = rawCss.length;
+
+  while (pos < len) {
+    // Skip whitespace and CSS comments
+    const before = pos;
+    while (pos < len && /\s/.test(rawCss[pos])) pos++;
+    if (pos < len && rawCss[pos] === "/" && rawCss[pos + 1] === "*") {
+      const end = rawCss.indexOf("*/", pos + 2);
+      pos = end === -1 ? len : end + 2;
+      continue;
+    }
+    if (pos >= len) break;
+
+    // Read selector or @-rule up to the opening brace
+    const selStart = pos;
+    while (pos < len && rawCss[pos] !== "{") pos++;
+    if (pos >= len) break;
+
+    const selector = rawCss.slice(selStart, pos).trim();
+
+    // Read the balanced brace block
+    let depth = 0;
+    const blockStart = pos;
+    while (pos < len) {
+      if (rawCss[pos] === "{") depth++;
+      if (rawCss[pos] === "}") {
+        depth--;
+        if (depth === 0) {
+          pos++;
+          break;
+        }
+      }
+      pos++;
+    }
+
+    const blockBody = rawCss.slice(blockStart, pos); // { ... }
+    const fullRule = selector + " " + blockBody;
+
+    // Classify the rule
+    if (/^@media/i.test(selector)) {
+      // Media query — scope its inner rules
+      const inner = rawCss.slice(blockStart + 1, pos - 1);
+      const scopedInner = scopeSimpleRules(inner, scopeAttr);
+      scopedChunks.push(`${selector} {\n${scopedInner}\n}`);
+    } else if (/^@/i.test(selector)) {
+      // @keyframes, @font-face etc — keep global
+      scopedChunks.push(fullRule);
+    } else if (GLOBAL_SELECTOR_RE.test(selector)) {
+      globalChunks.push(fullRule);
+    } else {
+      // Regular rule — scope it
+      scopedChunks.push(`${scopeAttr} ${selector} ${blockBody}`);
+    }
+  }
+
+  return {
+    global: globalChunks.join("\n"),
+    scoped: scopedChunks.join("\n"),
+  };
+}
+
+/** Scope simple (non-nested) rules inside a @media block */
+function scopeSimpleRules(css: string, scopeAttr: string): string {
+  return css.replace(
+    /([^{}\n][^{}]*?)\s*\{([^{}]*)\}/g,
+    (_match, sel, body) => {
+      const trimSel = (sel as string).trim();
+      if (GLOBAL_SELECTOR_RE.test(trimSel)) return _match;
+      return `  ${scopeAttr} ${trimSel} {${body}}`;
+    }
+  );
+}
+
+/* ────────────────────────────────────────────
+   3. Extract parts from a template HTML file
    ──────────────────────────────────────────── */
 
 function extractTemplateParts(html: string): TemplateParts {
   const $ = cheerio.load(html);
 
-  // CSS
   const css = $("style")
     .map((_, el) => $(el).html() || "")
     .get()
     .join("\n\n");
 
-  // Font link tags (deduplicate later)
   const fonts = $('link[rel="stylesheet"]')
     .map((_, el) => $.html(el))
     .get();
 
-  // Scripts (preserve for interactive sections)
   const scripts = $("script")
     .map((_, el) => $(el).html() || "")
     .get()
     .filter((s) => s.trim().length > 0);
 
-  // Nav (only the hero template has this)
-  const nav = $.html(".ed-nav") || "";
-
-  // Section body = everything inside .page-wrap MINUS the nav
-  // (or everything in <body> if no .page-wrap)
-  const pageWrap = $(".page-wrap");
-  if (pageWrap.length) {
-    pageWrap.find(".ed-nav").remove();
-    $("script").remove();
-    return { css, fonts, nav, body: pageWrap.html()?.trim() || "", scripts };
-  }
-
-  $("body").find(".ed-nav").remove();
+  // Remove scripts to avoid duplication in body
   $("script").remove();
-  return { css, fonts, nav, body: $("body").html()?.trim() || "", scripts };
+
+  // Get full body content (including nav if the template has one)
+  const pageWrap = $(".page-wrap");
+  const body = pageWrap.length
+    ? pageWrap.html()?.trim() || ""
+    : $("body").html()?.trim() || "";
+
+  return { css, fonts, body, scripts };
 }
 
 /* ────────────────────────────────────────────
-   3. Gemini: fill one section
+   4. Gemini: fill one section
    ──────────────────────────────────────────── */
 
 async function fillSectionWithAI(
@@ -198,7 +261,6 @@ Return the filled HTML now:`;
   const result = await model.generateContent(prompt);
   let html = result.response.text();
 
-  // Strip markdown code fences if Gemini wraps them
   html = html
     .replace(/^```html?\s*\n?/i, "")
     .replace(/\n?\s*```\s*$/i, "")
@@ -208,7 +270,7 @@ Return the filled HTML now:`;
 }
 
 /* ────────────────────────────────────────────
-   4. Batch-parallel helper
+   5. Batch-parallel helper
    ──────────────────────────────────────────── */
 
 async function processBatch<T, R>(
@@ -228,10 +290,10 @@ async function processBatch<T, R>(
 }
 
 /* ────────────────────────────────────────────
-   5. POST handler
+   6. POST handler
    ──────────────────────────────────────────── */
 
-export const maxDuration = 300; // Vercel Pro: up to 300 s
+export const maxDuration = 300;
 
 export async function POST(req: Request) {
   try {
@@ -257,7 +319,7 @@ export async function POST(req: Request) {
     const buffer = Buffer.from(await file.arrayBuffer());
     const { value: docText } = await mammoth.extractRawText({ buffer });
 
-    /* ── 2. Parse sections from document ── */
+    /* ── 2. Parse sections ── */
     const sections = parseSections(docText);
     if (sections.length === 0) {
       return NextResponse.json(
@@ -269,7 +331,7 @@ export async function POST(req: Request) {
       );
     }
 
-    /* ── 3. Load unique templates from the static library ── */
+    /* ── 3. Load unique templates ── */
     const baseUrl = new URL(req.url).origin;
     const uniqueModules = [...new Set(sections.map((s) => s.module))];
     const templateCache: Record<string, string> = {};
@@ -286,7 +348,7 @@ export async function POST(req: Request) {
       })
     );
 
-    /* ── 4. Extract CSS / nav / body from each template ── */
+    /* ── 4. Extract template parts ── */
     const partsCache: Record<string, TemplateParts> = {};
     for (const mod of uniqueModules) {
       if (templateCache[mod]) {
@@ -294,7 +356,7 @@ export async function POST(req: Request) {
       }
     }
 
-    /* ── 5. Fill every section in parallel batches via Gemini ── */
+    /* ── 5. Fill sections via Gemini (parallel batches of 5) ── */
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
@@ -311,16 +373,33 @@ export async function POST(req: Request) {
         );
       } catch (err: any) {
         console.error(`AI fill failed for ${section.module}:`, err?.message);
-        // Graceful fallback: return template with original placeholder content
         return parts.body;
       }
     });
 
-    /* ── 6. Collect all CSS (concatenated — duplicates are harmless) ── */
-    const allCss = uniqueModules
-      .filter((mod) => partsCache[mod])
-      .map((mod) => partsCache[mod].css)
-      .join("\n\n/* ═══ next section ═══ */\n\n");
+    /* ── 6. Scope CSS per section to prevent class collisions ── */
+    // Collect global CSS from the FIRST template only (avoids duplicates)
+    let globalCss = "";
+    const allScopedCss: string[] = [];
+    const globalCssCollected = new Set<string>();
+
+    for (let i = 0; i < sections.length; i++) {
+      const parts = partsCache[sections[i].module];
+      if (!parts) continue;
+
+      const scope = `[data-es="s${i}"]`;
+      const { global, scoped } = scopeCss(parts.css, scope);
+
+      // Only add global rules we haven't seen yet (by first line as key)
+      if (!globalCssCollected.has("done")) {
+        globalCss = global;
+        globalCssCollected.add("done");
+      }
+
+      allScopedCss.push(
+        `/* ═══ Section ${i + 1}: ${sections[i].module} ═══ */\n${scoped}`
+      );
+    }
 
     /* ── 7. Deduplicate font links ── */
     const fontSet = new Set<string>();
@@ -337,16 +416,18 @@ export async function POST(req: Request) {
       partsCache[section.module]?.scripts.forEach((s) => scriptSet.add(s));
     }
 
-    /* ── 9. Nav from the first template (hero) ── */
-    const heroNav = partsCache[sections[0]?.module]?.nav || "";
-
-    /* ── 10. SEO metadata from document ── */
+    /* ── 9. SEO metadata from document ── */
     const titleMatch = docText.match(/Meta Title\s+(.+)/i);
     const descMatch = docText.match(/Meta Description\s+(.+)/i);
     const pageTitle = titleMatch
       ? titleMatch[1].trim()
       : "Edstellar Consulting Page";
     const pageDesc = descMatch ? descMatch[1].trim() : "";
+
+    /* ── 10. Build each section wrapped with data-es scope ── */
+    const sectionBlocks = filledBodies.map(
+      (body, i) => `<div data-es="s${i}">\n${body}\n</div>`
+    );
 
     /* ── 11. Assemble final HTML ── */
     const finalHtml = `<!DOCTYPE html>
@@ -358,17 +439,32 @@ export async function POST(req: Request) {
 ${pageDesc ? `<meta name="description" content="${escapeHtml(pageDesc)}">` : ""}
 ${[...fontSet].join("\n")}
 <style>
-${allCss}
+/* ═══ Global (shared across all sections) ═══ */
+${globalCss}
 
-/* ═══ Page-assembly overrides ═══ */
-.page-wrap { min-height: auto; }
-body { margin: 0; padding: 0; background: #F4F5F7; }
+.page-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  background: #FFFFFF;
+  min-height: 100vh;
+}
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #F4F5F7;
+  color: #1A1A1A;
+  -webkit-font-smoothing: antialiased;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ═══ Scoped section styles ═══ */
+${allScopedCss.join("\n\n")}
 </style>
 </head>
 <body>
 <div class="page-wrap">
-${heroNav}
-${filledBodies.join("\n\n")}
+${sectionBlocks.join("\n\n")}
 </div>
 ${[...scriptSet].map((s) => `<script>\n${s}\n</script>`).join("\n")}
 </body>
