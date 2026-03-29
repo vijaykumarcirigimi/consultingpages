@@ -13,7 +13,8 @@ interface Section {
   index: number;
   title: string;
   module: string;
-  content: string;
+  contentHtml: string;
+  contentText: string;
 }
 
 interface CanvasItem {
@@ -46,41 +47,9 @@ type LibraryIndex = { sections: Record<string, LibraryCategory> };
 let uidCounter = 0;
 function uid() { return `c${++uidCounter}-${Date.now()}`; }
 
-/** Strip design-reference markers and labels, keep only real content */
-function cleanContent(raw: string): string {
-  return raw
-    .split("\n")
-    .map(line => {
-      const t = line.trim();
-      // Remove pure marker / structural lines
-      if (/^DESIGN\s+MODULE/i.test(t)) return "";
-      if (/^edstellar[\w\-]+\.html\s*$/i.test(t)) return "";
-      if (/^TRUST POINTS\s*(\(.*\))?\s*$/i.test(t)) return "";
-      if (/^BADGE\s/i.test(t)) return "";
-      if (/^SECTION LABEL\s*$/i.test(t)) return "";           // standalone label marker
-      if (/^S\d+\s*\|/i.test(t)) return "";                   // section header (S01 | ...)
-      if (/^_{5,}$/.test(t)) return "";                        // horizontal rules (___...)
-      if (/^-{5,}$/.test(t)) return "";                        // horizontal rules (---)
-      if (/^\*Source:.*\*\s*$/i.test(t)) return "";            // standalone source citations
-      // Strip label prefixes but keep the value
-      if (/^SECTION LABEL\s+/i.test(t)) return t.replace(/^SECTION LABEL\s+/i, "");
-      if (/^BREADCRUMB\s/i.test(t)) return t.replace(/^BREADCRUMB\s*/i, "");
-      if (/^\[PRIMARY CTA\]\s*/i.test(t)) return t.replace(/^\[PRIMARY CTA\]\s*/i, "");
-      if (/^\[SECONDARY CTA\]\s*/i.test(t)) return t.replace(/^\[SECONDARY CTA\]\s*/i, "");
-      if (/^\[(BOTTOM )?CTA\]\s*/i.test(t)) return t.replace(/^\[(BOTTOM )?CTA\]\s*/i, "");
-      if (/^\[IMAGE\]\s*/i.test(t)) return t.replace(/^\[IMAGE\]\s*/i, "");
-      if (/^STAT\s+\d+\s+/i.test(t)) return t.replace(/^STAT\s+\d+\s+/i, "");
-      if (/^(CHALLENGE|STEP|SERVICE|TAB|PILLAR|DIFFERENTIATOR|STORY|TESTIMONIAL|INDUSTRY|RESOURCE|FORMAT|CAPABILITY)\s+\d+\s*[:\-]\s*/i.test(t))
-        return t.replace(/^(CHALLENGE|STEP|SERVICE|TAB|PILLAR|DIFFERENTIATOR|STORY|TESTIMONIAL|INDUSTRY|RESOURCE|FORMAT|CAPABILITY)\s+\d+\s*[:\-]\s*/i, "");
-      if (/^Impact tag:\s*/i.test(t)) return t.replace(/^Impact tag:\s*/i, "");
-      if (/^Duration:\s*/i.test(t)) return t.replace(/^Duration:\s*/i, "");
-      if (/^\*Icon:.*\*\s*$/i.test(t)) return "";
-      // Strip inline source citations and icon hints
-      return t.replace(/\s*\*Source:[^*]*\*/gi, "").replace(/\s*\*Icon:[^*]*\*/gi, "");
-    })
-    .filter(line => line.trim() !== "")
-    .join("\n");
-}
+/* cleanContent and textToHtml removed — the parse API now returns
+   properly structured HTML from mammoth.convertToHtml(), with all
+   design-reference markers already stripped server-side. */
 
 /* ────────────────────────────────────────────
    Main
@@ -155,7 +124,7 @@ export default function PageBuilder() {
         sectionIndex: pickerPending.index,
         title: pickerPending.title,
         module: file,
-        contentHtml: textToHtml(cleanContent(pickerPending.content)),
+        contentHtml: pickerPending.contentHtml,
       };
       setCanvas(prev => {
         const next = [...prev];
@@ -308,7 +277,7 @@ export default function PageBuilder() {
                         <p className="text-[9px] text-gray-400 leading-snug mt-0.5 line-clamp-1">{design.layout}</p>
                       </div>
                     )}
-                    <p className="text-[10px] text-gray-600 line-clamp-2">{section.content.substring(0, 100)}</p>
+                    <p className="text-[10px] text-gray-600 line-clamp-2">{section.contentText.substring(0, 100)}</p>
                   </div>
                 );
               })}
@@ -319,7 +288,7 @@ export default function PageBuilder() {
                 onClick={() => {
                   const items: CanvasItem[] = sections.map(s => ({
                     uid: uid(), sectionIndex: s.index, title: s.title, module: s.module,
-                    contentHtml: textToHtml(cleanContent(s.content)),
+                    contentHtml: s.contentHtml,
                   }));
                   setCanvas(items);
                   setPreviewHtml("");
@@ -375,7 +344,7 @@ export default function PageBuilder() {
                         item={item}
                         idx={idx}
                         onRemove={() => removeFromCanvas(item.uid)}
-                        onChangeDesign={() => { setChangingUid(item.uid); setPickerPending({ index: item.sectionIndex, title: item.title, module: item.module, content: htmlToPlainText(item.contentHtml) }); }}
+                        onChangeDesign={() => { setChangingUid(item.uid); setPickerPending({ index: item.sectionIndex, title: item.title, module: item.module, contentHtml: item.contentHtml, contentText: "" }); }}
                         onUpdateHtml={(html) => { setCanvas(prev => prev.map(c => c.uid === item.uid ? { ...c, contentHtml: html } : c)); setPreviewHtml(""); }}
                         onDragStart={() => setDragCanvasUid(item.uid)}
                         onDragOver={(e) => { e.preventDefault(); setReorderIdx(idx); }}
@@ -475,44 +444,6 @@ function UploadScreen({ onUpload, error }: { onUpload: (f: File) => void; error:
 /* ────────────────────────────────────────────
    Canvas Block
    ──────────────────────────────────────────── */
-
-/** Convert plain section text → structured HTML */
-function textToHtml(text: string): string {
-  let inList = false;
-  let foundH2 = false;
-  const parts: string[] = [];
-  text.split("\n").forEach(line => {
-    const t = line.trim();
-    if (!t) { if (inList) { parts.push("</ul>"); inList = false; } return; }
-    if (t.startsWith("- ") || t.startsWith("• ")) {
-      if (!inList) { parts.push("<ul>"); inList = true; }
-      parts.push(`<li><p>${t.replace(/^[-•]\s*/, "")}</p></li>`);
-      return;
-    }
-    if (inList) { parts.push("</ul>"); inList = false; }
-    const isTitle = t.length < 120 && !t.endsWith(".") && !t.endsWith(",") && !/\.\s[a-z]/.test(t) && /^[A-Z]/.test(t);
-    if (isTitle) {
-      if (!foundH2) { parts.push(`<h2>${t}</h2>`); foundH2 = true; }
-      else parts.push(`<h3>${t}</h3>`);
-      return;
-    }
-    if (t.length > 500) {
-      const sentences = t.match(/[^.!?]+[.!?]+/g) || [t];
-      const chunks: string[] = [];
-      let current = "";
-      for (const s of sentences) {
-        if ((current + s).length > 400 && current) { chunks.push(current.trim()); current = ""; }
-        current += s;
-      }
-      if (current.trim()) chunks.push(current.trim());
-      chunks.forEach(c => parts.push(`<p>${c}</p>`));
-      return;
-    }
-    parts.push(`<p>${t}</p>`);
-  });
-  if (inList) parts.push("</ul>");
-  return parts.join("");
-}
 
 /** Convert Tiptap HTML → plain text for the stitch API */
 function htmlToPlainText(html: string): string {

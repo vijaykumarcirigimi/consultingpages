@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import * as mammoth from "mammoth";
-import { parseSections } from "@/lib/parse-sections";
+import { parseSectionsFromHtml } from "@/lib/parse-sections";
 
 export async function POST(req: Request) {
   try {
@@ -11,17 +11,20 @@ export async function POST(req: Request) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-    const { value: docText } = await mammoth.extractRawText({ buffer });
 
-    const sections = parseSections(docText);
+    // Use convertToHtml to preserve headings, bold, paragraphs, lists
+    const { value: docHtml } = await mammoth.convertToHtml({ buffer });
+
+    const sections = parseSectionsFromHtml(docHtml);
     if (sections.length === 0) {
       return NextResponse.json(
-        { error: 'No "DESIGN MODULE" markers found. Please upload a developer-reference .docx.' },
+        { error: 'No template markers found. Please upload a developer-reference .docx.' },
         { status: 400 }
       );
     }
 
-    // Extract SEO metadata
+    // Extract SEO metadata from raw text
+    const { value: docText } = await mammoth.extractRawText({ buffer });
     const titleMatch = docText.match(/Meta Title\s+(.+)/i);
     const descMatch = docText.match(/Meta Description\s+(.+)/i);
 
