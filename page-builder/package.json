@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "copy-lib": "node -e \"require('fs').cpSync('../library', './public/library', {recursive: true})\"",
+    "copy-lib": "node -e \"const fs=require('fs'); if(fs.existsSync('../library')){fs.cpSync('../library','./public/library',{recursive:true});console.log('Library synced')}else{console.log('Using existing public/library')}\"",
     "dev": "npm run copy-lib && next dev",
     "build": "npm run copy-lib && next build",
     "start": "next start",

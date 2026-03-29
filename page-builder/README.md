@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Edstellar Page Stitcher
 
-## Getting Started
+Upload a **developer-reference `.docx`** document and get a fully assembled, responsive Edstellar consulting page in seconds.
 
-First, run the development server:
+## How it works
+
+1. **Upload** a developer-reference document (produced by the doc-builder skill)
+2. The engine **parses** every `DESIGN MODULE: filename.html` tag in the document
+3. For each section, it **loads** the matching HTML template from the library
+4. **Gemini 2.0 Flash** fills each template with the real content from the document
+5. All sections are **stitched** into one production-ready HTML page with combined CSS and JS
+6. **Download** the final `.html` file
+
+## Setup
+
+```bash
+cd page-builder
+npm install
+```
+
+Create a `.env.local` file:
+
+```
+GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+Get a free Gemini API key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey).
+
+## Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy to Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push this repo to GitHub
+2. Import the repo in [vercel.com/new](https://vercel.com/new)
+3. Set **Root Directory** to `page-builder`
+4. Add environment variable: `GEMINI_API_KEY` = your key
+5. Deploy
 
-## Learn More
+The `copy-lib` build script automatically syncs the HTML library from the parent `library/` directory into `public/library/` during build.
 
-To learn more about Next.js, take a look at the following resources:
+## Tech stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 16 (App Router)
+- Tailwind CSS 4
+- Google Gemini 2.0 Flash API
+- Mammoth (docx parsing)
+- Cheerio (HTML manipulation)

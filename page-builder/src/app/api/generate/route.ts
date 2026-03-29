@@ -1,190 +1,339 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import * as cheerio from "cheerio";
-import fs from "fs/promises";
-import path from "path";
 import * as mammoth from "mammoth";
 
-// Function to provide a fallback/mock response in case no Gemini key is provided
-function getMockStrategy() {
-  return {
-    sections: [
-      {
-        file: "edstellar-hero-classic-split.html",
-        replacements: [
-          { selector: "h1 span.accent", text: "AI-Powered Logistics" },
-          { selector: "p.hero-sub", text: "Transform your supply chain with cutting-edge AI. We offer tailored solutions for modern distribution networks." }
-        ]
-      },
-      {
-        file: "edstellar-stats-card-grid.html",
-        replacements: [
-          { selector: ".card:nth-child(1) .number", text: "40%" },
-          { selector: ".card:nth-child(1) .label", text: "Cost Reduction" }
-        ]
-      },
-      {
-        file: "edstellar-footer.html",
-        replacements: []
-      }
-    ]
-  };
+/* ────────────────────────────────────────────
+   Types
+   ──────────────────────────────────────────── */
+
+interface ParsedSection {
+  index: number;
+  module: string;
+  content: string;
 }
+
+interface TemplateParts {
+  css: string;
+  fonts: string[];
+  nav: string;
+  body: string;
+  scripts: string[];
+}
+
+/* ────────────────────────────────────────────
+   1. Parse developer-reference docx into sections
+   ──────────────────────────────────────────── */
+
+function parseSections(docText: string): ParsedSection[] {
+  const sections: ParsedSection[] = [];
+
+  // Match every "DESIGN MODULE: <filename>.html" marker
+  const regex = /DESIGN MODULE:\s*([\w\-\.]+\.html)/gi;
+  const matches = [...docText.matchAll(regex)];
+
+  if (matches.length === 0) return [];
+
+  for (let i = 0; i < matches.length; i++) {
+    const m = matches[i];
+    const afterTag = m.index! + m[0].length;
+    const nextTag =
+      i + 1 < matches.length ? matches[i + 1].index! : docText.length;
+
+    // Everything between this marker and the next is section content
+    let content = docText.substring(afterTag, nextTag).trim();
+
+    // Strip any trailing section header that belongs to the NEXT section
+    // (e.g. "S05 | Three Pillars" at the very end)
+    content = content.replace(/\n\s*S\d+\s*\|[^\n]*\s*$/i, "").trim();
+
+    sections.push({
+      index: i + 1,
+      module: m[1],
+      content,
+    });
+  }
+
+  return sections;
+}
+
+/* ────────────────────────────────────────────
+   2. Extract reusable parts from a template
+   ──────────────────────────────────────────── */
+
+function extractTemplateParts(html: string): TemplateParts {
+  const $ = cheerio.load(html);
+
+  // CSS
+  const css = $("style")
+    .map((_, el) => $(el).html() || "")
+    .get()
+    .join("\n\n");
+
+  // Font link tags (deduplicate later)
+  const fonts = $('link[rel="stylesheet"]')
+    .map((_, el) => $.html(el))
+    .get();
+
+  // Scripts (preserve for interactive sections)
+  const scripts = $("script")
+    .map((_, el) => $(el).html() || "")
+    .get()
+    .filter((s) => s.trim().length > 0);
+
+  // Nav (only the hero template has this)
+  const nav = $.html(".ed-nav") || "";
+
+  // Section body = everything inside .page-wrap MINUS the nav
+  // (or everything in <body> if no .page-wrap)
+  const pageWrap = $(".page-wrap");
+  if (pageWrap.length) {
+    pageWrap.find(".ed-nav").remove();
+    $("script").remove();
+    return { css, fonts, nav, body: pageWrap.html()?.trim() || "", scripts };
+  }
+
+  $("body").find(".ed-nav").remove();
+  $("script").remove();
+  return { css, fonts, nav, body: $("body").html()?.trim() || "", scripts };
+}
+
+/* ────────────────────────────────────────────
+   3. Gemini: fill one section
+   ──────────────────────────────────────────── */
+
+async function fillSectionWithAI(
+  model: ReturnType<GoogleGenerativeAI["getGenerativeModel"]>,
+  templateBody: string,
+  sectionContent: string,
+  moduleName: string
+): Promise<string> {
+  const prompt = `You are a precise HTML content-replacement engine for the Edstellar consulting website.
+
+TASK
+Replace ALL placeholder / demo text in the HTML template below with the real content provided. The result must look like a production-ready section of a consulting page.
+
+RULES  (follow every one exactly)
+1. Keep ALL HTML tags, classes, IDs, inline styles, data-* attributes, and SVG elements EXACTLY as they are.
+2. Only change TEXT CONTENT inside elements — never rename classes or restructure the DOM.
+3. Match content SEMANTICALLY:
+   • Headings → <h1>/<h2>/<h3>
+   • Paragraphs / descriptions → <p> or descriptive <span>
+   • Bullet / check items → list item elements
+   • Stat numbers → number elements, stat labels → label elements
+   • CTA button text → button text
+   • Image description tags → keep the placeholder markup, update alt-text or caption text only
+4. If the content has MORE items than the template provides (e.g. 6 challenges but the template shows 4 cards), DUPLICATE the last card's HTML pattern and fill the extras.
+5. If the content has FEWER items, REMOVE the surplus template items entirely.
+6. Preserve all inline SVG icons — do NOT delete or alter them.
+7. Do NOT output markdown fences, backticks, or any explanation. Return ONLY raw HTML.
+
+TEMPLATE HTML  (module: ${moduleName})
+${templateBody}
+
+CONTENT TO INSERT
+${sectionContent}
+
+Return the filled HTML now:`;
+
+  const result = await model.generateContent(prompt);
+  let html = result.response.text();
+
+  // Strip markdown code fences if Gemini wraps them
+  html = html
+    .replace(/^```html?\s*\n?/i, "")
+    .replace(/\n?\s*```\s*$/i, "")
+    .trim();
+
+  return html;
+}
+
+/* ────────────────────────────────────────────
+   4. Batch-parallel helper
+   ──────────────────────────────────────────── */
+
+async function processBatch<T, R>(
+  items: T[],
+  batchSize: number,
+  fn: (item: T, idx: number) => Promise<R>
+): Promise<R[]> {
+  const results: R[] = [];
+  for (let i = 0; i < items.length; i += batchSize) {
+    const batch = items.slice(i, i + batchSize);
+    const batchResults = await Promise.all(
+      batch.map((item, bIdx) => fn(item, i + bIdx))
+    );
+    results.push(...batchResults);
+  }
+  return results;
+}
+
+/* ────────────────────────────────────────────
+   5. POST handler
+   ──────────────────────────────────────────── */
+
+export const maxDuration = 300; // Vercel Pro: up to 300 s
 
 export async function POST(req: Request) {
   try {
-    // 1. Process FormData & Extract Docx Text
+    /* ── Validate API key ── */
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey || apiKey.length < 10) {
+      return NextResponse.json(
+        { error: "GEMINI_API_KEY is not configured on the server." },
+        { status: 500 }
+      );
+    }
+
+    /* ── 1. Read uploaded docx ── */
     const formData = await req.formData();
     const file = formData.get("document") as File | null;
-
     if (!file) {
-      return NextResponse.json({ error: "No document provided" }, { status: 400 });
+      return NextResponse.json(
+        { error: "No document uploaded." },
+        { status: 400 }
+      );
     }
 
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    const extraction = await mammoth.extractRawText({ buffer });
-    const documentText = extraction.value;
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const { value: docText } = await mammoth.extractRawText({ buffer });
 
-    // 2. Fetch the Library over HTTP (100% Vercel Proof)
-    const baseUrl = req.url.split("/api")[0];
-    let indexData = "";
-    
-    try {
-      const idxRes = await fetch(`${baseUrl}/library/library-index.json`);
-      if (!idxRes.ok) throw new Error("Failed to fetch library-index.json");
-      indexData = await idxRes.text();
-    } catch(err) {
-      console.error("HTTP Fetch Error on library index:", err);
-      return NextResponse.json({ error: "Library index not reachable on CDN." }, { status: 500 });
-    }
-
-    let strategy;
-    const apiKey = process.env.GEMINI_API_KEY;
-
-    if (apiKey && apiKey !== "YOUR_API_KEY_HERE" && apiKey.length > 10) {
-      // 2A. Use Gemini AI
-      const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ 
-        model: "gemini-1.5-pro", 
-        generationConfig: { responseMimeType: "application/json" } 
-      });
-      
-      const sysPrompt = `
-        You are an expert Content Mapper and AI Page Assembler.
-        The user has uploaded a Word document containing their page strategy and copy.
-        
-        DOCUMENT CONTENT:
-        """
-        ${documentText}
-        """
-        
-        AVAILABLE DESIGN LIBRARY (JSON):
-        """
-        ${indexData}
-        """
-        
-        Your task:
-        1. Read the user's document carefully.
-        2. Identify which sections the user wants (e.g., Hero, Features, Testimonials).
-        3. Match them against the closest file names in the Available Design Library.
-        4. Extract the exact text from the user's document and assign it to valid generic CSS selectors (h1, h2, p, span, .card, etc.) for that specific file.
-        
-        Output MUST be valid JSON in this exact format:
+    /* ── 2. Parse sections from document ── */
+    const sections = parseSections(docText);
+    if (sections.length === 0) {
+      return NextResponse.json(
         {
-          "sections": [
-            {
-              "file": "edstellar-hero-classic-split.html",
-              "replacements": [
-                { "selector": "h1", "text": "Extracted headline" },
-                { "selector": ".hero-sub", "text": "Extracted subheadline" }
-              ]
-            }
-          ]
+          error:
+            'No "DESIGN MODULE:" markers found in the document. Please upload a developer-reference .docx file.',
+        },
+        { status: 400 }
+      );
+    }
+
+    /* ── 3. Load unique templates from the static library ── */
+    const baseUrl = new URL(req.url).origin;
+    const uniqueModules = [...new Set(sections.map((s) => s.module))];
+    const templateCache: Record<string, string> = {};
+
+    await Promise.all(
+      uniqueModules.map(async (mod) => {
+        try {
+          const res = await fetch(`${baseUrl}/library/${mod}`);
+          if (res.ok) templateCache[mod] = await res.text();
+          else console.warn(`Template not found: ${mod}`);
+        } catch (e) {
+          console.warn(`Failed to fetch template ${mod}:`, e);
         }
-        
-        Only pick sections that actually exist in the library. If the document is vague about section names, infer the best sections to use based on the text. Always start with a hero and end with a footer.
-      `;
-      
-      const result = await model.generateContent(sysPrompt);
-      const responseText = result.response.text();
-      strategy = JSON.parse(responseText);
-    } else {
-      // 2B. Mock Fallback (Useful for immediate testing without keys)
-      console.warn("No GEMINI_API_KEY provided. Using mock strategy for demonstration.");
-      strategy = getMockStrategy();
+      })
+    );
+
+    /* ── 4. Extract CSS / nav / body from each template ── */
+    const partsCache: Record<string, TemplateParts> = {};
+    for (const mod of uniqueModules) {
+      if (templateCache[mod]) {
+        partsCache[mod] = extractTemplateParts(templateCache[mod]);
+      }
     }
 
-    // 3. Assemble Phase (Stitching)
-    let finalBodyHtml = "";
-    let headStyles = "";
-    let headFonts = "";
+    /* ── 5. Fill every section in parallel batches via Gemini ── */
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-    for (const section of strategy.sections) {
-      let htmlContent = "";
+    const filledBodies = await processBatch(sections, 5, async (section) => {
+      const parts = partsCache[section.module];
+      if (!parts) return `<!-- Template not found: ${section.module} -->`;
+
       try {
-        const res = await fetch(`${baseUrl}/library/${section.file}`);
-        if (!res.ok) throw new Error("HTTP Not found");
-        htmlContent = await res.text();
-      } catch(e) {
-        console.warn(`Skipping missing HTTP file: ${section.file}`);
-        continue;
+        return await fillSectionWithAI(
+          model,
+          parts.body,
+          section.content,
+          section.module
+        );
+      } catch (err: any) {
+        console.error(`AI fill failed for ${section.module}:`, err?.message);
+        // Graceful fallback: return template with original placeholder content
+        return parts.body;
       }
-      
-      const $ = cheerio.load(htmlContent);
-      
-      // Extract global fonts & styles from the first loaded section
-      // Assuming all sections share the same foundational CSS variables
-      if (!headStyles) {
-        headStyles = $('style').html() || "";
-        headFonts = $('link[rel="stylesheet"]').toString() || "";
-      }
-      
-      // Apply LLM text replacements
-      if (section.replacements && Array.isArray(section.replacements)) {
-         for (const rep of section.replacements) {
-            if ($(rep.selector).length) {
-              // Only overwrite text, not inner HTML tags unless cautious.
-              // We'll use .text() to be safe, or .html() if we want nested highlights.
-              // For safety and preserving layout, let's just replace text.
-              $(rep.selector).first().text(rep.text);
-            }
-         }
-      }
-      
-      // Clean up standalone navigation or redundant wrappers if necessary.
-      // E.g., removing the default <nav> from hero if we don't want it, but let's keep it for now.
-      $('script').remove();
-      
-      // We take everything inside <body>. Most templates have <div class="page-wrap"> inside body.
-      finalBodyHtml += $('body').html();
-    }
-    
-    // 4. Wrap with global document structure
-    const finalHtml = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Generated Target Page</title>
-        ${headFonts}
-        <style>
-          ${headStyles}
-          /* Ensure consecutive page-wraps display cleanly */
-          body { margin: 0; padding: 0; background: #F4F5F7; }
-        </style>
-      </head>
-      <body>
-        ${finalBodyHtml}
-      </body>
-      </html>
-    `;
+    });
 
-    return NextResponse.json({ html: finalHtml });
-    
+    /* ── 6. Collect all CSS (concatenated — duplicates are harmless) ── */
+    const allCss = uniqueModules
+      .filter((mod) => partsCache[mod])
+      .map((mod) => partsCache[mod].css)
+      .join("\n\n/* ═══ next section ═══ */\n\n");
+
+    /* ── 7. Deduplicate font links ── */
+    const fontSet = new Set<string>();
+    uniqueModules.forEach((mod) => {
+      partsCache[mod]?.fonts.forEach((f) => fontSet.add(f));
+    });
+
+    /* ── 8. Collect scripts (one copy per unique template) ── */
+    const scriptSet = new Set<string>();
+    const seenModules = new Set<string>();
+    for (const section of sections) {
+      if (seenModules.has(section.module)) continue;
+      seenModules.add(section.module);
+      partsCache[section.module]?.scripts.forEach((s) => scriptSet.add(s));
+    }
+
+    /* ── 9. Nav from the first template (hero) ── */
+    const heroNav = partsCache[sections[0]?.module]?.nav || "";
+
+    /* ── 10. SEO metadata from document ── */
+    const titleMatch = docText.match(/Meta Title\s+(.+)/i);
+    const descMatch = docText.match(/Meta Description\s+(.+)/i);
+    const pageTitle = titleMatch
+      ? titleMatch[1].trim()
+      : "Edstellar Consulting Page";
+    const pageDesc = descMatch ? descMatch[1].trim() : "";
+
+    /* ── 11. Assemble final HTML ── */
+    const finalHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${escapeHtml(pageTitle)}</title>
+${pageDesc ? `<meta name="description" content="${escapeHtml(pageDesc)}">` : ""}
+${[...fontSet].join("\n")}
+<style>
+${allCss}
+
+/* ═══ Page-assembly overrides ═══ */
+.page-wrap { min-height: auto; }
+body { margin: 0; padding: 0; background: #F4F5F7; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+${heroNav}
+${filledBodies.join("\n\n")}
+</div>
+${[...scriptSet].map((s) => `<script>\n${s}\n</script>`).join("\n")}
+</body>
+</html>`;
+
+    return NextResponse.json({
+      html: finalHtml,
+      sectionCount: sections.length,
+      modules: sections.map((s) => s.module),
+    });
   } catch (error: any) {
     console.error("Generate API Error:", error);
-    return NextResponse.json({ error: error.message || "Unknown error" }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message || "Unknown error" },
+      { status: 500 }
+    );
   }
+}
+
+/* ── Tiny HTML-escape for attribute values ── */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 }
