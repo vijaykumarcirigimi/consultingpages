@@ -221,7 +221,25 @@ function extractTemplateParts(html: string): TemplateParts {
 }
 
 /* ────────────────────────────────────────────
-   4. Gemini: fill one section
+   4. Extract placeholder text from template for context
+   ──────────────────────────────────────────── */
+
+function extractPlaceholderTexts(html: string): string {
+  const $ = cheerio.load(html, null, false);
+  // Remove SVGs (noise for the AI)
+  $("svg").remove();
+  const texts: string[] = [];
+  $("h1, h2, h3, p, span, button, a, li, td, th, .number, .label, .stat-number, .stat-label")
+    .each((_, el) => {
+      const t = $(el).text().trim();
+      if (t && t.length > 2 && t.length < 300) texts.push(t);
+    });
+  // Deduplicate and return
+  return [...new Set(texts)].slice(0, 40).join("\n");
+}
+
+/* ────────────────────────────────────────────
+   5. Gemini: fill one section
    ──────────────────────────────────────────── */
 
 async function fillSectionWithAI(
@@ -230,37 +248,45 @@ async function fillSectionWithAI(
   sectionContent: string,
   moduleName: string
 ): Promise<string> {
-  const prompt = `You are a precise HTML content-replacement engine for the Edstellar consulting website.
+  // Show the AI what placeholder text it must replace
+  const currentPlaceholders = extractPlaceholderTexts(templateBody);
 
-TASK
-Replace ALL placeholder / demo text in the HTML template below with the real content provided. The result must look like a production-ready section of a consulting page.
+  const prompt = `You are an HTML page builder. You MUST replace EVERY piece of text in the template with content from the document.
 
-RULES  (follow every one exactly)
-1. Keep ALL HTML tags, classes, IDs, inline styles, data-* attributes, and SVG elements EXACTLY as they are.
-2. Only change TEXT CONTENT inside elements — never rename classes or restructure the DOM.
-3. Match content SEMANTICALLY:
-   • Headings → <h1>/<h2>/<h3>
-   • Paragraphs / descriptions → <p> or descriptive <span>
-   • Bullet / check items → list item elements
-   • Stat numbers → number elements, stat labels → label elements
-   • CTA button text → button text
-   • Image description tags → keep the placeholder markup, update alt-text or caption text only
-4. If the content has MORE items than the template provides (e.g. 6 challenges but the template shows 4 cards), DUPLICATE the last card's HTML pattern and fill the extras.
-5. If the content has FEWER items, REMOVE the surplus template items entirely.
-6. Preserve all inline SVG icons — do NOT delete or alter them.
-7. Do NOT output markdown fences, backticks, or any explanation. Return ONLY raw HTML.
+CRITICAL: The template currently contains DEMO/PLACEHOLDER text (shown below). You MUST replace ALL of it with the REAL content. Do NOT leave any demo text in the output.
 
-TEMPLATE HTML  (module: ${moduleName})
+DEMO TEXT CURRENTLY IN TEMPLATE (must ALL be replaced):
+"""
+${currentPlaceholders}
+"""
+
+HTML TEMPLATE (module: ${moduleName}):
+"""
 ${templateBody}
+"""
 
-CONTENT TO INSERT
+REAL CONTENT FROM THE DOCUMENT (must be inserted into the template above):
+"""
 ${sectionContent}
+"""
 
-Return the filled HTML now:`;
+INSTRUCTIONS:
+1. Output the COMPLETE HTML template from above, but with EVERY text node replaced by the matching real content.
+2. Keep ALL HTML tags, classes, IDs, inline styles, data attributes, and SVG elements EXACTLY as they are. Do NOT change structure.
+3. Map content semantically: headings→headings, paragraphs→paragraphs, list items→list items, stat numbers→stat numbers, button labels→button labels.
+4. Content labels like "BREADCRUMB", "STAT 1", "[PRIMARY CTA]", "CHALLENGE 1", "Impact tag:", "SECTION LABEL", "TAB 1" etc. are field markers — use the text AFTER the marker, not the marker itself.
+5. If content has MORE items than template slots, duplicate the last item's HTML pattern for extras.
+6. If content has FEWER items than template slots, remove the extra template items.
+7. For image placeholders, update caption/alt text but keep the placeholder HTML structure.
+8. Do NOT output markdown fences, backticks, or explanations. Return ONLY raw HTML.
+9. Output the FULL template — do not truncate or skip any section of it.
+
+Return the filled HTML:`;
 
   const result = await model.generateContent(prompt);
   let html = result.response.text();
 
+  // Strip markdown code fences if Gemini wraps them
   html = html
     .replace(/^```html?\s*\n?/i, "")
     .replace(/\n?\s*```\s*$/i, "")
@@ -358,7 +384,10 @@ export async function POST(req: Request) {
 
     /* ── 5. Fill sections via Gemini (parallel batches of 5) ── */
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.0-flash",
+      generationConfig: { maxOutputTokens: 32768 },
+    });
 
     const filledBodies = await processBatch(sections, 5, async (section) => {
       const parts = partsCache[section.module];
