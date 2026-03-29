@@ -472,6 +472,85 @@ function UploadScreen({ onUpload, error }: { onUpload: (f: File) => void; error:
    Canvas Block
    ──────────────────────────────────────────── */
 
+/** Convert plain section text → structured HTML for display and editing */
+function textToHtml(text: string): string {
+  let inList = false;
+  let foundH2 = false;
+  const parts: string[] = [];
+  text.split("\n").forEach(line => {
+    const t = line.trim();
+    if (!t) { if (inList) { parts.push("</ul>"); inList = false; } return; }
+    if (t.startsWith("- ") || t.startsWith("• ")) {
+      if (!inList) { parts.push("<ul>"); inList = true; }
+      parts.push(`<li>${t.replace(/^[-•]\s*/, "")}</li>`);
+      return;
+    }
+    if (inList) { parts.push("</ul>"); inList = false; }
+    // Title-like line: short, starts uppercase, no period at end, no mid-sentence period
+    const isTitle = t.length < 120 && !t.endsWith(".") && !t.endsWith(",") && !/\.\s[a-z]/.test(t) && /^[A-Z]/.test(t);
+    if (isTitle) {
+      // First title → H2, rest → H3
+      if (!foundH2) { parts.push(`<h2>${t}</h2>`); foundH2 = true; }
+      else parts.push(`<h3>${t}</h3>`);
+      return;
+    }
+    // Long paragraphs: split at sentence boundaries for readability
+    if (t.length > 500) {
+      const sentences = t.match(/[^.!?]+[.!?]+/g) || [t];
+      const chunks: string[] = [];
+      let current = "";
+      for (const s of sentences) {
+        if ((current + s).length > 400 && current) { chunks.push(current.trim()); current = ""; }
+        current += s;
+      }
+      if (current.trim()) chunks.push(current.trim());
+      chunks.forEach(c => parts.push(`<p>${c}</p>`));
+      return;
+    }
+    parts.push(`<p>${t}</p>`);
+  });
+  if (inList) parts.push("</ul>");
+  return parts.join("");
+}
+
+/** Convert editor HTML back to plain text (recursive walk, no content lost) */
+function htmlToText(html: string): string {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  const lines: string[] = [];
+
+  function walk(node: Node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const t = (node.textContent || "").trim();
+      if (t) lines.push(t);
+      return;
+    }
+    const el = node as HTMLElement;
+    if (!el.tagName) return;
+    const tag = el.tagName.toLowerCase();
+    if (tag === "br") { return; }
+    if (tag === "li") {
+      lines.push(`- ${(el.textContent || "").trim()}`);
+      return;
+    }
+    if (tag === "ul" || tag === "ol") {
+      el.childNodes.forEach(walk);
+      return;
+    }
+    // Block elements: extract text, don't recurse into children to avoid duplicates
+    if (["h1","h2","h3","h4","h5","h6","p","div","blockquote","td","th"].includes(tag)) {
+      const text = (el.textContent || "").trim();
+      if (text) lines.push(text);
+      return;
+    }
+    // Inline elements: recurse
+    el.childNodes.forEach(walk);
+  }
+
+  div.childNodes.forEach(walk);
+  return lines.join("\n");
+}
+
 function CanvasBlock({
   item, idx, onRemove, onChangeDesign, onUpdateContent, onDragStart, onDragOver, onDrop, isReorderTarget,
 }: {
@@ -487,77 +566,10 @@ function CanvasBlock({
 }) {
   const shortMod = item.module.replace("edstellar-", "").replace(".html", "");
   const [editing, setEditing] = useState(false);
-  const [expanded, setExpanded] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
-  const snapshotRef = useRef<string>("");
-
-  // Convert plain text to simple HTML for the editor
-  const textToHtml = (text: string) => {
-    let inList = false;
-    const parts: string[] = [];
-    text.split("\n").forEach(line => {
-      const t = line.trim();
-      if (!t) { if (inList) { parts.push("</ul>"); inList = false; } return; }
-      if (t.startsWith("- ") || t.startsWith("• ")) {
-        if (!inList) { parts.push("<ul>"); inList = true; }
-        parts.push(`<li>${t.replace(/^[-•]\s*/, "")}</li>`);
-        return;
-      }
-      if (inList) { parts.push("</ul>"); inList = false; }
-      // Treat as heading only if it's short, not a sentence, and looks like a title
-      if (t.length < 100 && !t.endsWith(".") && !t.endsWith(",") && !t.includes(". ") && /^[A-Z]/.test(t)) {
-        parts.push(`<h3>${t}</h3>`);
-        return;
-      }
-      // Long paragraphs: split on sentence boundaries for readability
-      if (t.length > 500) {
-        const sentences = t.match(/[^.!?]+[.!?]+/g) || [t];
-        const chunks: string[] = [];
-        let current = "";
-        for (const s of sentences) {
-          if ((current + s).length > 400 && current) { chunks.push(current.trim()); current = ""; }
-          current += s;
-        }
-        if (current.trim()) chunks.push(current.trim());
-        chunks.forEach(c => parts.push(`<p>${c}</p>`));
-        return;
-      }
-      parts.push(`<p>${t}</p>`);
-    });
-    if (inList) parts.push("</ul>");
-    return parts.join("");
-  };
-
-  // Convert editor HTML back to plain text
-  const htmlToText = (html: string): string => {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    const lines: string[] = [];
-    div.childNodes.forEach(node => {
-      if (node.nodeType === Node.TEXT_NODE) {
-        const t = (node.textContent || "").trim();
-        if (t) lines.push(t);
-        return;
-      }
-      const el = node as HTMLElement;
-      const tag = el.tagName?.toLowerCase();
-      const text = (el.textContent || "").trim();
-      if (!text) return;
-      if (tag === "li") { lines.push(`- ${text}`); return; }
-      if (tag === "ul" || tag === "ol") {
-        el.querySelectorAll("li").forEach(li => lines.push(`- ${(li.textContent || "").trim()}`));
-        return;
-      }
-      lines.push(text);
-    });
-    return lines.join("\n");
-  };
 
   const startEdit = () => {
-    snapshotRef.current = item.content;
     setEditing(true);
-    setExpanded(true);
-    // Set editor HTML after render
     requestAnimationFrame(() => {
       if (editorRef.current) {
         editorRef.current.innerHTML = textToHtml(item.content);
@@ -568,15 +580,12 @@ function CanvasBlock({
 
   const saveEdit = () => {
     if (editorRef.current) {
-      const newContent = htmlToText(editorRef.current.innerHTML);
-      onUpdateContent(newContent);
+      onUpdateContent(htmlToText(editorRef.current.innerHTML));
     }
     setEditing(false);
   };
 
-  const cancelEdit = () => {
-    setEditing(false);
-  };
+  const cancelEdit = () => { setEditing(false); };
 
   const execCmd = (cmd: string, value?: string) => {
     document.execCommand(cmd, false, value);
@@ -619,7 +628,7 @@ function CanvasBlock({
         </div>
       </div>
 
-      {/* Content: view or rich text edit */}
+      {/* Content: always visible, formatted or editing */}
       <div className="px-4 pb-3">
         {editing ? (
           <div>
@@ -644,10 +653,10 @@ function CanvasBlock({
               ref={editorRef}
               contentEditable
               suppressContentEditableWarning
-              className="w-full bg-black/40 border border-white/10 rounded-lg p-4 text-[12px] text-gray-200 leading-relaxed outline-none focus:border-[#C5E826]/40 min-h-[150px] max-h-[450px] overflow-y-auto
+              className="w-full bg-black/40 border border-white/10 rounded-lg p-4 text-[12px] text-gray-200 leading-relaxed outline-none focus:border-[#C5E826]/40 min-h-[150px] overflow-y-auto
                 [&_h2]:text-[15px] [&_h2]:font-bold [&_h2]:text-white [&_h2]:mb-2 [&_h2]:mt-3
                 [&_h3]:text-[13px] [&_h3]:font-semibold [&_h3]:text-[#C5E826]/80 [&_h3]:mb-1 [&_h3]:mt-2
-                [&_p]:mb-1.5 [&_p]:text-gray-300
+                [&_p]:mb-2 [&_p]:text-gray-300 [&_p]:leading-relaxed
                 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-2 [&_ul]:text-gray-300
                 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-2 [&_ol]:text-gray-300
                 [&_li]:mb-1 [&_li]:text-gray-300
@@ -656,22 +665,17 @@ function CanvasBlock({
             />
           </div>
         ) : (
-          <>
-            <button onClick={() => setExpanded(!expanded)} className="text-[10px] text-gray-600 hover:text-gray-400 transition-colors">
-              {expanded ? "Hide content" : "Show content"}
-            </button>
-            {expanded && (
-              <div className="mt-2 text-[11px] text-gray-400 bg-black/30 rounded-lg p-3 max-h-64 overflow-y-auto leading-relaxed space-y-2">
-                {item.content.split("\n").map((line, li) => {
-                  const t = line.trim();
-                  if (!t) return null;
-                  if (t.startsWith("- ") || t.startsWith("• ")) return <div key={li} className="pl-3 text-gray-400">• {t.replace(/^[-•]\s*/, "")}</div>;
-                  if (t.length < 100 && !t.endsWith(".") && /^[A-Z]/.test(t)) return <div key={li} className="font-semibold text-gray-300 text-xs mt-1">{t}</div>;
-                  return <p key={li} className="text-gray-400">{t}</p>;
-                })}
-              </div>
-            )}
-          </>
+          /* Read-only rendered view — full content, no truncation */
+          <div
+            className="text-[11px] text-gray-400 leading-relaxed
+              [&_h2]:text-[14px] [&_h2]:font-bold [&_h2]:text-white [&_h2]:mb-2 [&_h2]:mt-1
+              [&_h3]:text-[12px] [&_h3]:font-semibold [&_h3]:text-[#C5E826]/70 [&_h3]:mb-1 [&_h3]:mt-2
+              [&_p]:mb-2 [&_p]:text-gray-400 [&_p]:leading-relaxed
+              [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-2
+              [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-2
+              [&_li]:mb-0.5"
+            dangerouslySetInnerHTML={{ __html: textToHtml(item.content) }}
+          />
         )}
       </div>
     </div>
