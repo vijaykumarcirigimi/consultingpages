@@ -43,6 +43,37 @@ type LibraryIndex = { sections: Record<string, LibraryCategory> };
 let uidCounter = 0;
 function uid() { return `c${++uidCounter}-${Date.now()}`; }
 
+/** Strip design-reference markers and labels, keep only real content */
+function cleanContent(raw: string): string {
+  return raw
+    .split("\n")
+    .map(line => {
+      const t = line.trim();
+      // Remove pure marker lines
+      if (/^DESIGN\s+MODULE/i.test(t)) return "";
+      if (/^edstellar[\w\-]+\.html\s*$/i.test(t)) return "";
+      if (/^TRUST POINTS\s*(\(.*\))?\s*$/i.test(t)) return "";
+      if (/^BADGE\s/i.test(t)) return "";
+      // Strip label prefixes but keep the value
+      if (/^BREADCRUMB\s/i.test(t)) return t.replace(/^BREADCRUMB\s*/i, "");
+      if (/^SECTION LABEL\s/i.test(t)) return t.replace(/^SECTION LABEL\s*/i, "");
+      if (/^\[PRIMARY CTA\]\s*/i.test(t)) return t.replace(/^\[PRIMARY CTA\]\s*/i, "");
+      if (/^\[SECONDARY CTA\]\s*/i.test(t)) return t.replace(/^\[SECONDARY CTA\]\s*/i, "");
+      if (/^\[(BOTTOM )?CTA\]\s*/i.test(t)) return t.replace(/^\[(BOTTOM )?CTA\]\s*/i, "");
+      if (/^\[IMAGE\]\s*/i.test(t)) return t.replace(/^\[IMAGE\]\s*/i, "");
+      if (/^STAT\s+\d+\s+/i.test(t)) return t.replace(/^STAT\s+\d+\s+/i, "");
+      if (/^(CHALLENGE|STEP|SERVICE|TAB|PILLAR|DIFFERENTIATOR|STORY|TESTIMONIAL|INDUSTRY|RESOURCE|FORMAT|CAPABILITY)\s+\d+\s*[:\-]\s*/i.test(t))
+        return t.replace(/^(CHALLENGE|STEP|SERVICE|TAB|PILLAR|DIFFERENTIATOR|STORY|TESTIMONIAL|INDUSTRY|RESOURCE|FORMAT|CAPABILITY)\s+\d+\s*[:\-]\s*/i, "");
+      if (/^Impact tag:\s*/i.test(t)) return t.replace(/^Impact tag:\s*/i, "");
+      if (/^Duration:\s*/i.test(t)) return t.replace(/^Duration:\s*/i, "");
+      if (/^\*Icon:.*\*\s*$/i.test(t)) return "";
+      // Strip trailing icon hints inline
+      return t.replace(/\s*\*Icon:[^*]*\*/gi, "");
+    })
+    .filter(line => line.trim() !== "")
+    .join("\n");
+}
+
 /* ────────────────────────────────────────────
    Main
    ──────────────────────────────────────────── */
@@ -116,7 +147,7 @@ export default function PageBuilder() {
         sectionIndex: pickerPending.index,
         title: pickerPending.title,
         module: file,
-        content: pickerPending.content,
+        content: cleanContent(pickerPending.content),
       };
       setCanvas(prev => {
         const next = [...prev];
@@ -279,7 +310,7 @@ export default function PageBuilder() {
               <button
                 onClick={() => {
                   const items: CanvasItem[] = sections.map(s => ({
-                    uid: uid(), sectionIndex: s.index, title: s.title, module: s.module, content: s.content,
+                    uid: uid(), sectionIndex: s.index, title: s.title, module: s.module, content: cleanContent(s.content),
                   }));
                   setCanvas(items);
                   setPreviewHtml("");
@@ -336,6 +367,7 @@ export default function PageBuilder() {
                         idx={idx}
                         onRemove={() => removeFromCanvas(item.uid)}
                         onChangeDesign={() => { setChangingUid(item.uid); setPickerPending({ index: item.sectionIndex, title: item.title, module: item.module, content: item.content }); }}
+                        onUpdateContent={(newContent) => { setCanvas(prev => prev.map(c => c.uid === item.uid ? { ...c, content: newContent } : c)); setPreviewHtml(""); }}
                         onDragStart={() => setDragCanvasUid(item.uid)}
                         onDragOver={(e) => { e.preventDefault(); setReorderIdx(idx); }}
                         onDrop={() => { if (dragCanvasUid && dragCanvasUid !== item.uid) { handleCanvasReorder(dragCanvasUid, idx); } setDragCanvasUid(null); }}
@@ -436,27 +468,34 @@ function UploadScreen({ onUpload, error }: { onUpload: (f: File) => void; error:
    ──────────────────────────────────────────── */
 
 function CanvasBlock({
-  item, idx, onRemove, onChangeDesign, onDragStart, onDragOver, onDrop, isReorderTarget,
+  item, idx, onRemove, onChangeDesign, onUpdateContent, onDragStart, onDragOver, onDrop, isReorderTarget,
 }: {
   item: CanvasItem;
   idx: number;
   onRemove: () => void;
   onChangeDesign: () => void;
+  onUpdateContent: (content: string) => void;
   onDragStart: () => void;
   onDragOver: (e: DragEvent<HTMLDivElement>) => void;
   onDrop: () => void;
   isReorderTarget: boolean;
 }) {
   const shortMod = item.module.replace("edstellar-", "").replace(".html", "");
-  const [showContent, setShowContent] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(item.content);
+  const [expanded, setExpanded] = useState(false);
+
+  const startEdit = () => { setDraft(item.content); setEditing(true); setExpanded(true); };
+  const saveEdit = () => { onUpdateContent(draft); setEditing(false); };
+  const cancelEdit = () => { setDraft(item.content); setEditing(false); };
 
   return (
     <div
-      draggable
-      onDragStart={e => { e.dataTransfer.effectAllowed = "move"; onDragStart(); }}
+      draggable={!editing}
+      onDragStart={e => { if (editing) { e.preventDefault(); return; } e.dataTransfer.effectAllowed = "move"; onDragStart(); }}
       onDragOver={onDragOver}
       onDrop={e => { e.preventDefault(); e.stopPropagation(); onDrop(); }}
-      className={`rounded-xl border transition-all cursor-grab active:cursor-grabbing
+      className={`rounded-xl border transition-all ${editing ? "" : "cursor-grab active:cursor-grabbing"}
         ${isReorderTarget ? "border-[#C5E826] bg-[#C5E826]/5" : "border-white/8 bg-white/[0.02] hover:border-white/15"}`}
     >
       {/* Header */}
@@ -469,30 +508,52 @@ function CanvasBlock({
         <span className="text-[10px] font-bold text-[#C5E826]/60 shrink-0">{idx + 1}</span>
         <span className="text-sm font-medium text-white truncate flex-1">{item.title}</span>
 
-        {/* Design tag + actions */}
-        <div className="flex items-center gap-2 shrink-0">
+        {/* Actions */}
+        <div className="flex items-center gap-1.5 shrink-0">
           <button
             onClick={onChangeDesign}
-            className="text-[10px] px-2 py-1 rounded bg-[#2D2F6B]/40 text-[#C5E826]/80 font-mono hover:bg-[#2D2F6B]/60 transition-colors truncate max-w-[180px]"
-            title="Click to change design"
+            className="text-[10px] px-2 py-1 rounded bg-[#2D2F6B]/40 text-[#C5E826]/80 font-mono hover:bg-[#2D2F6B]/60 transition-colors truncate max-w-[160px]"
+            title="Change design"
           >
             {shortMod}
           </button>
+          {!editing ? (
+            <button onClick={startEdit} className="text-gray-500 hover:text-[#C5E826] transition-colors p-0.5" title="Edit content">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M10.5 1.5l2 2-8 8H2.5v-2l8-8z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </button>
+          ) : (
+            <>
+              <button onClick={saveEdit} className="text-[10px] px-2 py-1 rounded bg-[#C5E826]/20 text-[#C5E826] font-semibold hover:bg-[#C5E826]/30 transition-colors">Save</button>
+              <button onClick={cancelEdit} className="text-[10px] px-2 py-1 rounded text-gray-400 hover:text-white transition-colors">Cancel</button>
+            </>
+          )}
           <button onClick={onRemove} className="text-gray-600 hover:text-red-400 transition-colors p-0.5" title="Remove">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 3l8 8M11 3l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
           </button>
         </div>
       </div>
 
-      {/* Expandable content */}
-      <div className="px-4 pb-2">
-        <button onClick={() => setShowContent(!showContent)} className="text-[10px] text-gray-600 hover:text-gray-400 transition-colors">
-          {showContent ? "Hide content" : "Preview content"}
-        </button>
-        {showContent && (
-          <pre className="mt-2 text-[10px] text-gray-500 bg-black/30 rounded-lg p-3 max-h-40 overflow-y-auto whitespace-pre-wrap break-words">
-            {item.content.substring(0, 800)}{item.content.length > 800 ? "..." : ""}
-          </pre>
+      {/* Content: view or edit */}
+      <div className="px-4 pb-3">
+        {editing ? (
+          <textarea
+            value={draft}
+            onChange={e => setDraft(e.target.value)}
+            className="w-full bg-black/40 border border-white/10 rounded-lg p-3 text-[11px] text-gray-300 font-mono leading-relaxed outline-none focus:border-[#C5E826]/40 resize-y min-h-[120px] max-h-[400px]"
+            rows={Math.min(20, Math.max(6, draft.split("\n").length))}
+            autoFocus
+          />
+        ) : (
+          <>
+            <button onClick={() => setExpanded(!expanded)} className="text-[10px] text-gray-600 hover:text-gray-400 transition-colors">
+              {expanded ? "Hide content" : "Show content"}
+            </button>
+            {expanded && (
+              <pre className="mt-2 text-[10px] text-gray-500 bg-black/30 rounded-lg p-3 max-h-48 overflow-y-auto whitespace-pre-wrap break-words">
+                {item.content}
+              </pre>
+            )}
+          </>
         )}
       </div>
     </div>
