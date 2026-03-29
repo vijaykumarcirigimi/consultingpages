@@ -1,0 +1,2665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Training Needs Analysis Services | Edstellar</title>
+<meta name="description" content="Edstellar's Training Needs Analysis identifies skills gaps, maps competency requirements, and delivers a tailored L&amp;D roadmap for your workforce.">
+<meta property="og:title" content="Training Needs Analysis Services | Edstellar">
+<meta property="og:description" content="Edstellar's Training Needs Analysis identifies skills gaps, maps competency requirements, and delivers a tailored L&amp;D roadmap for your workforce.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://edstellar.com/corporate-training/training-needs-analysis-services">
+<meta property="og:image" content="https://images.unsplash.com/photo-1758691737182-d42aefd6dee8?w=1200&h=630&fit=crop&q=80">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:image" content="https://images.unsplash.com/photo-1758691737182-d42aefd6dee8?w=1200&h=630&fit=crop&q=80">
+<link rel="canonical" href="https://edstellar.com/corporate-training/training-needs-analysis-services">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #2D2F6B;
+    --navy-deep: #232558;
+    --navy-light: #3A3C7E;
+    --navy-card: #2E3054;
+    --lime: #C5E826;
+    --lime-hover: #D4F23A;
+    --lime-text: #1A2600;
+    --lime-dim: rgba(197,232,38,0.08);
+    --white: #FFFFFF;
+    --off-white: #F4F5F7;
+    --surface: #FFFFFF;
+    --light-bg: #EEF0F4;
+    --text-primary: #1A1A2E;
+    --text-body: #D0D2E0;
+    --text-muted: #9496B0;
+    --text-secondary: #5C5E6E;
+    --text-muted-navy: #9496B0;
+    --chrome-text: #1A1A1A;
+    --chrome-muted: #6B6D7B;
+    --border: #DCDEE5;
+    --border-light: #E2E3E8;
+    --border-navy: rgba(255,255,255,0.12);
+    --radius: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --font: 'Inter', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font);
+    background: var(--off-white);
+    color: var(--chrome-text);
+    -webkit-font-smoothing: antialiased;
+  }
+  .page-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    background: var(--surface);
+    min-height: 100vh;
+  }
+
+  /* ─── Nav ─── */
+  .ed-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 48px; background: var(--surface); border-bottom: 1px solid var(--border-light);
+  }
+  .ed-nav-left { display: flex; align-items: center; gap: 32px; }
+  .ed-logo {
+    font-size: 20px; font-weight: 800; color: var(--navy);
+    letter-spacing: -0.03em; display: flex; align-items: center; gap: 8px;
+  }
+  .ed-logo-icon {
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 2.5px solid var(--navy);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ed-logo-icon span { font-size: 11px; font-weight: 800; color: var(--navy); }
+  .ed-nav-links { display: flex; gap: 24px; list-style: none; }
+  .ed-nav-links li {
+    font-size: 14px; font-weight: 500; color: var(--chrome-muted);
+    cursor: pointer; transition: color 0.15s;
+  }
+  .ed-nav-links li:hover { color: var(--chrome-text); }
+  .ed-nav-links li.active { color: var(--chrome-text); font-weight: 700; }
+  .ed-nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-search {
+    width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border-light);
+    background: transparent; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ed-nav-cta {
+    padding: 10px 22px; background: var(--navy); color: var(--white);
+    font-size: 14px; font-weight: 700; border: none; border-radius: 8px;
+    cursor: pointer; font-family: var(--font); letter-spacing: -0.01em; transition: background 0.15s;
+  }
+  .ed-nav-cta:hover { background: var(--navy-deep); }
+
+  /* ═══════════════════════════════════════════
+     SECTION 1: HERO
+     ═══════════════════════════════════════════ */
+  #hero-section { background: var(--navy); padding: 52px 48px 56px; }
+  #hero-section .hero-grid {
+    display: grid; grid-template-columns: 55% 42%; gap: 3%; align-items: center;
+  }
+  #hero-section .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 18px; }
+  #hero-section .breadcrumb a { color: var(--text-body); text-decoration: none; }
+  #hero-section .breadcrumb a:hover { text-decoration: underline; }
+  #hero-section .hero-eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--lime); margin-bottom: 14px;
+  }
+  #hero-section h1 {
+    font-size: 40px; font-weight: 800; line-height: 1.15;
+    color: var(--white); letter-spacing: -0.03em;
+  }
+  #hero-section .hero-sub {
+    font-size: 15px; line-height: 1.7; color: var(--text-body);
+    margin-top: 18px; max-width: 490px;
+  }
+  #hero-section .check-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 28px 0 32px;
+  }
+  #hero-section .check-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 500; color: var(--text-body);
+  }
+  #hero-section .check-icon {
+    width: 22px; height: 22px; border-radius: 50%; background: var(--lime);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  #hero-section .cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  #hero-section .btn-lime {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 14px 30px; background: var(--lime); color: var(--lime-text);
+    font-size: 15px; font-weight: 700; border: none; border-radius: 8px;
+    cursor: pointer; font-family: var(--font); letter-spacing: -0.01em;
+    transition: background 0.15s, transform 0.1s;
+  }
+  #hero-section .btn-lime:hover { background: var(--lime-hover); transform: translateY(-1px); }
+  #hero-section .btn-outline {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 14px 30px; background: transparent; color: var(--white);
+    font-size: 15px; font-weight: 600; border: 1.5px solid rgba(255,255,255,0.35);
+    border-radius: 8px; cursor: pointer; font-family: var(--font); letter-spacing: -0.01em;
+    transition: all 0.15s;
+  }
+  #hero-section .btn-outline:hover { border-color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.06); }
+  #hero-section .hero-image {
+    width: 100%; aspect-ratio: 4/3; border-radius: var(--radius-lg); overflow: hidden;
+    background: #C8CAD8; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px;
+    color: var(--navy); font-size: 13px; font-weight: 500;
+    border: 2px dashed rgba(45,47,107,0.2);
+  }
+  #hero-section .hero-image svg { opacity: 0.25; }
+  #hero-section .hero-image .note {
+    font-size: 11px; color: var(--chrome-muted); text-align: center; margin-top: 6px; line-height: 1.5;
+  }
+
+  /* ═══════════════════════════════════════════
+     SECTION 2: WHAT IS TNA
+     ═══════════════════════════════════════════ */
+  #what-is-tna { padding: 64px 48px; background: var(--surface); }
+  #what-is-tna .wio-container { max-width: 820px; margin: 0 auto; }
+  #what-is-tna .wio-label { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  #what-is-tna .wio-label .wio-bar { width: 28px; height: 3px; background: var(--lime); display: inline-block; }
+  #what-is-tna .wio-label span:last-child { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--navy); }
+  #what-is-tna .wio-heading { font-size: 36px; font-weight: 700; color: var(--navy); margin-bottom: 28px; line-height: 1.25; }
+  #what-is-tna .wio-body { font-size: 17px; line-height: 1.75; color: var(--text-secondary); }
+  #what-is-tna .wio-lead { border-left: 3px solid var(--lime); padding-left: 20px; margin-bottom: 20px; }
+  #what-is-tna .wio-body p:last-child { margin-bottom: 0; }
+
+  /* ═══════════════════════════════════════════
+     SECTION 3: STRATEGIC FLOW (Closed-Loop Cycle)
+     ═══════════════════════════════════════════ */
+  #strategic-flow { padding: 64px 48px; background: var(--surface); }
+  #strategic-flow .section-inner { max-width: 1060px; margin: 0 auto; }
+  #strategic-flow .cl-header { text-align: center; margin-bottom: 44px; }
+  #strategic-flow .section-label { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  #strategic-flow .section-label .bar { width: 24px; height: 3px; background: var(--lime); border-radius: 2px; }
+  #strategic-flow .section-label span { font-size: 12px; font-weight: 700; color: var(--navy); letter-spacing: 0.06em; text-transform: uppercase; }
+  #strategic-flow .cl-header h2 { font-size: 30px; font-weight: 800; color: var(--navy); line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 8px; }
+  #strategic-flow .cl-header p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; max-width: 620px; margin: 0 auto; }
+  #strategic-flow .cl-cycle { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; position: relative; margin-bottom: 36px; }
+  #strategic-flow .cl-step { text-align: center; padding: 0 16px; position: relative; }
+  #strategic-flow .cl-step::after { content:''; position: absolute; top: 28px; right: -12px; width: 24px; height: 24px; border-radius: 50%; background: var(--light-bg); display: flex; align-items: center; justify-content: center; z-index: 2; }
+  #strategic-flow .cl-step:last-child::after { display: none; }
+  #strategic-flow .cl-step::before { content:''; position: absolute; top: 39px; left: 50%; right: -50%; height: 2px; background: var(--border); z-index: 1; }
+  #strategic-flow .cl-step:last-child::before { background: linear-gradient(90deg, var(--border) 60%, transparent); }
+  #strategic-flow .cl-num { width: 56px; height: 56px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; position: relative; z-index: 3; transition: all 0.3s; }
+  #strategic-flow .cl-num span { font-size: 18px; font-weight: 800; color: var(--white); }
+  #strategic-flow .cl-step:hover .cl-num { background: var(--lime); }
+  #strategic-flow .cl-step:hover .cl-num span { color: var(--lime-text); }
+  #strategic-flow .cl-step h4 { font-size: 16px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; margin-bottom: 8px; }
+  #strategic-flow .cl-step p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  #strategic-flow .cl-callout { background: var(--navy); border-radius: var(--radius-xl); padding: 28px 36px; display: flex; align-items: center; gap: 20px; }
+  #strategic-flow .cl-callout-icon { width: 48px; height: 48px; border-radius: 14px; background: rgba(197,232,38,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  #strategic-flow .cl-callout p { font-size: 14px; color: var(--text-body); line-height: 1.65; }
+  #strategic-flow .cl-callout strong { color: var(--white); font-weight: 700; }
+
+  /* ═══════════════════════════════════════════
+     SECTION 4: STATS STRIP
+     ═══════════════════════════════════════════ */
+  #stats-strip { padding: 52px 48px 56px; background: var(--light-bg); }
+  #stats-strip .stats-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    max-width: 1120px; margin: 0 auto;
+  }
+  #stats-strip .stat-card { background: var(--navy-card); border-radius: 14px; padding: 28px 24px 30px; }
+  #stats-strip .stat-bar { width: 28px; height: 3px; background: var(--lime); border-radius: 2px; margin-bottom: 20px; }
+  #stats-strip .stat-number { font-size: 44px; font-weight: 800; color: var(--white); letter-spacing: -0.04em; line-height: 1; }
+  #stats-strip .stat-number .symbol { color: var(--lime); }
+  #stats-strip .stat-label { font-size: 14px; color: #B8BAC8; margin-top: 12px; line-height: 1.5; font-weight: 500; }
+
+  /* ═══════════════════════════════════════════
+     SECTION 5: THREE PILLARS
+     ═══════════════════════════════════════════ */
+  #pillars { padding: 72px 48px; background: #F7F7F8; }
+  #pillars .tp-container { max-width: 1120px; margin: 0 auto; text-align: center; }
+  #pillars .tp-label { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  #pillars .tp-label .tp-bar { width: 28px; height: 3px; background: var(--lime); }
+  #pillars .tp-label span:last-child { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--navy); }
+  #pillars .tp-heading { font-size: 36px; font-weight: 700; color: var(--navy); margin-bottom: 16px; line-height: 1.25; }
+  #pillars .tp-intro { font-size: 17px; line-height: 1.7; color: var(--text-secondary); max-width: 720px; margin: 0 auto 44px; }
+  #pillars .tp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; text-align: left; }
+  #pillars .tp-card { background: #fff; border-radius: 12px; padding: 0; overflow: hidden; box-shadow: 0 2px 12px rgba(45,47,107,0.05); transition: all 0.25s; display: flex; flex-direction: column; }
+  #pillars .tp-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(45,47,107,0.08); }
+  #pillars .tp-img { width: 100%; height: 200px; overflow: hidden; position: relative; }
+  #pillars .tp-img-inner { width: 100%; height: 100%; background: #C8CAD8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: var(--text-muted); font-weight: 500; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+  #pillars .tp-img-inner svg { opacity: 0.2; }
+  #pillars .tp-card:hover .tp-img-inner { transform: scale(1.08); }
+  #pillars .tp-accent { height: 4px; background: var(--lime); }
+  #pillars .tp-icon { width: 48px; height: 48px; background: rgba(45,47,107,0.06); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 24px 28px 14px; }
+  #pillars .tp-icon svg { width: 22px; height: 22px; stroke: var(--navy); fill: none; stroke-width: 2; }
+  #pillars .tp-card-title { font-size: 19px; font-weight: 700; color: var(--navy); margin: 0 28px 10px; }
+  #pillars .tp-card-desc { font-size: 15px; line-height: 1.65; color: var(--text-secondary); margin: 0 28px 28px; flex: 1; }
+
+  /* ═══════════════════════════════════════════
+     SECTION 6: STAKEHOLDERS (Benefit Pillars 4-col)
+     ═══════════════════════════════════════════ */
+  #stakeholders { padding: 72px 48px; background: var(--navy); }
+  #stakeholders .woc-container { max-width: 1120px; margin: 0 auto; }
+  #stakeholders .woc-label { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  #stakeholders .woc-label .woc-bar { width: 28px; height: 3px; background: var(--lime); }
+  #stakeholders .woc-label span:last-child { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--lime); }
+  #stakeholders .woc-heading { font-size: 36px; font-weight: 700; color: #fff; margin-bottom: 16px; line-height: 1.25; }
+  #stakeholders .woc-intro { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.75); max-width: 780px; margin-bottom: 44px; }
+  #stakeholders .woc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  #stakeholders .woc-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 32px 24px; transition: all 0.25s; }
+  #stakeholders .woc-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); }
+  #stakeholders .woc-number { font-size: 32px; font-weight: 800; color: var(--lime); margin-bottom: 16px; }
+  #stakeholders .woc-card-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 12px; line-height: 1.3; }
+  #stakeholders .woc-card-desc { font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.7); }
+  #stakeholders .woc-card-cta {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 16px;
+    padding: 10px 22px; background: var(--lime); color: var(--lime-text);
+    font-size: 14px; font-weight: 700; border: none; border-radius: 8px;
+    cursor: pointer; font-family: var(--font); transition: background 0.15s;
+  }
+  #stakeholders .woc-card-cta:hover { background: var(--lime-hover); }
+
+  /* ═══════════════════════════════════════════
+     SECTION 7: BUSINESS PRIORITIES (Custom)
+     ═══════════════════════════════════════════ */
+  #business-priorities .bp-section { padding: 72px 48px; background: var(--surface); }
+  #business-priorities .bp-container { max-width: 1120px; margin: 0 auto; }
+  #business-priorities .bp-label { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  #business-priorities .bp-label .bp-bar { width: 28px; height: 3px; background: var(--lime); }
+  #business-priorities .bp-label span:last-child { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--navy); }
+  #business-priorities .bp-heading { font-size: 32px; font-weight: 800; color: var(--navy); margin-bottom: 12px; line-height: 1.2; }
+  #business-priorities .bp-intro { font-size: 15px; color: var(--text-secondary); line-height: 1.65; max-width: 700px; margin-bottom: 36px; }
+  #business-priorities .bp-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 48px; }
+  #business-priorities .bp-item { display: flex; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+  #business-priorities .bp-item:first-child { padding-top: 0; }
+  #business-priorities .bp-item:last-child { border-bottom: none; }
+  #business-priorities .bp-accent { width: 4px; min-height: 36px; border-radius: 2px; flex-shrink: 0; margin-top: 2px; }
+  #business-priorities .bp-item:nth-child(odd) .bp-accent { background: var(--navy); }
+  #business-priorities .bp-item:nth-child(even) .bp-accent { background: var(--lime); }
+  #business-priorities .bp-item h4 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  #business-priorities .bp-item p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+  #business-priorities .bp-compare-title { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  #business-priorities .bp-compare-sub { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 28px; }
+  #business-priorities .bp-compare-legend { display: flex; gap: 24px; margin-bottom: 24px; }
+  #business-priorities .bp-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; }
+  #business-priorities .bp-legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+  #business-priorities .bp-legend-dot.before { background: #E74C3C; }
+  #business-priorities .bp-legend-dot.after { background: var(--lime); }
+  #business-priorities .bp-vis-grid { display: flex; flex-direction: column; gap: 16px; }
+  #business-priorities .bp-vis-row { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 24px 28px; display: grid; grid-template-columns: 180px 1fr 1fr; gap: 24px; align-items: start; transition: all 0.25s; }
+  #business-priorities .bp-vis-row:hover { border-color: var(--lime); box-shadow: 0 4px 16px rgba(45,47,107,0.06); transform: translateY(-2px); }
+  #business-priorities .bp-dim { font-size: 15px; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 10px; }
+  #business-priorities .bp-dim-icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(45,47,107,0.06); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  #business-priorities .bp-col { padding: 14px 18px; border-radius: 10px; }
+  #business-priorities .bp-col-before { background: rgba(231,76,60,0.06); border-left: 3px solid #E74C3C; }
+  #business-priorities .bp-col-after { background: rgba(197,232,38,0.1); border-left: 3px solid var(--lime); }
+  #business-priorities .bp-col-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  #business-priorities .bp-col-before .bp-col-label { color: #C0392B; }
+  #business-priorities .bp-col-after .bp-col-label { color: #2a7a3a; }
+  #business-priorities .bp-col-text { font-size: 13px; line-height: 1.55; }
+  #business-priorities .bp-col-before .bp-col-text { color: #7a2a2a; }
+  #business-priorities .bp-col-after .bp-col-text { color: #1a5a2a; }
+  #business-priorities .bp-arrow { display: flex; align-items: center; justify-content: center; align-self: center; }
+  @media (max-width: 900px) { #business-priorities .bp-vis-row { grid-template-columns: 1fr; gap: 12px; } }
+  @media (max-width: 768px) { #business-priorities .bp-compare-legend { flex-direction: column; gap: 8px; } }
+
+  /* ═══════════════════════════════════════════
+     SECTION 8: PARTNER LOGOS (Logo Wall)
+     ═══════════════════════════════════════════ */
+  #partner-logos { padding: 72px 48px; background: var(--light-bg); }
+  #partner-logos .lw-container { max-width: 1120px; margin: 0 auto; text-align: center; }
+  #partner-logos .lw-label { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  #partner-logos .lw-label .lw-bar { width: 28px; height: 3px; background: var(--lime); }
+  #partner-logos .lw-label span:last-child { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--navy); }
+  #partner-logos .lw-heading { font-size: 36px; font-weight: 700; color: var(--navy); margin-bottom: 16px; line-height: 1.25; }
+  #partner-logos .lw-intro { font-size: 17px; line-height: 1.7; color: var(--text-secondary); max-width: 720px; margin: 0 auto 40px; }
+  #partner-logos .lw-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+  #partner-logos .lw-logo { display: inline-flex; align-items: center; padding: 10px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; font-size: 14px; font-weight: 600; color: var(--navy); letter-spacing: 0.3px; transition: all 0.25s; white-space: nowrap; }
+  #partner-logos .lw-logo:hover { background: rgba(197,232,38,0.12); border-color: var(--lime); color: var(--navy); }
+
+  /* ═══════════════════════════════════════════
+     SECTION 9: METHODOLOGY (Process Vertical Stepper)
+     ═══════════════════════════════════════════ */
+  #methodology { padding: 64px 48px; background: var(--navy); }
+  #methodology .section-inner { max-width: 1060px; margin: 0 auto; }
+  #methodology .section-header {
+    display: grid; grid-template-columns: 40% 56%; gap: 4%;
+    align-items: end; margin-bottom: 48px;
+  }
+  #methodology .section-label { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  #methodology .section-label .bar { width: 24px; height: 3px; background: var(--lime); border-radius: 2px; }
+  #methodology .section-label span { font-size: 12px; font-weight: 700; color: var(--lime); letter-spacing: 0.06em; text-transform: uppercase; }
+  #methodology .header-left h2 { font-size: 30px; font-weight: 800; color: var(--white); line-height: 1.2; letter-spacing: -0.03em; }
+  #methodology .header-right p { font-size: 14px; color: #9496B0; line-height: 1.65; }
+  #methodology .stepper { position: relative; padding-left: 40px; }
+  #methodology .stepper::before {
+    content:''; position: absolute; left: 18px; top: 28px; bottom: 28px;
+    width: 3px; background: rgba(255,255,255,0.1); border-radius: 2px;
+  }
+  #methodology .step { position: relative; padding-bottom: 32px; display: grid; grid-template-columns: 1fr; gap: 0; }
+  #methodology .step:last-child { padding-bottom: 0; }
+  #methodology .step-marker {
+    position: absolute; left: -40px; top: 0;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; color: var(--white); z-index: 1; transition: all 0.3s;
+  }
+  #methodology .step:hover .step-marker { background: var(--lime); border-color: var(--lime); color: var(--lime-text); }
+  #methodology .step-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-xl); padding: 28px 28px; transition: all 0.25s;
+  }
+  #methodology .step:hover .step-card { background: rgba(255,255,255,0.07); border-color: rgba(197,232,38,0.2); }
+  #methodology .step-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 10px; flex-wrap: wrap; }
+  #methodology .step-title { font-size: 18px; font-weight: 800; color: var(--white); letter-spacing: -0.02em; }
+  #methodology .step-badges { display: flex; gap: 6px; }
+  #methodology .badge { font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 6px; letter-spacing: 0.02em; }
+  #methodology .badge-tag { background: rgba(255,255,255,0.08); color: #9496B0; }
+  #methodology .step-desc { font-size: 14px; color: #B8BAC8; line-height: 1.6; margin-bottom: 16px; max-width: 600px; }
+  #methodology .step-bullets { display: flex; gap: 16px; flex-wrap: wrap; }
+  #methodology .step-bullet { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--white); }
+  #methodology .bullet-check {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--lime-dim); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #methodology .bullet-check svg { width: 10px; height: 10px; }
+
+  /* ═══════════════════════════════════════════
+     SECTION 10: DOWNLOAD ONE-PAGER
+     ═══════════════════════════════════════════ */
+  #download-onepager { padding: 56px 48px; background: var(--light-bg); }
+  #download-onepager .banner-card {
+    max-width: 1060px; margin: 0 auto; background: var(--navy-card);
+    border-radius: var(--radius-xl); overflow: hidden;
+    display: grid; grid-template-columns: 58% 42%; position: relative;
+  }
+  #download-onepager .banner-card::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--lime);
+  }
+  #download-onepager .banner-left { padding: 44px 40px 44px 48px; }
+  #download-onepager .banner-label { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+  #download-onepager .banner-label .bar { width: 20px; height: 3px; background: var(--lime); border-radius: 2px; }
+  #download-onepager .banner-label span { font-size: 12px; font-weight: 700; color: var(--lime); letter-spacing: 0.06em; text-transform: uppercase; }
+  #download-onepager .banner-left h2 { font-size: 26px; font-weight: 800; color: var(--white); line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 12px; }
+  #download-onepager .banner-left p { font-size: 14px; color: var(--text-body); line-height: 1.65; margin-bottom: 24px; max-width: 420px; }
+  #download-onepager .banner-features { display: flex; gap: 20px; margin-bottom: 28px; flex-wrap: wrap; }
+  #download-onepager .banner-feat { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text-body); }
+  #download-onepager .feat-check { width: 18px; height: 18px; border-radius: 50%; background: var(--lime); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  #download-onepager .feat-check svg { width: 9px; height: 9px; }
+  #download-onepager .btn-lime {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 26px; background: var(--lime); color: var(--lime-text);
+    font-size: 14px; font-weight: 700; border: none; border-radius: 8px;
+    cursor: pointer; font-family: var(--font); transition: background 0.15s;
+  }
+  #download-onepager .btn-lime:hover { background: var(--lime-hover); }
+  #download-onepager .banner-right {
+    display: flex; align-items: center; justify-content: center; padding: 32px;
+    background: rgba(255,255,255,0.04); border-left: 1px solid var(--border-navy);
+  }
+  #download-onepager .asset-preview {
+    background: var(--surface); border-radius: var(--radius-lg); padding: 24px 20px 20px;
+    text-align: center; width: 100%; max-width: 280px;
+  }
+  #download-onepager .asset-thumb {
+    width: 100%; aspect-ratio: 4/3; background: var(--light-bg);
+    border-radius: var(--radius); border: 1px solid var(--border);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; margin-bottom: 16px;
+  }
+  #download-onepager .asset-thumb svg { opacity: 0.2; }
+  #download-onepager .asset-thumb span { font-size: 11px; color: var(--text-secondary); font-weight: 500; }
+  #download-onepager .asset-name { font-size: 14px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; margin-bottom: 4px; }
+  #download-onepager .asset-meta { font-size: 12px; color: var(--text-secondary); }
+  #download-onepager .asset-format {
+    display: inline-flex; align-items: center; gap: 4px; margin-top: 10px; padding: 4px 10px;
+    background: var(--light-bg); border-radius: 6px; font-size: 11px; font-weight: 700;
+    color: var(--text-secondary); letter-spacing: 0.03em; text-transform: uppercase;
+  }
+
+  /* ═══════════════════════════════════════════
+     SECTION 11: ASSESSMENT TYPES (Custom 2x2)
+     ═══════════════════════════════════════════ */
+  #assessment-types .at-section { padding: 72px 48px; background: var(--surface); }
+  #assessment-types .at-container { max-width: 1120px; margin: 0 auto; text-align: center; }
+  #assessment-types .at-label { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  #assessment-types .at-label .at-bar { width: 28px; height: 3px; background: var(--lime); }
+  #assessment-types .at-label span:last-child { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--navy); }
+  #assessment-types .at-heading { font-size: 32px; font-weight: 800; color: var(--navy); margin-bottom: 12px; line-height: 1.2; }
+  #assessment-types .at-intro { font-size: 15px; color: var(--text-secondary); line-height: 1.65; max-width: 660px; margin: 0 auto 40px; }
+  #assessment-types .at-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; }
+  #assessment-types .at-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.25s; display: flex; flex-direction: column; }
+  #assessment-types .at-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(45,47,107,0.08); border-color: var(--lime); }
+  #assessment-types .at-card-img { width: 100%; height: 180px; overflow: hidden; position: relative; }
+  #assessment-types .at-card-img-inner { width: 100%; height: 100%; background: #C8CAD8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: var(--text-muted); font-weight: 500; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+  #assessment-types .at-card-img-inner svg { opacity: 0.2; }
+  #assessment-types .at-card:hover .at-card-img-inner { transform: scale(1.08); }
+  #assessment-types .at-card-header { background: var(--navy); padding: 18px 24px; }
+  #assessment-types .at-card-header h3 { font-size: 17px; font-weight: 700; color: #fff; }
+  #assessment-types .at-card-body { padding: 20px 24px; }
+  #assessment-types .at-card-body ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  #assessment-types .at-card-body li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+  #assessment-types .at-card-body li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--lime); flex-shrink: 0; margin-top: 7px; }
+  #assessment-types .at-cta { margin-top: 36px; text-align: center; }
+  #assessment-types .at-cta a {
+    display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px;
+    background: var(--navy); color: #fff; font-size: 15px; font-weight: 700;
+    border-radius: 8px; text-decoration: none; transition: all 0.25s;
+  }
+  #assessment-types .at-cta a:hover { background: #1e2054; transform: translateY(-2px); }
+
+  /* ═══════════════════════════════════════════
+     SECTION 12: DIAGNOSTIC METHODS (Custom 6-method grid)
+     ═══════════════════════════════════════════ */
+  #diagnostic-methods .dm-section { padding: 72px 48px; background: #EEF0F4; }
+  #diagnostic-methods .dm-container { max-width: 1120px; margin: 0 auto; }
+  #diagnostic-methods .dm-header { display: grid; grid-template-columns: 45% 52%; gap: 3%; align-items: end; margin-bottom: 20px; }
+  #diagnostic-methods .dm-label { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  #diagnostic-methods .dm-label .dm-bar { width: 28px; height: 3px; background: var(--lime); }
+  #diagnostic-methods .dm-label span:last-child { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--navy); }
+  #diagnostic-methods .dm-heading { font-size: 30px; font-weight: 800; color: var(--navy); line-height: 1.2; }
+  #diagnostic-methods .dm-intro { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+  #diagnostic-methods .dm-rule { background: var(--navy); border-radius: 12px; padding: 20px 24px; margin-bottom: 32px; display: flex; align-items: flex-start; gap: 14px; }
+  #diagnostic-methods .dm-rule-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(197,232,38,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  #diagnostic-methods .dm-rule p { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.6; }
+  #diagnostic-methods .dm-rule strong { color: var(--lime); }
+  #diagnostic-methods .dm-grid { display: flex; flex-direction: column; gap: 12px; }
+  #diagnostic-methods .dm-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: all 0.25s; }
+  #diagnostic-methods .dm-card:hover { border-color: var(--lime); box-shadow: 0 4px 16px rgba(45,47,107,0.06); }
+  #diagnostic-methods .dm-card h4 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  #diagnostic-methods .dm-card h4::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--lime); flex-shrink: 0; }
+  #diagnostic-methods .dm-fields { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  #diagnostic-methods .dm-field-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 4px; }
+  #diagnostic-methods .dm-field-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* ═══════════════════════════════════════════
+     RESPONSIVE OVERRIDES
+     ═══════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    #stakeholders .woc-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    #hero-section { padding: 36px 24px 40px; }
+    #hero-section .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    #hero-section h1 { font-size: 30px; }
+    .ed-nav { padding: 12px 24px; }
+    .ed-nav-links { display: none; }
+    #stats-strip { padding: 36px 20px 40px; }
+    #stats-strip .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    #what-is-tna { padding: 40px 20px; }
+    #what-is-tna .wio-heading { font-size: 26px; }
+    #what-is-tna .wio-body { font-size: 15px; }
+    #strategic-flow { padding: 40px 20px; }
+    #strategic-flow .cl-cycle { grid-template-columns: 1fr 1fr; gap: 32px 0; }
+    #strategic-flow .cl-step::before, #strategic-flow .cl-step::after { display: none; }
+    #strategic-flow .cl-callout { flex-direction: column; text-align: center; }
+    #pillars { padding: 40px 20px; }
+    #pillars .tp-heading { font-size: 26px; }
+    #pillars .tp-grid { grid-template-columns: 1fr; }
+    #stakeholders { padding: 40px 20px; }
+    #stakeholders .woc-heading { font-size: 26px; }
+    #stakeholders .woc-grid { grid-template-columns: 1fr; }
+    #business-priorities .bp-section { padding: 40px 20px; }
+    #business-priorities .bp-heading { font-size: 26px; }
+    #business-priorities .bp-vis-row { grid-template-columns: 1fr; gap: 12px; }
+    #partner-logos { padding: 40px 20px; }
+    #partner-logos .lw-heading { font-size: 26px; }
+    #partner-logos .lw-logo { font-size: 13px; padding: 8px 14px; }
+    #methodology { padding: 40px 20px; }
+    #methodology .section-header { grid-template-columns: 1fr; gap: 16px; }
+    #methodology .stepper { padding-left: 32px; }
+    #methodology .step-marker { left: -32px; width: 28px; height: 28px; font-size: 11px; }
+    #methodology .step-bullets { flex-direction: column; gap: 8px; }
+    #download-onepager { padding: 36px 16px; }
+    #download-onepager .banner-card { grid-template-columns: 1fr; }
+    #download-onepager .banner-left { padding: 32px 24px 28px 28px; }
+    #download-onepager .banner-right { padding: 0 24px 28px; border-left: none; border-top: 1px solid var(--border-navy); justify-content: flex-start; }
+    #assessment-types .at-section { padding: 40px 20px; }
+    #assessment-types .at-heading { font-size: 26px; }
+    #assessment-types .at-grid { grid-template-columns: 1fr; }
+    #diagnostic-methods .dm-section { padding: 40px 20px; }
+    #diagnostic-methods .dm-header { grid-template-columns: 1fr; }
+    #diagnostic-methods .dm-heading { font-size: 26px; }
+    #diagnostic-methods .dm-fields { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    #stats-strip .stats-grid { grid-template-columns: 1fr; }
+    #stats-strip .stat-number { font-size: 36px; }
+    #hero-section .check-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── Section 13: Deliverables Accordion ─── */
+  #deliverables { padding: 72px 48px; background: var(--light-bg); }
+  #deliverables .dv-inner { max-width: 1120px; margin: 0 auto; }
+  #deliverables .dv-header { text-align: center; margin-bottom: 48px; }
+  #deliverables .dv-label { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  #deliverables .dv-label .bar { width: 20px; height: 3px; background: var(--lime); border-radius: 2px; }
+  #deliverables .dv-label span { font-size: 12px; font-weight: 700; color: var(--navy); letter-spacing: 0.06em; text-transform: uppercase; }
+  #deliverables .dv-heading { font-size: 32px; font-weight: 800; color: var(--navy); line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 12px; }
+  #deliverables .dv-intro { font-size: 15px; color: var(--text-secondary); line-height: 1.65; max-width: 660px; margin: 0 auto; }
+  #deliverables .dv-layout { display: grid; grid-template-columns: 42% 55%; gap: 3%; align-items: start; }
+  #deliverables .dv-image { width: 100%; aspect-ratio: 3/4; border-radius: var(--radius-xl); overflow: hidden; background: #C8CAD8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 11px; color: var(--text-muted); font-weight: 500; position: sticky; top: 24px; border: 2px dashed rgba(45,47,107,0.15); }
+  #deliverables .dv-image svg { opacity: 0.15; }
+  #deliverables .dv-image .dv-img-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 6px; line-height: 1.5; }
+  #deliverables .dv-list { display: flex; flex-direction: column; gap: 12px; }
+  #deliverables .dv-item { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; transition: all 0.3s; overflow: hidden; }
+  #deliverables .dv-item:hover { border-color: rgba(197,232,38,0.5); box-shadow: 0 4px 16px rgba(45,47,107,0.06); }
+  #deliverables .dv-item.active { border-color: var(--lime); box-shadow: 0 6px 24px rgba(45,47,107,0.08); }
+  #deliverables .dv-question { display: flex; align-items: center; gap: 14px; padding: 20px 24px; cursor: pointer; }
+  #deliverables .dv-letter { width: 40px; height: 40px; border-radius: 10px; background: rgba(45,47,107,0.06); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: var(--navy); flex-shrink: 0; transition: all 0.25s; }
+  #deliverables .dv-item.active .dv-letter { background: var(--lime); color: var(--lime-text); }
+  #deliverables .dv-title { flex: 1; font-size: 16px; font-weight: 700; color: var(--text-primary); line-height: 1.4; }
+  #deliverables .dv-toggle { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 22px; font-weight: 300; transition: all 0.25s; flex-shrink: 0; }
+  #deliverables .dv-item.active .dv-toggle { color: var(--navy); transform: rotate(45deg); }
+  #deliverables .dv-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.3s; padding: 0 24px 0 78px; }
+  #deliverables .dv-item.active .dv-answer { max-height: 500px; padding: 0 24px 24px 78px; }
+  #deliverables .dv-answer p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 12px; }
+  #deliverables .dv-features { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  #deliverables .dv-features li { font-size: 13px; color: var(--text-secondary); line-height: 1.5; padding-left: 16px; position: relative; }
+  #deliverables .dv-features li::before { content: ''; position: absolute; left: 0; top: 7px; width: 6px; height: 6px; border-radius: 50%; background: var(--lime); }
+  @media (max-width: 768px) {
+    #deliverables { padding: 40px 20px; }
+    #deliverables .dv-heading { font-size: 26px; }
+    #deliverables .dv-layout { grid-template-columns: 1fr; }
+    #deliverables .dv-image { position: static; aspect-ratio: 16/9; margin-bottom: 24px; }
+  }
+
+  /* ─── Section 14: Download Workbook ─── */
+  #download-workbook { padding: 64px 48px; background: var(--surface); }
+  #download-workbook .dw-inner { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: 45% 50%; gap: 5%; align-items: center; }
+  #download-workbook .dw-preview { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 32px 28px 28px; text-align: center; position: relative; overflow: hidden; }
+  #download-workbook .dw-preview::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--lime); }
+  #download-workbook .dw-thumb { width: 100%; aspect-ratio: 16/10; background: linear-gradient(135deg, #F0F1F5 0%, #E4E5EC 100%); border-radius: var(--radius); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; margin-bottom: 20px; }
+  #download-workbook .dw-thumb svg { opacity: 0.2; }
+  #download-workbook .dw-thumb span { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  #download-workbook .dw-asset-title { font-size: 17px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; margin-bottom: 8px; }
+  #download-workbook .dw-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.55; max-width: 320px; margin: 0 auto 20px; }
+  #download-workbook .dw-btn-lime { display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px; background: var(--lime); color: var(--lime-text); font-size: 13px; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; font-family: var(--font); }
+  #download-workbook .dw-content h2 { font-size: 30px; font-weight: 800; color: var(--navy); line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 16px; }
+  #download-workbook .dw-content p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 20px; max-width: 440px; }
+  #download-workbook .dw-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
+  #download-workbook .dw-features li { font-size: 14px; color: var(--text-secondary); padding-left: 20px; position: relative; line-height: 1.5; }
+  #download-workbook .dw-features li::before { content: ''; position: absolute; left: 0; top: 7px; width: 8px; height: 8px; border-radius: 2px; background: var(--lime); }
+  #download-workbook .dw-btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; background: transparent; color: var(--navy); font-size: 14px; font-weight: 700; border: 2px solid var(--navy); border-radius: 8px; cursor: pointer; font-family: var(--font); letter-spacing: -0.01em; transition: all 0.15s; }
+  #download-workbook .dw-btn-outline:hover { background: var(--navy); color: var(--white); }
+  @media (max-width: 768px) {
+    #download-workbook { padding: 40px 20px; }
+    #download-workbook .dw-inner { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* ─── Section 15: Process Timeline ─── */
+  #process-timeline { padding: 64px 48px; background: var(--light-bg); }
+  #process-timeline .pt-inner { max-width: 1060px; margin: 0 auto; text-align: center; }
+  #process-timeline .pt-heading { font-size: 30px; font-weight: 800; color: var(--navy); line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 12px; }
+  #process-timeline .pt-intro { font-size: 15px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 36px; max-width: 680px; margin-left: auto; margin-right: auto; }
+  #process-timeline .pt-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  #process-timeline .pt-card { background: var(--surface); border-radius: var(--radius-lg); padding: 28px 20px; text-align: center; border: 1px solid var(--border-light); }
+  #process-timeline .pt-card-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(45,47,107,0.06); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+  #process-timeline .pt-card h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; letter-spacing: -0.01em; }
+  #process-timeline .pt-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+  @media (max-width: 900px) {
+    #process-timeline { padding: 40px 20px; }
+    #process-timeline .pt-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 580px) {
+    #process-timeline .pt-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── Section 16: Impact Stats ─── */
+  #impact-stats { padding: 56px 48px 60px; background: var(--light-bg); }
+  #impact-stats .is-layout { display: grid; grid-template-columns: 32% 64%; gap: 4%; align-items: start; max-width: 1120px; margin: 0 auto; }
+  #impact-stats .is-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  #impact-stats .is-bar .bar { width: 24px; height: 3px; background: var(--lime); border-radius: 2px; }
+  #impact-stats .is-bar .label { font-size: 12px; font-weight: 700; color: var(--navy); letter-spacing: 0.06em; text-transform: uppercase; }
+  #impact-stats .is-heading h2 { font-size: 26px; font-weight: 800; color: var(--navy); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 12px; }
+  #impact-stats .is-heading p { font-size: 14px; color: var(--chrome-muted); line-height: 1.6; }
+  #impact-stats .is-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  #impact-stats .is-card { background: var(--navy-card); border-radius: 14px; padding: 26px 22px; display: flex; gap: 16px; align-items: flex-start; }
+  #impact-stats .is-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(197,232,38,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  #impact-stats .is-num { font-size: 32px; font-weight: 800; color: var(--white); letter-spacing: -0.04em; line-height: 1; }
+  #impact-stats .is-num .sym { color: var(--lime); }
+  #impact-stats .is-label { font-size: 13px; color: var(--text-body); margin-top: 6px; line-height: 1.45; font-weight: 500; }
+  @media (max-width: 900px) {
+    #impact-stats { padding: 36px 20px 40px; }
+    #impact-stats .is-layout { grid-template-columns: 1fr; gap: 28px; }
+  }
+  @media (max-width: 520px) {
+    #impact-stats .is-grid { grid-template-columns: 1fr; }
+    #impact-stats .is-num { font-size: 28px; }
+  }
+
+  /* ─── Section 17: Case Studies ─── */
+  #case-studies { padding: 64px 48px; background: var(--surface); }
+  #case-studies .cs-inner { max-width: 1060px; margin: 0 auto; }
+  #case-studies .cs-header { text-align: center; margin-bottom: 40px; }
+  #case-studies .cs-label { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  #case-studies .cs-label .bar { width: 20px; height: 3px; background: var(--lime); border-radius: 2px; }
+  #case-studies .cs-label span { font-size: 12px; font-weight: 700; color: var(--navy); letter-spacing: 0.06em; text-transform: uppercase; }
+  #case-studies .cs-header h2 { font-size: 30px; font-weight: 800; color: var(--navy); line-height: 1.2; letter-spacing: -0.03em; }
+  #case-studies .cs-header p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-top: 8px; }
+  #case-studies .cs-card { background: var(--navy); border-radius: var(--radius-xl); overflow: hidden; position: relative; }
+  #case-studies .cs-panels { position: relative; min-height: 420px; }
+  #case-studies .cs-panel { display: none; animation: csFadeIn 0.4s ease; }
+  #case-studies .cs-panel.active { display: block; }
+  @keyframes csFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  #case-studies .cs-panel-inner { display: grid; grid-template-columns: 42% 55%; gap: 3%; }
+  #case-studies .cs-panel-image { min-height: 420px; background: #C8CAD8; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  #case-studies .cs-panel-image svg { opacity: 0.15; }
+  #case-studies .cs-panel-content { padding: 44px 36px 44px 0; display: flex; flex-direction: column; justify-content: center; }
+  #case-studies .cs-industry { font-size: 12px; font-weight: 700; color: var(--lime); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
+  #case-studies .cs-title { font-size: 20px; font-weight: 800; color: var(--white); line-height: 1.25; letter-spacing: -0.02em; margin-bottom: 16px; }
+  #case-studies .cs-detail { font-size: 14px; color: var(--text-muted-navy); line-height: 1.65; margin-bottom: 8px; }
+  #case-studies .cs-detail strong { color: var(--white); font-weight: 600; }
+  #case-studies .cs-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding-top: 20px; border-top: 1px solid var(--border-navy); margin-top: 16px; }
+  #case-studies .cs-stat .num { font-size: 32px; font-weight: 800; color: var(--white); letter-spacing: -0.04em; line-height: 1; }
+  #case-studies .cs-stat .num .sym { color: var(--lime); }
+  #case-studies .cs-stat .slabel { font-size: 11px; color: var(--text-muted-navy); line-height: 1.45; margin-top: 4px; font-weight: 500; }
+  #case-studies .cs-nav { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 20px 0; }
+  #case-studies .cs-nav-btn { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--surface); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  #case-studies .cs-nav-btn:hover { border-color: var(--navy); background: rgba(197,232,38,0.08); }
+  #case-studies .cs-counter { font-size: 13px; font-weight: 700; color: var(--text-secondary); min-width: 48px; text-align: center; }
+  #case-studies .cs-counter .cur { color: var(--navy); }
+  @media (max-width: 768px) {
+    #case-studies { padding: 40px 20px; }
+    #case-studies .cs-panel-inner { grid-template-columns: 1fr; }
+    #case-studies .cs-panel-image { min-height: 220px; }
+    #case-studies .cs-panel-content { padding: 28px 24px; }
+    #case-studies .cs-stats { grid-template-columns: 1fr; }
+  }
+
+  /* ─── Section 18: Testimonials ─── */
+  #testimonials-section { padding: 72px 48px; background: var(--light-bg); }
+  #testimonials-section .tm-inner { max-width: 1060px; margin: 0 auto; }
+  #testimonials-section .tm-layout { display: grid; grid-template-columns: 40% 56%; gap: 4%; align-items: center; }
+  #testimonials-section .tm-left h2 { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 16px; }
+  #testimonials-section .tm-left h2 .accent { color: var(--navy); }
+  #testimonials-section .tm-left h2 .dark { color: var(--text-primary); }
+  #testimonials-section .tm-left p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; max-width: 400px; }
+  #testimonials-section .tm-arrows { display: flex; gap: 8px; margin-top: 32px; }
+  #testimonials-section .tm-arrow { width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; background: var(--navy); }
+  #testimonials-section .tm-arrow.prev { opacity: 0.6; }
+  #testimonials-section .tm-arrow.prev:hover { opacity: 1; }
+  #testimonials-section .tm-arrow:hover { transform: scale(1.08); }
+  #testimonials-section .tm-carousel { position: relative; }
+  #testimonials-section .tm-card { background: var(--surface); border-radius: var(--radius-xl); padding: 40px 36px 36px; box-shadow: 0 4px 24px rgba(45,47,107,0.06); position: absolute; top: 0; left: 0; right: 0; opacity: 0; transform: translateX(40px); transition: all 0.45s cubic-bezier(0.4,0,0.2,1); pointer-events: none; }
+  #testimonials-section .tm-card.active { opacity: 1; transform: translateX(0); position: relative; pointer-events: auto; }
+  #testimonials-section .tm-card.exit-left { opacity: 0; transform: translateX(-40px); }
+  #testimonials-section .tm-text { font-size: 18px; font-weight: 500; font-style: italic; color: var(--text-primary); line-height: 1.65; margin-bottom: 28px; letter-spacing: -0.01em; }
+  #testimonials-section .tm-author { display: flex; align-items: center; gap: 14px; }
+  #testimonials-section .tm-avatar { width: 52px; height: 52px; border-radius: 50%; background: #D0D2E0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; font-size: 18px; font-weight: 700; color: var(--navy); }
+  #testimonials-section .tm-name { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+  #testimonials-section .tm-role { font-size: 13px; color: var(--text-secondary); line-height: 1.45; }
+  @media (max-width: 768px) {
+    #testimonials-section { padding: 48px 20px; }
+    #testimonials-section .tm-layout { grid-template-columns: 1fr; gap: 32px; }
+    #testimonials-section .tm-text { font-size: 16px; }
+  }
+
+  /* ─── Section 19: Industry Diagnostics ─── */
+  #industry-diagnostics { padding: 64px 48px; background: var(--surface); }
+  #industry-diagnostics .ind15-inner { max-width: 1060px; margin: 0 auto; }
+  #industry-diagnostics .ind15-label { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  #industry-diagnostics .ind15-label .bar { width: 20px; height: 3px; background: var(--lime); border-radius: 2px; }
+  #industry-diagnostics .ind15-label span { font-size: 12px; font-weight: 700; color: var(--navy); letter-spacing: 0.06em; text-transform: uppercase; }
+  #industry-diagnostics .ind15-heading { font-size: 30px; font-weight: 800; color: var(--navy); line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 8px; }
+  #industry-diagnostics .ind15-intro { font-size: 15px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 36px; max-width: 700px; }
+  #industry-diagnostics .ind15-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 36px; }
+  #industry-diagnostics .ind15-card { background: var(--off-white); border-radius: var(--radius-lg); padding: 24px 20px; border: 1px solid var(--border-light); transition: transform 0.2s, box-shadow 0.2s; }
+  #industry-diagnostics .ind15-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(45,47,107,0.08); }
+  #industry-diagnostics .ind15-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--lime-dim); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; transition: background 0.25s; }
+  #industry-diagnostics .ind15-card:hover .ind15-icon { background: var(--lime); }
+  #industry-diagnostics .ind15-card:hover .ind15-icon svg { stroke: var(--lime-text); }
+  #industry-diagnostics .ind15-card h3 { font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; letter-spacing: -0.01em; }
+  #industry-diagnostics .ind15-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
+  #industry-diagnostics .ind15-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  #industry-diagnostics .ind15-tag { font-size: 11px; font-weight: 600; color: var(--navy); background: rgba(45,47,107,0.06); padding: 3px 10px; border-radius: 4px; }
+  #industry-diagnostics .ind15-note { font-size: 14px; color: var(--text-secondary); line-height: 1.6; font-style: italic; margin-bottom: 28px; max-width: 800px; }
+  #industry-diagnostics .ind15-cta { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; background: var(--navy); color: var(--white); font-size: 15px; font-weight: 600; border-radius: 8px; text-decoration: none; transition: all 0.25s; border: none; cursor: pointer; font-family: var(--font); }
+  #industry-diagnostics .ind15-cta:hover { background: #1e2054; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45,47,107,0.25); }
+  @media (max-width: 900px) {
+    #industry-diagnostics { padding: 40px 20px; }
+    #industry-diagnostics .ind15-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 580px) {
+    #industry-diagnostics .ind15-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── Section 20: FAQ ─── */
+  #faq-section { padding: 64px 48px; background: var(--light-bg); }
+  #faq-section .fq-inner { max-width: 760px; margin: 0 auto; }
+  #faq-section .fq-inner h2 { font-size: 30px; font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 8px; }
+  #faq-section .fq-inner h2 .dark { color: var(--text-primary); }
+  #faq-section .fq-inner h2 .accent { color: var(--navy); }
+  #faq-section .fq-inner > p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 36px; }
+  #faq-section .fq-list { display: flex; flex-direction: column; gap: 0; }
+  #faq-section .fq-item { border-bottom: 2px solid var(--navy); transition: border-color 0.2s; }
+  #faq-section .fq-item.active { border-bottom-color: var(--lime); }
+  #faq-section .fq-question { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0; cursor: pointer; }
+  #faq-section .fq-question h3 { font-size: 16px; font-weight: 700; color: var(--text-primary); line-height: 1.4; letter-spacing: -0.01em; flex: 1; }
+  #faq-section .fq-toggle { width: 32px; height: 32px; border-radius: 50%; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all 0.25s; color: var(--text-muted); font-size: 22px; font-weight: 300; font-family: var(--font); }
+  #faq-section .fq-item.active .fq-toggle { color: var(--navy); transform: rotate(45deg); }
+  #faq-section .fq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), padding 0.3s; padding: 0; }
+  #faq-section .fq-item.active .fq-answer { max-height: 400px; padding: 0 0 24px 0; }
+  #faq-section .fq-answer p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; max-width: 640px; }
+  @media (max-width: 768px) {
+    #faq-section { padding: 40px 20px; }
+    #faq-section .fq-question h3 { font-size: 15px; }
+  }
+
+  /* ─── Section 21: Resources ─── */
+  #resources-section { padding: 64px 48px; background: var(--surface); }
+  #resources-section .rs-inner { max-width: 1060px; margin: 0 auto; }
+  #resources-section .rs-inner > h2 { font-size: 30px; font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 8px; }
+  #resources-section .rs-inner > h2 .dark { color: var(--text-primary); }
+  #resources-section .rs-inner > h2 .accent { color: var(--navy); }
+  #resources-section .rs-inner > p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 36px; }
+  #resources-section .rs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  #resources-section .rs-card { cursor: pointer; transition: transform 0.25s; }
+  #resources-section .rs-card:hover { transform: translateY(-4px); }
+  #resources-section .rs-img { width: 100%; aspect-ratio: 16/10; border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 14px; background: #C8CAD8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: var(--text-muted); font-weight: 500; }
+  #resources-section .rs-img svg { opacity: 0.15; }
+  #resources-section .rs-img .rs-img-inner { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+  #resources-section .rs-card:hover .rs-img-inner { transform: scale(1.08); }
+  #resources-section .rs-tags { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  #resources-section .rs-tag-blog { font-size: 11px; font-weight: 700; color: var(--lime-text); background: var(--lime); padding: 3px 10px; border-radius: 4px; letter-spacing: 0.02em; }
+  #resources-section .rs-tag-cat { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+  #resources-section .rs-card h3 { font-size: 16px; font-weight: 700; color: var(--text-primary); line-height: 1.35; letter-spacing: -0.01em; margin-bottom: 6px; }
+  #resources-section .rs-card .rs-date { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+  @media (max-width: 900px) {
+    #resources-section { padding: 40px 20px; }
+    #resources-section .rs-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 580px) {
+    #resources-section .rs-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── Section 22: CTA Banner Lime ─── */
+  #cta-section { padding: 64px 48px; background: var(--lime); }
+  #cta-section .cta-container { max-width: 780px; margin: 0 auto; text-align: center; }
+  #cta-section .cta-heading { font-size: 34px; font-weight: 700; color: var(--navy); margin-bottom: 16px; line-height: 1.25; }
+  #cta-section .cta-desc { font-size: 17px; line-height: 1.7; color: rgba(45,47,107,0.8); margin-bottom: 32px; }
+  #cta-section .cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; background: var(--navy); color: #fff; font-size: 15px; font-weight: 600; border-radius: 8px; text-decoration: none; transition: all 0.25s; }
+  #cta-section .cta-btn:hover { background: #1e2054; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45,47,107,0.25); }
+  @media (max-width: 768px) {
+    #cta-section { padding: 40px 20px; }
+    #cta-section .cta-heading { font-size: 26px; }
+  }
+
+  /* ─── Section 23: Contact Form ─── */
+  #contact-form { padding: 72px 48px; background: var(--light-bg); }
+  #contact-form .cf-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 45% 55%; min-height: 720px; border-radius: var(--radius-xl); overflow: hidden; box-shadow: 0 8px 40px rgba(45,47,107,0.08); }
+  #contact-form .cf-image { background: #C8CAD8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 12px; color: var(--text-muted); font-weight: 500; position: relative; }
+  #contact-form .cf-image svg { opacity: 0.15; }
+  #contact-form .cf-image .cf-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 6px; line-height: 1.5; }
+  #contact-form .cf-panel { background: var(--surface); padding: 48px 44px; display: flex; flex-direction: column; justify-content: center; }
+  #contact-form .cf-panel h2 { font-size: 28px; font-weight: 800; color: var(--text-primary); line-height: 1.2; letter-spacing: -0.03em; margin-bottom: 12px; }
+  #contact-form .cf-panel > p { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 28px; max-width: 440px; }
+  #contact-form .cf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  #contact-form .cf-field { display: flex; flex-direction: column; }
+  #contact-form .cf-field.full { grid-column: 1 / -1; }
+  #contact-form .cf-field input, #contact-form .cf-field select, #contact-form .cf-field textarea { font-family: var(--font); font-size: 14px; color: var(--text-primary); padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--surface); outline: none; transition: border-color 0.2s; width: 100%; }
+  #contact-form .cf-field input::placeholder, #contact-form .cf-field textarea::placeholder { color: var(--text-muted); font-weight: 400; }
+  #contact-form .cf-field input:focus, #contact-form .cf-field select:focus, #contact-form .cf-field textarea:focus { border-color: var(--navy); }
+  #contact-form .cf-field select { color: var(--text-muted); appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 4.5l3 3 3-3' stroke='%238A8C9A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  #contact-form .cf-field select.selected { color: var(--text-primary); }
+  #contact-form .cf-field textarea { resize: vertical; min-height: 90px; }
+  #contact-form .cf-phone { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  #contact-form .cf-submit { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px 28px; background: var(--navy); color: var(--white); font-size: 15px; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; font-family: var(--font); letter-spacing: -0.01em; transition: background 0.15s, transform 0.1s; margin-top: 8px; }
+  #contact-form .cf-submit:hover { background: #232558; transform: translateY(-1px); }
+  #contact-form .cf-form-note { margin-top: 16px; font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
+  #contact-form .cf-form-note strong { color: var(--text-primary); font-weight: 700; }
+  @media (max-width: 768px) {
+    #contact-form { padding: 40px 20px; }
+    #contact-form .cf-inner { grid-template-columns: 1fr; margin: 0; }
+    #contact-form .cf-image { min-height: 240px; }
+    #contact-form .cf-panel { padding: 32px 24px; }
+    #contact-form .cf-grid { grid-template-columns: 1fr; }
+    #contact-form .cf-phone { grid-template-columns: 1fr; }
+  }
+
+  /* ─── Section 24: Footer ─── */
+  #page-footer .sf-footer { padding: 48px 48px 32px; background: #1a1c4a; border-top: 3px solid var(--lime); }
+  #page-footer .sf-container { max-width: 1120px; margin: 0 auto; text-align: center; }
+  #page-footer .sf-certs { display: flex; justify-content: center; gap: 16px; margin-bottom: 24px; }
+  #page-footer .sf-cert { display: inline-flex; align-items: center; padding: 6px 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.7); }
+  #page-footer .sf-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; }
+  #page-footer .sf-links a { font-size: 14px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.25s; }
+  #page-footer .sf-links a:hover { color: var(--lime); }
+  #page-footer .sf-social { display: flex; justify-content: center; gap: 16px; margin-bottom: 24px; }
+  #page-footer .sf-social a { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.08); border-radius: 50%; color: rgba(255,255,255,0.7); transition: all 0.25s; }
+  #page-footer .sf-social a:hover { background: var(--lime); color: var(--navy); }
+  #page-footer .sf-copy { font-size: 13px; color: rgba(255,255,255,0.45); }
+  @media (max-width: 768px) {
+    #page-footer .sf-footer { padding: 32px 20px 24px; }
+    #page-footer .sf-certs { flex-direction: column; align-items: center; }
+    #page-footer .sf-links { flex-direction: column; gap: 12px; }
+  }
+
+  /* ─── Dev Reference Panel ─── */
+  #dev-ref { padding: 32px 48px; background: var(--off-white); }
+  #dev-ref .devref-inner { max-width: 1060px; margin: 0 auto; }
+  #dev-ref .devref-toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px 0; border: none; background: none; font-family: var(--font); }
+  #dev-ref .devref-toggle span { font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em; }
+  #dev-ref .devref-toggle .devref-arrow { transition: transform 0.3s; font-size: 12px; color: var(--navy); }
+  #dev-ref .devref-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  #dev-ref .devref-body.open { max-height: 600px; }
+  #dev-ref .devref-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; padding: 16px 0; }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- Navigation -->
+  <nav class="ed-nav">
+    <div class="ed-nav-left">
+      <div class="ed-logo">
+        <div class="ed-logo-icon"><span>e</span></div>
+        edstellar
+      </div>
+      <ul class="ed-nav-links">
+        <li>Training Programs</li>
+        <li>Platform</li>
+        <li>Managed Training</li>
+        <li class="active">Consulting</li>
+        <li>Company</li>
+        <li>Resources</li>
+      </ul>
+    </div>
+    <div class="ed-nav-right">
+      <button class="nav-search">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="var(--chrome-muted)" stroke-width="1.5"/><path d="M11 11l3.5 3.5" stroke="var(--chrome-muted)" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+      <button class="ed-nav-cta">View Pricing</button>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 1: HERO
+       ══════════════════════════════════════════════════ -->
+  <section id="hero-section">
+    <div class="hero-grid">
+      <div>
+        <div class="breadcrumb">
+          <a href="#">Home</a> &nbsp;&gt;&nbsp; <a href="#">Corporate Training</a> &nbsp;&gt;&nbsp; <span style="color:var(--lime)">Training Needs Analysis Services</span>
+        </div>
+        <div class="hero-eyebrow">Enterprise Capability Diagnostics</div>
+        <h1>Training Needs Analysis<br>Services</h1>
+        <p class="hero-sub">
+          Data-driven capability diagnostics that align learning investments to business performance, risk, and ROI.
+        </p>
+        <div class="check-grid">
+          <div class="check-item">
+            <div class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3 5-5" stroke="var(--lime-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Business-aligned TNA
+          </div>
+          <div class="check-item">
+            <div class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3 5-5" stroke="var(--lime-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Role and risk-based TNA
+          </div>
+          <div class="check-item">
+            <div class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3 5-5" stroke="var(--lime-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Measurable training outcomes
+          </div>
+          <div class="check-item">
+            <div class="check-icon">
+              <svg width="12" height="12" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3 5-5" stroke="var(--lime-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Enterprise-grade approach
+          </div>
+        </div>
+        <div class="cta-row">
+          <button class="btn-lime">Book a Diagnostic Consultation</button>
+          <button class="btn-outline">Download Sample TNA Report</button>
+        </div>
+      </div>
+      <div>
+        <div class="hero-image" style="border:none;background:transparent;">
+          <img src="https://images.unsplash.com/photo-1758691737182-d42aefd6dee8?w=800&h=600&fit=crop&q=80" alt="Business professionals attending a training needs analysis presentation in a modern boardroom" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 2: WHAT IS TNA
+       ══════════════════════════════════════════════════ -->
+  <section id="what-is-tna">
+    <div class="wio-container">
+      <div class="wio-label"><span class="wio-bar"></span><span>Understanding TNA</span></div>
+      <h2 class="wio-heading">What Is Training Needs Analysis (TNA)?</h2>
+      <div class="wio-body">
+        <p class="wio-lead">A Training Needs Analysis (TNA), also known as a Learning Needs Analysis (LNA), is a structured diagnostic process that identifies the gap between your workforce's current capabilities and the skills required to meet business objectives. Rooted in the ADDIE framework, TNA provides the evidence base for every training investment decision.</p>
+        <p>Rather than assuming what training your teams need, a properly conducted TNA uses multi-source data to pinpoint exactly where skill gaps exist, which roles are most affected, and what the business impact of those gaps is, enabling precise, ROI-driven learning investments.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 3: STRATEGIC FLOW (Closed-Loop Cycle)
+       ══════════════════════════════════════════════════ -->
+  <section id="strategic-flow">
+    <div class="section-inner">
+      <div class="cl-header">
+        <div class="section-label"><div class="bar"></div><span>Strategic Alignment</span></div>
+        <h2>Training Needs Analysis for Business-Aligned Prioritization</h2>
+        <p>A structured Training Needs Analysis aligns business goals, role expectations, and skill requirements into a single decision framework for precise prioritization and higher ROI.</p>
+      </div>
+      <div class="cl-cycle">
+        <div class="cl-step">
+          <div class="cl-num"><span>01</span></div>
+          <h4>Business Goals</h4>
+          <p>Revenue, growth, transformation targets</p>
+        </div>
+        <div class="cl-step">
+          <div class="cl-num"><span>02</span></div>
+          <h4>Role Expectations</h4>
+          <p>Performance standards by job family</p>
+        </div>
+        <div class="cl-step">
+          <div class="cl-num"><span>03</span></div>
+          <h4>Skill Requirements</h4>
+          <p>Competency gaps and skill gaps analysis</p>
+        </div>
+        <div class="cl-step">
+          <div class="cl-num"><span>04</span></div>
+          <h4>Learning Priorities</h4>
+          <p>Risk-ranked, ROI-driven interventions</p>
+        </div>
+      </div>
+      <div class="cl-callout">
+        <div class="cl-callout-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2a9 9 0 1 1 0 18 9 9 0 0 1 0-18z" stroke="var(--lime)" stroke-width="1.8"/><path d="M7 11l3 3 5-5" stroke="var(--lime)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <p><strong>Diagnosis-led training converts learning investment into measurable performance impact.</strong> A structured Learning Needs Analysis (LNA), also known as Training Needs Analysis (TNA), aligns business goals, role expectations, and skill requirements into a single decision framework for precise prioritization and higher ROI.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 4: STATS STRIP
+       ══════════════════════════════════════════════════ -->
+  <section id="stats-strip">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-bar"></div>
+        <div class="stat-number">68<span class="symbol">%</span></div>
+        <div class="stat-label">of enterprise training spend addresses low-priority skill gaps</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-bar"></div>
+        <div class="stat-number">3.2<span class="symbol">x</span></div>
+        <div class="stat-label">higher ROI when learning investments are diagnostically prioritized</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-bar"></div>
+        <div class="stat-number">41<span class="symbol">%</span></div>
+        <div class="stat-label">of performance issues traced to non-training root causes via TNA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 5: THREE PILLARS
+       ══════════════════════════════════════════════════ -->
+  <section id="pillars">
+    <div class="tp-container">
+      <div class="tp-label"><span class="tp-bar"></span><span>Our Focus</span></div>
+      <h2 class="tp-heading">How Edstellar Delivers TNA</h2>
+      <p class="tp-intro">Three pillars that ensure every Training Needs Analysis engagement delivers actionable, business-aligned outcomes.</p>
+      <div class="tp-grid">
+        <div class="tp-card">
+          <div class="tp-img"><div class="tp-img-inner" style="border:none;background:transparent;">
+            <img src="https://images.unsplash.com/photo-1758691736580-a41e0cfe9e9f?w=600&h=400&fit=crop&q=80" alt="Woman leading a stakeholder alignment session in modern office" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          </div></div>
+          <div class="tp-accent"></div>
+          <div class="tp-icon"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h3 class="tp-card-title">Stakeholder Alignment</h3>
+          <p class="tp-card-desc">Work closely with stakeholders to ensure training goals are aligned with organizational priorities.</p>
+        </div>
+        <div class="tp-card">
+          <div class="tp-img"><div class="tp-img-inner" style="border:none;background:transparent;">
+            <img src="https://images.unsplash.com/photo-1758691736542-c437fea2c673?w=600&h=400&fit=crop&q=80" alt="Woman presenting multi-source skills assessment charts to colleagues on screen" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          </div></div>
+          <div class="tp-accent"></div>
+          <div class="tp-icon"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h3 class="tp-card-title">Comprehensive Assessments</h3>
+          <p class="tp-card-desc">Collect and integrate data from various sources to identify skill gaps and development opportunities.</p>
+        </div>
+        <div class="tp-card">
+          <div class="tp-img"><div class="tp-img-inner" style="border:none;background:transparent;">
+            <img src="https://images.unsplash.com/photo-1663780852938-f44b86ec3060?w=600&h=400&fit=crop&q=80" alt="Woman writing learning roadmap framework on whiteboard" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          </div></div>
+          <div class="tp-accent"></div>
+          <div class="tp-icon"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h3 class="tp-card-title">Clear Training Roadmap</h3>
+          <p class="tp-card-desc">Develop a tailored training roadmap that translates identified needs into actionable programs and measurable outcomes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 6: STAKEHOLDERS (Benefit Pillars 4-col)
+       ══════════════════════════════════════════════════ -->
+  <section id="stakeholders">
+    <div class="woc-container">
+      <div class="woc-label"><span class="woc-bar"></span><span>Stakeholder Relevance</span></div>
+      <h2 class="woc-heading">Leadership &amp; Transformation Teams Enabled by Edstellar's TNA</h2>
+      <p class="woc-intro">TNA delivers decision-grade insights for every leader involved in workforce capability, training investment, or organizational transformation.</p>
+      <div class="woc-grid">
+        <div class="woc-card">
+          <div class="woc-number">01</div>
+          <h3 class="woc-card-title">CHROs &amp; L&amp;D Leaders</h3>
+          <p class="woc-card-desc">Prioritize training spend with evidence. Redirect budget from low-impact programs to capability-critical interventions with board-ready justification.</p>
+        </div>
+        <div class="woc-card">
+          <div class="woc-number">02</div>
+          <h3 class="woc-card-title">BU / Functional Heads</h3>
+          <p class="woc-card-desc">Close role-critical capability gaps. Identify where skill shortfalls create operational risk, revenue exposure, or delivery bottlenecks across business units.</p>
+        </div>
+        <div class="woc-card">
+          <div class="woc-number">03</div>
+          <h3 class="woc-card-title">HRBPs &amp; Transformation Teams</h3>
+          <p class="woc-card-desc">Separate training vs. structural issues. Determine whether performance gaps require learning interventions, process redesign, or role restructuring.</p>
+        </div>
+        <div class="woc-card">
+          <div class="woc-number">04</div>
+          <h3 class="woc-card-title">Not Sure Where to Start?</h3>
+          <p class="woc-card-desc">If you're unsure what to train, who to train, or whether training is even the right solution, Training Needs Analysis is the right starting point.</p>
+          <button class="woc-card-cta">Start Here</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 7: BUSINESS PRIORITIES (Custom)
+       ══════════════════════════════════════════════════ -->
+  <div id="business-priorities">
+    <section class="bp-section">
+      <div class="bp-container">
+        <div class="bp-label"><span class="bp-bar"></span><span>Business Priorities</span></div>
+        <h2 class="bp-heading">Business Priorities Strengthened Through Edstellar's Training Needs Analysis</h2>
+        <p class="bp-intro">These are the enterprise-level priorities Edstellar's structured diagnostic accelerates, each tied to measurable business outcomes.</p>
+
+        <div class="bp-list">
+          <div class="bp-item">
+            <div class="bp-accent"></div>
+            <div>
+              <h4>Precise Training Prioritization</h4>
+              <p>Replaces assumption-based planning with evidence-based prioritization, directing resources to the skill gaps with the highest business impact and lowest current coverage.</p>
+            </div>
+          </div>
+          <div class="bp-item">
+            <div class="bp-accent"></div>
+            <div>
+              <h4>Skill-Role Alignment Across Job Families</h4>
+              <p>Maps proficiency against structured role requirements across every critical job family, surfacing the exact gaps between current capability and role expectations.</p>
+            </div>
+          </div>
+          <div class="bp-item">
+            <div class="bp-accent"></div>
+            <div>
+              <h4>Leadership Pipeline Readiness</h4>
+              <p>Provides a quantified view of leadership pipeline health, from first-time managers to C-suite candidates, enabling proactive succession and development investments.</p>
+            </div>
+          </div>
+          <div class="bp-item">
+            <div class="bp-accent"></div>
+            <div>
+              <h4>Maximized ROI from Learning Spend</h4>
+              <p>Creates a direct linkage between learning activity and business outcomes, ensuring every dollar of training investment drives measurable capability gains.</p>
+            </div>
+          </div>
+          <div class="bp-item">
+            <div class="bp-accent"></div>
+            <div>
+              <h4>Workforce Resilience &amp; Future-Readiness</h4>
+              <p>Identifies emerging skill demands against current workforce profiles, enabling proactive capability development aligned to strategic transformation.</p>
+            </div>
+          </div>
+          <div class="bp-item">
+            <div class="bp-accent"></div>
+            <div>
+              <h4>Board-Level Capability Reporting</h4>
+              <p>Translates skill data into executive-ready dashboards and risk matrices, providing CHROs with the evidence base to drive board-level investment decisions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bp-compare">
+          <h3 class="bp-compare-title">Before vs. After Edstellar's TNA</h3>
+          <p class="bp-compare-sub">See how each decision dimension transforms from assumption-based to evidence-driven after a structured diagnostic.</p>
+          <div class="bp-compare-legend">
+            <div class="bp-legend-item"><span class="bp-legend-dot before"></span><span style="color:#C0392B;">Before TNA</span></div>
+            <div class="bp-legend-item"><span class="bp-legend-dot after"></span><span style="color:#2a7a3a;">After Edstellar's TNA</span></div>
+          </div>
+          <div class="bp-vis-grid">
+            <!-- Row 1: Training prioritization -->
+            <div class="bp-vis-row">
+              <div class="bp-dim">
+                <div class="bp-dim-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 13l3-6 3 4 2.5-2.5L15 13" stroke="var(--navy)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="3" width="14" height="12" rx="2" stroke="var(--navy)" stroke-width="1.5"/></svg></div>
+                Training prioritization
+              </div>
+              <div class="bp-col bp-col-before">
+                <div class="bp-col-label">Before</div>
+                <div class="bp-col-text">Based on requests and vendor availability</div>
+              </div>
+              <div class="bp-col bp-col-after">
+                <div class="bp-col-label">After</div>
+                <div class="bp-col-text">Based on risk, impact, and role criticality</div>
+              </div>
+            </div>
+            <!-- Row 2: Skill visibility -->
+            <div class="bp-vis-row">
+              <div class="bp-dim">
+                <div class="bp-dim-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="3" stroke="var(--navy)" stroke-width="1.5"/><path d="M2 9s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5z" stroke="var(--navy)" stroke-width="1.5"/></svg></div>
+                Skill visibility
+              </div>
+              <div class="bp-col bp-col-before">
+                <div class="bp-col-label">Before</div>
+                <div class="bp-col-text">Anecdotal, manager-dependent</div>
+              </div>
+              <div class="bp-col bp-col-after">
+                <div class="bp-col-label">After</div>
+                <div class="bp-col-text">Quantified, triangulated, role-mapped</div>
+              </div>
+            </div>
+            <!-- Row 3: Spend efficiency -->
+            <div class="bp-vis-row">
+              <div class="bp-dim">
+                <div class="bp-dim-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="var(--navy)" stroke-width="1.5"/><path d="M9 5v8M7 7h4a1.5 1.5 0 0 1 0 3H7h4a1.5 1.5 0 0 1 0 3H7" stroke="var(--navy)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                Spend efficiency
+              </div>
+              <div class="bp-col bp-col-before">
+                <div class="bp-col-label">Before</div>
+                <div class="bp-col-text">Flat budget, equal allocation</div>
+              </div>
+              <div class="bp-col bp-col-after">
+                <div class="bp-col-label">After</div>
+                <div class="bp-col-text">Weighted by business exposure and gap severity</div>
+              </div>
+            </div>
+            <!-- Row 4: Root cause clarity -->
+            <div class="bp-vis-row">
+              <div class="bp-dim">
+                <div class="bp-dim-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="var(--navy)" stroke-width="1.5"/><circle cx="9" cy="9" r="4" stroke="var(--navy)" stroke-width="1.5"/><circle cx="9" cy="9" r="1.5" fill="var(--navy)"/></svg></div>
+                Root cause clarity
+              </div>
+              <div class="bp-col bp-col-before">
+                <div class="bp-col-label">Before</div>
+                <div class="bp-col-text">"We need more training"</div>
+              </div>
+              <div class="bp-col bp-col-after">
+                <div class="bp-col-label">After</div>
+                <div class="bp-col-text">Training vs. process vs. systems vs. role design</div>
+              </div>
+            </div>
+            <!-- Row 5: Executive reporting -->
+            <div class="bp-vis-row">
+              <div class="bp-dim">
+                <div class="bp-dim-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="var(--navy)" stroke-width="1.5"/><path d="M6 7v4M9 9v2M12 5v6" stroke="var(--navy)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                Executive reporting
+              </div>
+              <div class="bp-col bp-col-before">
+                <div class="bp-col-label">Before</div>
+                <div class="bp-col-text">Activity metrics (hours, completions)</div>
+              </div>
+              <div class="bp-col bp-col-after">
+                <div class="bp-col-label">After</div>
+                <div class="bp-col-text">Capability readiness, risk reduction, ROI projection</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 8: PARTNER LOGOS (Logo Wall)
+       ══════════════════════════════════════════════════ -->
+  <section id="partner-logos">
+    <div class="lw-container">
+      <div class="lw-label"><span class="lw-bar"></span><span>Our Clients</span></div>
+      <h2 class="lw-heading">Partners That Trust Edstellar</h2>
+      <p class="lw-intro">Leading organizations across industries trust Edstellar to transform their learning and development strategies. Our proven track record includes successful partnerships with Fortune 500 companies, innovative startups, and respected public sector organizations.</p>
+      <div class="lw-grid">
+        <span class="lw-logo">Sangam</span>
+        <span class="lw-logo">Datawrkz</span>
+        <span class="lw-logo">Digit Life Insurance</span>
+        <span class="lw-logo">PIE</span>
+        <span class="lw-logo">Get</span>
+        <span class="lw-logo">National Bank of Iraq</span>
+        <span class="lw-logo">Fito</span>
+        <span class="lw-logo">Cloudify</span>
+        <span class="lw-logo">ADB SAFE Gate</span>
+        <span class="lw-logo">Jet Parts</span>
+        <span class="lw-logo">CIPS</span>
+        <span class="lw-logo">Uber</span>
+        <span class="lw-logo">Cummins</span>
+        <span class="lw-logo">Deriv</span>
+        <span class="lw-logo">Visa</span>
+        <span class="lw-logo">Majestic Asset Management</span>
+        <span class="lw-logo">D B Corp Ltd</span>
+        <span class="lw-logo">Ujjivan Small Finance Bank</span>
+        <span class="lw-logo">KIET Group</span>
+        <span class="lw-logo">Regeneron</span>
+        <span class="lw-logo">Hudson Link</span>
+        <span class="lw-logo">Sunstone</span>
+        <span class="lw-logo">SPI Pharma</span>
+        <span class="lw-logo">Bechtel</span>
+        <span class="lw-logo">Royal Group</span>
+        <span class="lw-logo">KPMG</span>
+        <span class="lw-logo">Ideal Solutions</span>
+        <span class="lw-logo">Aditya Birla Group</span>
+        <span class="lw-logo">Dayforce</span>
+        <span class="lw-logo">EPL Global</span>
+        <span class="lw-logo">ETP International</span>
+        <span class="lw-logo">Circle K</span>
+        <span class="lw-logo">Maharana Pratap Group</span>
+        <span class="lw-logo">ERGO Technology</span>
+        <span class="lw-logo">Oswaal Books</span>
+        <span class="lw-logo">Uplers</span>
+        <span class="lw-logo">Mankiewicz India</span>
+        <span class="lw-logo">Market99</span>
+        <span class="lw-logo">Boston Consulting Group</span>
+        <span class="lw-logo">Motorq</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 9: METHODOLOGY (Process Vertical Stepper)
+       ══════════════════════════════════════════════════ -->
+  <section id="methodology">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="header-left">
+          <div class="section-label"><div class="bar"></div><span>Diagnostic Framework</span></div>
+          <h2>Our Approach to Training Needs Analysis</h2>
+        </div>
+        <div class="header-right">
+          <p>Our 5-phase Training Needs Analysis methodology is designed for enterprise scale, rigor, and actionability. Each phase of our TNA service produces decision-ready outputs.</p>
+        </div>
+      </div>
+
+      <div class="stepper">
+
+        <div class="step">
+          <div class="step-marker">01</div>
+          <div class="step-card">
+            <div class="step-top">
+              <div class="step-title">Phase 1: Business &amp; Performance Context</div>
+              <div class="step-badges">
+                <span class="badge badge-tag">Strategy alignment</span>
+                <span class="badge badge-tag">KPI mapping</span>
+              </div>
+            </div>
+            <div class="step-desc">Interviews with CXOs and BU heads establish strategic context. We map business objectives to workforce capability requirements, identify priority job families, and define diagnostic success criteria aligned to business outcomes.</div>
+            <div class="step-bullets">
+              <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Map strategy and KPIs</div>
+              <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Transformation priorities</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-marker">02</div>
+          <div class="step-card">
+            <div class="step-top">
+              <div class="step-title">Phase 2: Role &amp; Skill Architecture Mapping</div>
+              <div class="step-badges">
+                <span class="badge badge-tag">Skill taxonomy</span>
+                <span class="badge badge-tag">Role mapping</span>
+              </div>
+            </div>
+            <div class="step-desc">Using industry benchmarks and organizational context, we construct or validate a role-skill architecture mapping technical, functional, and behavioral competencies to job families, levels, and career progression.</div>
+            <div class="step-bullets">
+              <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Build structured skill taxonomy</div>
+              <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Competency requirements analysis</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-marker">03</div>
+          <div class="step-card">
+            <div class="step-top">
+              <div class="step-title">Phase 3: Skill &amp; Capability Assessments</div>
+              <div class="step-badges">
+                <span class="badge badge-tag">Skill assessments</span>
+                <span class="badge badge-tag">360 inputs</span>
+              </div>
+            </div>
+            <div class="step-desc">We deploy a minimum of three independent data sources per insight, combining quantitative assessments, qualitative inputs, and performance data to produce validated, bias-reduced findings.</div>
+            <div class="step-bullets">
+              <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Triangulated multi-source assessments</div>
+              <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Focus group assessment</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-marker">04</div>
+          <div class="step-card">
+            <div class="step-top">
+              <div class="step-title">Phase 4: Gap Prioritization &amp; Risk Classification</div>
+              <div class="step-badges">
+                <span class="badge badge-tag">Risk scoring</span>
+                <span class="badge badge-tag">Priority matrix</span>
+              </div>
+            </div>
+            <div class="step-desc">Each gap is scored across business impact (revenue, safety, compliance), workforce exposure (roles affected), and time sensitivity, producing a quadrant-based priority matrix for resource allocation.</div>
+            <div class="step-bullets">
+              <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Rank gaps by impact and exposure</div>
+              <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Competency gap analysis</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-marker">05</div>
+          <div class="step-card">
+            <div class="step-top">
+              <div class="step-title">Phase 5: Learning Strategy &amp; Execution Alignment</div>
+              <div class="step-badges">
+                <span class="badge badge-tag">30-60-90 roadmap</span>
+                <span class="badge badge-tag">ROI modeling</span>
+              </div>
+            </div>
+            <div class="step-desc">The final stage produces a modular learning architecture with phased interventions, role-specific pathways, and measurement frameworks. Includes distinction between training solutions, process improvements, and structural changes.</div>
+            <div class="step-bullets">
+              <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Phased roadmap with clear ownership</div>
+              <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Personalized learning roadmap</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 10: DOWNLOAD ONE-PAGER
+       ══════════════════════════════════════════════════ -->
+  <section id="download-onepager">
+    <div class="banner-card">
+      <div class="banner-left">
+        <div class="banner-label">
+          <div class="bar"></div>
+          <span>Free Download</span>
+        </div>
+        <h2>Share Edstellar's TNA Methodology, Download the One-Pager</h2>
+        <p>A single-page visual summary of Edstellar's 5-phase diagnostic process, suitable for printing and sharing with internal stakeholders when proposing a TNA engagement.</p>
+        <div class="banner-features">
+          <div class="banner-feat">
+            <div class="feat-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2.5" stroke="var(--lime-text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            5-phase framework
+          </div>
+          <div class="banner-feat">
+            <div class="feat-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2.5" stroke="var(--lime-text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Print-ready A4
+          </div>
+          <div class="banner-feat">
+            <div class="feat-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2.5" stroke="var(--lime-text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            No form required
+          </div>
+        </div>
+        <button class="btn-lime">
+          Download the One-Pager
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v8M5 8l3 3 3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 13h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="banner-right">
+        <div class="asset-preview">
+          <div class="asset-thumb">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="2" width="18" height="24" rx="3" stroke="var(--text-secondary)" stroke-width="1.8"/><path d="M9 10h8M9 14h5M9 18h8" stroke="var(--text-secondary)" stroke-width="1.5" stroke-linecap="round"/><rect x="12" y="7" width="16" height="22" rx="3" stroke="var(--text-secondary)" stroke-width="1.8" fill="var(--surface)"/><path d="M17 14h6M17 18h4M17 22h6" stroke="var(--text-secondary)" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>TNA methodology preview</span>
+          </div>
+          <div class="asset-name">TNA Methodology One-Pager</div>
+          <div class="asset-meta">1 page &middot; A4 print-ready</div>
+          <div class="asset-format">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="1" y="1" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+            PDF
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 11: ASSESSMENT TYPES (Custom 2x2)
+       ══════════════════════════════════════════════════ -->
+  <div id="assessment-types">
+    <section class="at-section">
+      <div class="at-container">
+        <div class="at-label"><span class="at-bar"></span><span>Assessment Services</span></div>
+        <h2 class="at-heading">Drive Transformation with Data-Driven Training Needs Analysis Insights</h2>
+        <p class="at-intro">Explore our wide range of assessments and services, designed to address unique training and development needs.</p>
+        <div class="at-grid">
+          <div class="at-card">
+            <div class="at-card-img"><div class="at-card-img-inner" style="border:none;background:transparent;">
+              <img src="https://images.unsplash.com/photo-1758691736424-4b4273948341?w=600&h=400&fit=crop&q=80" alt="Senior executive presenting organizational strategy to colleagues in a modern boardroom" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+            </div></div>
+            <div class="at-card-header"><h3>Organizational Needs Assessment</h3></div>
+            <div class="at-card-body">
+              <ul>
+                <li>Business Strategy Alignment</li>
+                <li>Leadership Effectiveness Review</li>
+                <li>Resource Utilization Analysis</li>
+                <li>Current Skill Mapping</li>
+                <li>Capability Gaps Identification</li>
+                <li>Actionable Improvement Recommendations</li>
+              </ul>
+            </div>
+          </div>
+          <div class="at-card">
+            <div class="at-card-img"><div class="at-card-img-inner" style="border:none;background:transparent;">
+              <img src="https://images.unsplash.com/photo-1758873269276-9518d0cb4a0b?w=600&h=400&fit=crop&q=80" alt="Diverse cross-functional team collaborating on performance evaluation around a shared table" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+            </div></div>
+            <div class="at-card-header"><h3>Operational Needs Assessment</h3></div>
+            <div class="at-card-body">
+              <ul>
+                <li>Team Performance Evaluation</li>
+                <li>Role Competency Assessment</li>
+                <li>Process Efficiency Review</li>
+                <li>Skill Set Alignment</li>
+                <li>Resource Allocation Review</li>
+                <li>Gap Prioritization Strategy</li>
+              </ul>
+            </div>
+          </div>
+          <div class="at-card">
+            <div class="at-card-img"><div class="at-card-img-inner" style="border:none;background:transparent;">
+              <img src="https://images.unsplash.com/photo-1758518729463-0bb73ed899ac?w=600&h=400&fit=crop&q=80" alt="Executive professionals discussing leadership development in a modern office setting" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+            </div></div>
+            <div class="at-card-header"><h3>Leadership Development / Critical Role Needs Analysis</h3></div>
+            <div class="at-card-body">
+              <ul>
+                <li>Leadership Effectiveness Evaluation</li>
+                <li>Executive Performance Review</li>
+                <li>Leadership Competency Assessment</li>
+                <li>Leadership Impact Assessment</li>
+                <li>Senior Leadership Review</li>
+                <li>Executive Capability Assessment</li>
+              </ul>
+            </div>
+          </div>
+          <div class="at-card">
+            <div class="at-card-img"><div class="at-card-img-inner" style="border:none;background:transparent;">
+              <img src="https://images.unsplash.com/photo-1758691737045-3ece61135061?w=600&h=400&fit=crop&q=80" alt="Diverse team brainstorming change readiness with sticky notes on glass wall" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+            </div></div>
+            <div class="at-card-header"><h3>Change &amp; Capability Needs Assessment</h3></div>
+            <div class="at-card-body">
+              <ul>
+                <li>Organizational Change Readiness</li>
+                <li>Cultural Alignment Assessment</li>
+                <li>Leadership Impact Evaluation</li>
+                <li>Skill Gaps Identification</li>
+                <li>Implementation Barriers Analysis</li>
+                <li>Adaptability &amp; Flexibility Check</li>
+                <li>Strategic Transformation Roadmap</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="at-cta">
+          <p style="font-size:15px;color:var(--text-secondary);margin-bottom:16px;">If you have specific tailored needs, we're here to customize the perfect solution for your organization.</p>
+          <a href="#">Start Your Training Needs Analysis</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 12: DIAGNOSTIC METHODS (Custom 6-method grid)
+       ══════════════════════════════════════════════════ -->
+  <div id="diagnostic-methods">
+    <section class="dm-section">
+      <div class="dm-container">
+        <div class="dm-header">
+          <div>
+            <div class="dm-label"><span class="dm-bar"></span><span>Diagnostic Rigour</span></div>
+            <h2 class="dm-heading">Advanced Assessment Methods for Training Needs Analysis</h2>
+          </div>
+          <div>
+            <p class="dm-intro">Single-source assessments produce biased decisions. Edstellar's diagnostic model requires multi-source validation for every critical finding.</p>
+          </div>
+        </div>
+
+        <div class="dm-rule">
+          <div class="dm-rule-icon">
+            <svg width="18" height="18" viewBox="0 0 22 22" fill="none"><path d="M11 2a9 9 0 1 1 0 18 9 9 0 0 1 0-18z" stroke="var(--lime)" stroke-width="1.8"/><path d="M7 11l3 3 5-5" stroke="var(--lime)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <p><strong>Triangulation Rule:</strong> All key insights are validated using a minimum of three independent data sources. No capability gap is classified as critical based on a single assessment method.</p>
+        </div>
+
+        <div class="dm-grid">
+          <div class="dm-card">
+            <h4>Structured Surveys</h4>
+            <div class="dm-fields">
+              <div><div class="dm-field-label">Data Collected</div><div class="dm-field-text">Skill self-ratings, confidence levels, frequency of application across populations</div></div>
+              <div><div class="dm-field-label">Bias Reduced</div><div class="dm-field-text">Manager subjectivity, recency bias, small-sample anecdotes</div></div>
+              <div><div class="dm-field-label">Decision Enabled</div><div class="dm-field-text">Broad-base skill visibility and quantified proficiency baselines</div></div>
+            </div>
+          </div>
+
+          <div class="dm-card">
+            <h4>Manager &amp; Leadership Inputs</h4>
+            <div class="dm-fields">
+              <div><div class="dm-field-label">Data Collected</div><div class="dm-field-text">Performance gaps, readiness assessments, promotion considerations from direct managers</div></div>
+              <div><div class="dm-field-label">Bias Reduced</div><div class="dm-field-text">Self-assessment inflation, Dunning-Kruger effects</div></div>
+              <div><div class="dm-field-label">Decision Enabled</div><div class="dm-field-text">Succession readiness scoring and development priority ranking</div></div>
+            </div>
+          </div>
+
+          <div class="dm-card">
+            <h4>Interviews &amp; Focus Groups</h4>
+            <div class="dm-fields">
+              <div><div class="dm-field-label">Data Collected</div><div class="dm-field-text">Root cause insights, cultural barriers, systemic issues from qualitative deep-dives</div></div>
+              <div><div class="dm-field-label">Bias Reduced</div><div class="dm-field-text">Survey fatigue, quantitative blind spots, context loss</div></div>
+              <div><div class="dm-field-label">Decision Enabled</div><div class="dm-field-text">Training vs. non-training root cause separation</div></div>
+            </div>
+          </div>
+
+          <div class="dm-card">
+            <h4>Performance &amp; Operational Data</h4>
+            <div class="dm-fields">
+              <div><div class="dm-field-label">Data Collected</div><div class="dm-field-text">Objective performance baselines, trend analysis, error rates, productivity metrics</div></div>
+              <div><div class="dm-field-label">Bias Reduced</div><div class="dm-field-text">Perception-based assessments, opinion-driven conclusions</div></div>
+              <div><div class="dm-field-label">Decision Enabled</div><div class="dm-field-text">ROI modeling, impact quantification, baseline-to-target tracking</div></div>
+            </div>
+          </div>
+
+          <div class="dm-card">
+            <h4>Role &amp; Skill Architecture</h4>
+            <div class="dm-fields">
+              <div><div class="dm-field-label">Data Collected</div><div class="dm-field-text">Required vs. actual skill profiles mapped to each role family and career level</div></div>
+              <div><div class="dm-field-label">Bias Reduced</div><div class="dm-field-text">Ad-hoc skill definitions, role ambiguity, inconsistent expectations</div></div>
+              <div><div class="dm-field-label">Decision Enabled</div><div class="dm-field-text">Role-specific gap quantification and coverage analysis</div></div>
+            </div>
+          </div>
+
+          <div class="dm-card">
+            <h4>Psychometric &amp; Behavioral</h4>
+            <div class="dm-fields">
+              <div><div class="dm-field-label">Data Collected</div><div class="dm-field-text">Behavioral tendencies, cognitive styles, leadership potential indicators</div></div>
+              <div><div class="dm-field-label">Bias Reduced</div><div class="dm-field-text">Skills-only lens for leadership roles, technical bias in promotion</div></div>
+              <div><div class="dm-field-label">Decision Enabled</div><div class="dm-field-text">Leadership development pathways, high-potential identification</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 13: DELIVERABLES & OUTCOMES
+       ══════════════════════════════════════════════════ -->
+  <section id="deliverables">
+    <div class="dv-inner">
+      <div class="dv-header">
+        <div class="dv-label"><div class="bar"></div><span>Outcomes &amp; Deliverables</span></div>
+        <h2 class="dv-heading">What You Receive: Training Needs Analysis Deliverables &amp; Outcomes</h2>
+        <p class="dv-intro">Each deliverable enables a specific enterprise decision, from board-level investment cases to team-level learning plans.</p>
+      </div>
+
+      <div class="dv-layout">
+        <!-- Left: Image -->
+        <div class="dv-image" style="border:none;background:transparent;">
+          <img src="https://images.unsplash.com/photo-1758691736433-4078b93abd72?w=500&h=700&fit=crop&q=80" alt="Senior leader presenting TNA diagnostic report and governance framework in boardroom" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+        </div>
+
+        <!-- Right: Accordion cards -->
+        <div class="dv-list">
+          <div class="dv-item active">
+            <div class="dv-question">
+              <div class="dv-letter">A</div>
+              <div class="dv-title">Skill Mapping &amp; Capability Assessment</div>
+              <div class="dv-toggle">+</div>
+            </div>
+            <div class="dv-answer">
+              <p>Role-based skill mapping quantified across teams, levels, and leadership pipelines. Every capability gap is measured, not assumed.</p>
+              <ul class="dv-features">
+                <li>Role-specific skill proficiency mapping</li>
+                <li>Team/department-level aggregation</li>
+                <li>Quantified gap severity scores (1-5)</li>
+                <li>Leadership pipeline readiness indicators</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="dv-item">
+            <div class="dv-question">
+              <div class="dv-letter">B</div>
+              <div class="dv-title">Role-Based Skill Coverage Analysis</div>
+              <div class="dv-toggle">+</div>
+            </div>
+            <div class="dv-answer">
+              <p>Role-wise readiness vs. requirement across critical job families. Identifies which roles need the most investment.</p>
+              <ul class="dv-features">
+                <li>Skill coverage percentage by role group</li>
+                <li>Gap-to-target ratios</li>
+                <li>Team-level comparisons</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="dv-item">
+            <div class="dv-question">
+              <div class="dv-letter">C</div>
+              <div class="dv-title">Skill Criticality &amp; Risk Classification</div>
+              <div class="dv-toggle">+</div>
+            </div>
+            <div class="dv-answer">
+              <p>Ranks every identified skill gap by business impact and workforce exposure for risk-weighted investment allocation.</p>
+              <ul class="dv-features">
+                <li>Business impact scoring (revenue, safety, compliance)</li>
+                <li>Workforce exposure measurement</li>
+                <li>Board-ready risk visualization</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="dv-item">
+            <div class="dv-question">
+              <div class="dv-letter">D</div>
+              <div class="dv-title">Leadership &amp; Critical Capability Readiness</div>
+              <div class="dv-toggle">+</div>
+            </div>
+            <div class="dv-answer">
+              <p>Maps leadership competency readiness across the hierarchy and identifies succession opportunities in critical roles.</p>
+              <ul class="dv-features">
+                <li>Leadership competency profiling by tier</li>
+                <li>Succession readiness scores</li>
+                <li>Future-state capability model</li>
+                <li>High-potential identification</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="dv-item">
+            <div class="dv-question">
+              <div class="dv-letter">E</div>
+              <div class="dv-title">Root Cause Clarity</div>
+              <div class="dv-toggle">+</div>
+            </div>
+            <div class="dv-answer">
+              <p>Not every performance gap is a training gap. This analysis separates true skill deficiencies from process, tools, role design, and leadership constraints.</p>
+              <ul class="dv-features">
+                <li>Performance gap categorization by root cause</li>
+                <li>Non-training intervention recommendations</li>
+                <li>Training spend redirection opportunities</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="dv-item">
+            <div class="dv-question">
+              <div class="dv-letter">F</div>
+              <div class="dv-title">Prioritised 30-60-90 Day Capability Roadmap</div>
+              <div class="dv-toggle">+</div>
+            </div>
+            <div class="dv-answer">
+              <p>Role- and level-specific interventions organised into a phased, executable plan with clear ownership and success metrics.</p>
+              <ul class="dv-features">
+                <li>Phased intervention calendar</li>
+                <li>Modular learning architecture</li>
+                <li>Non-training recommendations integrated</li>
+                <li>Measurement framework with indicators</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 14: DOWNLOAD WORKBOOK
+       ══════════════════════════════════════════════════ -->
+  <section id="download-workbook">
+    <div class="dw-inner">
+      <div class="dw-preview">
+        <div class="dw-thumb">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="2" width="18" height="24" rx="3" stroke="var(--text-secondary)" stroke-width="1.8"/><path d="M9 10h8M9 14h5M9 18h8" stroke="var(--text-secondary)" stroke-width="1.5" stroke-linecap="round"/><rect x="12" y="7" width="16" height="22" rx="3" stroke="var(--text-secondary)" stroke-width="1.8" fill="var(--surface)"/><path d="M17 14h6M17 18h4M17 22h6" stroke="var(--text-secondary)" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span>Workbook preview</span>
+        </div>
+        <div class="dw-asset-title">Skills Gap Analysis Workbook</div>
+        <div class="dw-desc">Pre-built templates for role-skill matrices, gap scoring, and priority ranking.</div>
+        <button class="dw-btn-lime">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v8M5 8l3 3 3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 13h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          XLSX
+        </button>
+      </div>
+      <div class="dw-content">
+        <h2>Download the Free Skills Gap Analysis Workbook</h2>
+        <p>A ready-to-use Excel workbook with pre-built templates for role-skill matrices, gap scoring, and priority ranking.</p>
+        <ul class="dw-features">
+          <li>Role-skill matrix</li>
+          <li>Gap scoring template</li>
+          <li>Priority ranking</li>
+        </ul>
+        <button class="dw-btn-outline">
+          Download the Free Workbook
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 3v8M5 8l3 3 3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 13h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 15: PROCESS & TIMELINE
+       ══════════════════════════════════════════════════ -->
+  <section id="process-timeline">
+    <div class="pt-inner">
+      <h2 class="pt-heading">How Our Training Needs Analysis Service Works, Process &amp; Timeline</h2>
+      <p class="pt-intro">Our Training Needs Analysis engagements are structured for speed, rigor, and minimal disruption.</p>
+      <div class="pt-grid">
+        <div class="pt-card">
+          <div class="pt-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3>Duration</h3>
+          <p>2-6 weeks depending on scope and organization size</p>
+        </div>
+        <div class="pt-card">
+          <div class="pt-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          </div>
+          <h3>Scope Options</h3>
+          <p>Org-wide baseline, BU-level analysis, or focused critical role assessment</p>
+        </div>
+        <div class="pt-card">
+          <div class="pt-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+          </div>
+          <h3>Inputs Required</h3>
+          <p>Role definitions, performance metrics, stakeholder participation</p>
+        </div>
+        <div class="pt-card">
+          <div class="pt-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h3>Stakeholders Involved</h3>
+          <p>CHRO / L&amp;D leadership, BU heads, HRBPs &amp; transformation teams</p>
+        </div>
+        <div class="pt-card">
+          <div class="pt-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+          </div>
+          <h3>After the Diagnostic</h3>
+          <p>L&amp;D architecture design, targeted training, ongoing capability tracking</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 16: IMPACT STATS
+       ══════════════════════════════════════════════════ -->
+  <section id="impact-stats">
+    <div class="is-layout">
+      <div class="is-heading">
+        <div class="is-bar"><div class="bar"></div><span class="label">Diagnostic Impact</span></div>
+        <h2>Built for Enterprises Who Demand Evidence</h2>
+        <p>Edstellar diagnostic outcomes are measured against business KPIs, not training activity.</p>
+      </div>
+      <div class="is-grid">
+        <div class="is-card">
+          <div class="is-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div>
+            <div class="is-num">300<span class="sym">+</span></div>
+            <div class="is-label">Clients trust us with their learning and development needs</div>
+          </div>
+        </div>
+        <div class="is-card">
+          <div class="is-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div>
+            <div class="is-num">20<span class="sym">+</span></div>
+            <div class="is-label">Industries served with effective learning solutions</div>
+          </div>
+        </div>
+        <div class="is-card">
+          <div class="is-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+          </div>
+          <div>
+            <div class="is-num">95<span class="sym">%</span></div>
+            <div class="is-label">Clients uncover hidden behavioral gaps and performance barriers</div>
+          </div>
+        </div>
+        <div class="is-card">
+          <div class="is-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+          </div>
+          <div>
+            <div class="is-num">85<span class="sym">%</span></div>
+            <div class="is-label">Clients report significant improvement in training ROI after aligning programs with insights</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 17: CASE STUDIES
+       ══════════════════════════════════════════════════ -->
+  <section id="case-studies">
+    <div class="cs-inner">
+      <div class="cs-header">
+        <div class="cs-label"><div class="bar"></div><span>Evidence of Impact</span><div class="bar"></div></div>
+        <h2>Edstellar Case Studies, Metrics-First Outcomes</h2>
+        <p>Diagnostic outcomes measured against business KPIs, not training activity.</p>
+      </div>
+
+      <div class="cs-card">
+        <div class="cs-panels" id="csPanels">
+
+          <div class="cs-panel active">
+            <div class="cs-panel-inner">
+              <div class="cs-panel-image" style="border:none;background:transparent;">
+                <img src="https://images.unsplash.com/photo-1758691736484-4914d363a3cc?w=600&h=500&fit=crop&q=80" alt="Assessment specialist presenting diagnostic findings and charts on screen during technology leadership meeting" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+              </div>
+              <div class="cs-panel-content">
+                <div class="cs-industry">Global Technology</div>
+                <div class="cs-title">Enterprise Cloud &amp; AI Capability Diagnostic</div>
+                <div class="cs-detail"><strong>Baseline:</strong> $5.2M training budget with no measurable business outcome linkage. Cloud migration stalled.</div>
+                <div class="cs-detail"><strong>Diagnostic:</strong> 5-stage TNA across 1,200 technical roles. Triangulated assessments, manager inputs, production metrics.</div>
+                <div class="cs-detail"><strong>Output:</strong> 78% of spend targeting non-critical skills. 23 role families with critical cloud gaps.</div>
+                <div class="cs-detail"><strong>Result:</strong> Redirected 45% of budget. Cloud readiness at target in 90 days. $2.4M in reallocated spend.</div>
+                <div class="cs-stats">
+                  <div class="cs-stat"><div class="num">45<span class="sym">%</span></div><div class="slabel">Efficiency gain</div></div>
+                  <div class="cs-stat"><div class="num">$2.4<span class="sym">M</span></div><div class="slabel">Annual savings</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cs-panel">
+            <div class="cs-panel-inner">
+              <div class="cs-panel-image" style="border:none;background:transparent;">
+                <img src="https://images.unsplash.com/photo-1758518730178-6e237bc8b87d?w=600&h=500&fit=crop&q=80" alt="Business professionals collaborating on compliance and leadership pipeline diagnostics around a conference table" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+              </div>
+              <div class="cs-panel-content">
+                <div class="cs-industry">Financial Services</div>
+                <div class="cs-title">Compliance &amp; Leadership Pipeline Diagnostic</div>
+                <div class="cs-detail"><strong>Baseline:</strong> 38% attrition in mid-management. Role expectations undefined across 15 job families.</div>
+                <div class="cs-detail"><strong>Diagnostic:</strong> TNA with focus groups, 360 assessments, compliance performance data. 800 employees.</div>
+                <div class="cs-detail"><strong>Output:</strong> 60% of attrition linked to role ambiguity (non-training). Compliance gaps in 3 functions.</div>
+                <div class="cs-detail"><strong>Result:</strong> Role redesign for 15 families. Targeted compliance deep-dives. 30% attrition drop in 6 months.</div>
+                <div class="cs-stats">
+                  <div class="cs-stat"><div class="num">30<span class="sym">%</span></div><div class="slabel">Attrition reduction</div></div>
+                  <div class="cs-stat"><div class="num">85<span class="sym">%</span></div><div class="slabel">Role clarity</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cs-panel">
+            <div class="cs-panel-inner">
+              <div class="cs-panel-image" style="border:none;background:transparent;">
+                <img src="https://images.unsplash.com/photo-1758691736548-073bc97cdff4?w=600&h=500&fit=crop&q=80" alt="Professional facilitating an operational excellence workshop for manufacturing assessment" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+              </div>
+              <div class="cs-panel-content">
+                <div class="cs-industry">Advanced Manufacturing</div>
+                <div class="cs-title">Operational Excellence &amp; Safety Diagnostic</div>
+                <div class="cs-detail"><strong>Baseline:</strong> Throughput plateaued despite 3 years of increased training. Safety incidents stable.</div>
+                <div class="cs-detail"><strong>Diagnostic:</strong> TNA across 2,400 operations roles. Skill assessments + production data + incident audits.</div>
+                <div class="cs-detail"><strong>Output:</strong> 72% of gaps were process/tools issues. 4 critical safety skills had zero training coverage.</div>
+                <div class="cs-detail"><strong>Result:</strong> Eliminated redundant programs. Redirected budget. 20% throughput gain with $0 incremental spend.</div>
+                <div class="cs-stats">
+                  <div class="cs-stat"><div class="num">20<span class="sym">%</span></div><div class="slabel">Throughput increase</div></div>
+                  <div class="cs-stat"><div class="num">$0</div><div class="slabel">New training spend</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="cs-nav">
+        <button class="cs-nav-btn" id="csPrev"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 3l-4 4 4 4" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="cs-counter"><span class="cur" id="csNum">01</span> / 03</div>
+        <button class="cs-nav-btn" id="csNext"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 18: TESTIMONIALS
+       ══════════════════════════════════════════════════ -->
+  <section id="testimonials-section">
+    <div class="tm-inner">
+      <div class="tm-layout">
+        <div class="tm-left">
+          <h2><span class="accent">Training needs analysis services</span> <span class="dark">that deliver measurable results</span></h2>
+          <p>Leading organizations trust our Training Needs Analysis to identify critical skill gaps and shape training initiatives that support business growth and performance.</p>
+          <div class="tm-arrows">
+            <button class="tm-arrow prev" id="tmPrev"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 4l-4 4 4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="tm-arrow next" id="tmNext"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+        <div class="tm-carousel" id="tmCarousel">
+
+          <div class="tm-card active">
+            <div class="tm-text">"Edstellar's TNA process revealed crucial skill gaps we weren't aware of, by aligning training with business objectives, we've significantly improved team productivity."</div>
+            <div class="tm-author">
+              <div class="tm-avatar">JM</div>
+              <div>
+                <div class="tm-name">James Mitchell</div>
+                <div class="tm-role">Chief People Officer, large technology company, United States</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tm-card">
+            <div class="tm-text">"Through detailed performance reviews and focused surveys, the team at Edstellar helped us identify key areas for development. It's now easier to allocate training resources where they'll have the most impact."</div>
+            <div class="tm-author">
+              <div class="tm-avatar">SW</div>
+              <div>
+                <div class="tm-name">Sophia White</div>
+                <div class="tm-role">Head of Learning and Development, mid-sized industrial company, Germany</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tm-card">
+            <div class="tm-text">"By conducting a thorough analysis of leadership competencies, Edstellar's Training Needs Analysis provided actionable insights that helped us build a more robust leadership pipeline aligned with our strategic goals."</div>
+            <div class="tm-author">
+              <div class="tm-avatar">LT</div>
+              <div>
+                <div class="tm-name">Liam Thompson</div>
+                <div class="tm-role">Senior HR Manager, global logistics company, Singapore</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tm-card">
+            <div class="tm-text">"The insights from TNA were invaluable. The approach of mapping existing skills and identifying gaps helped us create a clearer, more effective training roadmap for the organisation."</div>
+            <div class="tm-author">
+              <div class="tm-avatar">OB</div>
+              <div>
+                <div class="tm-name">Olivia Bennett</div>
+                <div class="tm-role">Learning Strategy Director, healthcare services company, Australia</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tm-card">
+            <div class="tm-text">"Their comprehensive approach to TNA showed us where we were falling short in developing leadership skills and provided clear guidance for improving future-focused training programs."</div>
+            <div class="tm-author">
+              <div class="tm-avatar">EC</div>
+              <div>
+                <div class="tm-name">Ethan Clarke</div>
+                <div class="tm-role">Global HR Leader, financial services company, Canada</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 19: INDUSTRY DIAGNOSTICS
+       ══════════════════════════════════════════════════ -->
+  <section id="industry-diagnostics">
+    <div class="ind15-inner">
+      <div class="ind15-label"><div class="bar"></div><span>Industry Diagnostics</span></div>
+      <h2 class="ind15-heading">Training Needs Analysis Across Industries</h2>
+      <p class="ind15-intro">Edstellar's TNA methodology adapts to sector-specific competency frameworks, regulatory requirements, and workforce structures.</p>
+
+      <div class="ind15-grid">
+        <!-- 1. IT & Technology -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6M9 13h4" stroke-linecap="round"/><circle cx="16" cy="16" r="2"/></svg></div>
+          <h3>IT &amp; Technology</h3>
+          <p>Cloud, AI/ML, cybersecurity skill readiness mapped to digital transformation roadmaps and engineering role architectures.</p>
+          <div class="ind15-tags"><span class="ind15-tag">Cloud Migration</span><span class="ind15-tag">AI/ML Readiness</span></div>
+        </div>
+        <!-- 2. Manufacturing -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M3 21h18M5 21V7l7-4 7 4v14" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21v-4h6v4M9 10h.01M15 10h.01M9 14h.01M15 14h.01" stroke-linecap="round"/></svg></div>
+          <h3>Manufacturing</h3>
+          <p>Operational excellence, safety compliance, lean methodology, and process engineering capability diagnostics across production teams.</p>
+          <div class="ind15-tags"><span class="ind15-tag">Lean &amp; Six Sigma</span><span class="ind15-tag">Safety</span></div>
+        </div>
+        <!-- 3. BFSI -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+          <h3>BFSI</h3>
+          <p>Regulatory compliance, risk management, digital transformation readiness, and financial acumen diagnostics for banking, insurance, and fintech teams.</p>
+          <div class="ind15-tags"><span class="ind15-tag">Compliance</span><span class="ind15-tag">Risk Mgmt</span></div>
+        </div>
+        <!-- 4. Healthcare -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Healthcare</h3>
+          <p>Clinical competency validation, patient safety protocols, regulatory readiness, and care quality improvement diagnostics.</p>
+          <div class="ind15-tags"><span class="ind15-tag">Patient Safety</span><span class="ind15-tag">Compliance</span></div>
+        </div>
+        <!-- 5. Energy & Utilities -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Energy &amp; Utilities</h3>
+          <p>Safety-critical skill assessments, sustainability capability, and operational compliance diagnostics across distributed field and engineering workforces.</p>
+          <div class="ind15-tags"><span class="ind15-tag">Safety</span><span class="ind15-tag">Sustainability</span></div>
+        </div>
+        <!-- 6. Retail & Consumer -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M3 9h18M3 15h18M12 3v18" stroke-linecap="round"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg></div>
+          <h3>Retail &amp; Consumer</h3>
+          <p>Customer experience, omnichannel capability, supply chain readiness, and commercial skill diagnostics for frontline and management roles.</p>
+          <div class="ind15-tags"><span class="ind15-tag">CX Excellence</span><span class="ind15-tag">Omnichannel</span></div>
+        </div>
+        <!-- 7. Telecommunications -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M5.636 18.364a9 9 0 0 1 0-12.728M18.364 5.636a9 9 0 0 1 0 12.728" stroke-linecap="round"/><path d="M8.464 15.536a5 5 0 0 1 0-7.072M15.536 8.464a5 5 0 0 1 0 7.072" stroke-linecap="round"/><circle cx="12" cy="12" r="1.5"/></svg></div>
+          <h3>Telecommunications</h3>
+          <p>Network technology readiness, digital service capability, and customer retention skill diagnostics for rapidly evolving telecom workforces.</p>
+          <div class="ind15-tags"><span class="ind15-tag">5G / Network</span><span class="ind15-tag">Digital</span></div>
+        </div>
+        <!-- 8. Government & Public Sector -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M3 21h18M4 21V10l8-6 8 6v11" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21v-6h6v6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 2v2" stroke-linecap="round"/></svg></div>
+          <h3>Government &amp; Public Sector</h3>
+          <p>Policy execution capability, digital governance readiness, and public service competency diagnostics for civil service and administrative teams.</p>
+          <div class="ind15-tags"><span class="ind15-tag">Digital Gov</span><span class="ind15-tag">Policy</span></div>
+        </div>
+        <!-- 9. Automobile -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M5 17h14M7 17l1-5h8l1 5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/><path d="M3 17h1M20 17h1M5 12l1-4h12l1 4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Automobile</h3>
+          <p>EV transition readiness, ADAS engineering capability, quality management systems, and shop-floor-to-leadership diagnostics.</p>
+          <div class="ind15-tags"><span class="ind15-tag">EV &amp; ADAS</span><span class="ind15-tag">Quality</span></div>
+        </div>
+        <!-- 10. Logistics & Supply Chain -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><rect x="1" y="6" width="15" height="12" rx="2"/><path d="M16 10h4l3 4v4h-7V10z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="2"/><circle cx="19" cy="18" r="2"/></svg></div>
+          <h3>Logistics &amp; Supply Chain</h3>
+          <p>Warehouse operations capability, demand planning readiness, last-mile optimization skills, and end-to-end supply chain competency diagnostics.</p>
+          <div class="ind15-tags"><span class="ind15-tag">Demand Planning</span><span class="ind15-tag">Last-Mile</span></div>
+        </div>
+        <!-- 11. Pharma & Life Sciences -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M9 3h6v4a6 6 0 0 1-6 6V3z" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7a6 6 0 0 1 0 12H9a6 6 0 0 1 0-12" stroke-linecap="round"/><path d="M12 11v6M9 14h6" stroke-linecap="round"/></svg></div>
+          <h3>Pharma &amp; Life Sciences</h3>
+          <p>Drug safety compliance, clinical trial readiness, GxP workforce validation, and R&amp;D capability diagnostics.</p>
+          <div class="ind15-tags"><span class="ind15-tag">GxP Compliance</span><span class="ind15-tag">R&amp;D</span></div>
+        </div>
+        <!-- 12. Professional Services -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M9 3h6v4H9zM3 7h18v14H3z" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 14h6M12 11v6" stroke-linecap="round"/></svg></div>
+          <h3>Professional Services</h3>
+          <p>Client delivery excellence, consulting methodology proficiency, knowledge management, and billable-team competency diagnostics.</p>
+          <div class="ind15-tags"><span class="ind15-tag">Client Delivery</span><span class="ind15-tag">Advisory</span></div>
+        </div>
+        <!-- 13. Real Estate & Construction -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M2 20h20M4 20V8l6-4v16M10 20V4l10 6v10" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 10h.01M7 13h.01M7 16h.01M14 12h.01M14 15h.01M17 12h.01M17 15h.01" stroke-linecap="round"/></svg></div>
+          <h3>Real Estate &amp; Construction</h3>
+          <p>Project execution capability, safety compliance readiness, BIM proficiency, and site-to-leadership competency diagnostics.</p>
+          <div class="ind15-tags"><span class="ind15-tag">Project Execution</span><span class="ind15-tag">Safety</span></div>
+        </div>
+        <!-- 14. Education & EdTech -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Education &amp; EdTech</h3>
+          <p>Digital pedagogy readiness, instructional design capability, learning technology adoption, and faculty competency diagnostics.</p>
+          <div class="ind15-tags"><span class="ind15-tag">Digital Pedagogy</span><span class="ind15-tag">EdTech</span></div>
+        </div>
+        <!-- 15. Hospitality & Travel -->
+        <div class="ind15-card">
+          <div class="ind15-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 4 9 15 15 0 0 1-4 9 15 15 0 0 1-4-9 15 15 0 0 1 4-9z"/></svg></div>
+          <h3>Hospitality &amp; Travel</h3>
+          <p>Guest experience excellence, revenue management capability, multi-property service standards, and frontline-to-leadership diagnostics.</p>
+          <div class="ind15-tags"><span class="ind15-tag">Guest Experience</span><span class="ind15-tag">Revenue</span></div>
+        </div>
+      </div>
+
+      <button class="ind15-cta">
+        Discuss Your Industry Training Needs Analysis
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 20: EXECUTIVE FAQs
+       ══════════════════════════════════════════════════ -->
+  <section id="faq-section">
+    <div class="fq-inner">
+      <h2><span class="dark">Frequently asked questions on </span><span class="accent">Training Needs Analysis</span></h2>
+      <p>Executive-grade answers linked to business outcomes.</p>
+
+      <div class="fq-list">
+        <div class="fq-item active">
+          <div class="fq-question">
+            <h3>What business outcomes will this TNA improve, and how is impact measured?</h3>
+            <button class="fq-toggle">+</button>
+          </div>
+          <div class="fq-answer">
+            <p>Revenue throughput, quality metrics, cycle time, attrition, customer satisfaction, each is baselined pre-diagnostic, targeted post-analysis, and tracked through execution. Measurement is built into the 30-60-90 roadmap with leading and lagging indicators.</p>
+          </div>
+        </div>
+
+        <div class="fq-item">
+          <div class="fq-question">
+            <h3>How does our TNA distinguish training issues from process, role, or system constraints?</h3>
+            <button class="fq-toggle">+</button>
+          </div>
+          <div class="fq-answer">
+            <p>We separate skill gaps from non-training root causes through triangulated data analysis. Performance issues are categorised as training, process, tools/systems, role design, or leadership constraints, so investments go to the highest-impact fix, not just the default 'more training' response.</p>
+          </div>
+        </div>
+
+        <div class="fq-item">
+          <div class="fq-question">
+            <h3>Which roles and teams should be prioritised first for maximum ROI?</h3>
+            <button class="fq-toggle">+</button>
+          </div>
+          <div class="fq-answer">
+            <p>The diagnostic produces a 'critical roles + highest-risk gaps' priority map, scoring every gap by business impact, workforce exposure, and time sensitivity. This enables precise resource allocation to the interventions that generate the fastest, highest-value returns.</p>
+          </div>
+        </div>
+
+        <div class="fq-item">
+          <div class="fq-question">
+            <h3>What do the deliverables look like, and how actionable are they?</h3>
+            <button class="fq-toggle">+</button>
+          </div>
+          <div class="fq-answer">
+            <p>Capability heatmaps, gap breakdowns by role and function, risk-prioritised intervention recommendations, and a phased 30-60-90 day roadmap with ownership, timelines, and success metrics. Every deliverable is designed to drive a specific decision, not just inform one.</p>
+          </div>
+        </div>
+
+        <div class="fq-item">
+          <div class="fq-question">
+            <h3>How fast can we move from diagnosis to an execution-ready plan?</h3>
+            <button class="fq-toggle">+</button>
+          </div>
+          <div class="fq-answer">
+            <p>A structured action plan is delivered at the conclusion of the diagnostic (typically 2-6 weeks). It includes timelines, role-level ownership assignments, quick wins for immediate impact, and long-term interventions with milestone checkpoints.</p>
+          </div>
+        </div>
+
+        <div class="fq-item">
+          <div class="fq-question">
+            <h3>What makes Edstellar different from training vendors who also offer TNA?</h3>
+            <button class="fq-toggle">+</button>
+          </div>
+          <div class="fq-answer">
+            <p>Diagnostic-led: evidence-based analysis first, then recommendations, including alternatives beyond training. Most vendors start with training catalogs and work backward. Edstellar starts with root cause analysis, builds a priority-ranked capability roadmap, and only then recommends interventions (training and non-training alike).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 21: RESOURCES
+       ══════════════════════════════════════════════════ -->
+  <section id="resources-section">
+    <div class="rs-inner">
+      <h2><span class="accent">Edstellar Resources:</span> <span class="dark">Training Needs Analysis &amp; L&amp;D Strategy</span></h2>
+      <p>Deep dive into industry trends, expert insights, success stories and innovative training practices.</p>
+
+      <div class="rs-grid">
+        <div class="rs-card">
+          <div class="rs-img" style="border:none;background:transparent;">
+            <div class="rs-img-inner">
+              <img src="https://images.unsplash.com/photo-1758691736764-2a88e313b1f2?w=600&h=400&fit=crop&q=80" alt="HR leader presenting strategic workforce planning data to business unit heads" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+            </div>
+          </div>
+          <div class="rs-tags">
+            <span class="rs-tag-blog">BLOG</span>
+            <span class="rs-tag-cat">L&amp;D Strategy</span>
+          </div>
+          <h3>How to Conduct a Training Needs Analysis: Step-by-Step Guide</h3>
+          <span class="rs-date">March 2026</span>
+        </div>
+
+        <div class="rs-card">
+          <div class="rs-img" style="border:none;background:transparent;">
+            <div class="rs-img-inner">
+              <img src="https://images.unsplash.com/photo-1758873271831-c048f79b2283?w=600&h=400&fit=crop&q=80" alt="Professional working on behavioral profiling and assessment data in modern office" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+            </div>
+          </div>
+          <div class="rs-tags">
+            <span class="rs-tag-blog">BLOG</span>
+            <span class="rs-tag-cat">Workforce Optimization</span>
+          </div>
+          <h3>LNA vs TNA: What's the Difference and Which Does Your Organisation Need?</h3>
+          <span class="rs-date">March 2026</span>
+        </div>
+
+        <div class="rs-card">
+          <div class="rs-img" style="border:none;background:transparent;">
+            <div class="rs-img-inner">
+              <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=400&fit=crop&q=80" alt="Professional leading a learning roadmap strategy workshop with team around laptops" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+            </div>
+          </div>
+          <div class="rs-tags">
+            <span class="rs-tag-blog">BLOG</span>
+            <span class="rs-tag-cat">L&amp;D Strategy</span>
+          </div>
+          <h3>How to Build a 30-60-90 Day Learning Roadmap from a TNA</h3>
+          <span class="rs-date">March 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 22: FINAL CTA
+       ══════════════════════════════════════════════════ -->
+  <section id="cta-section">
+    <div class="cta-container">
+      <h2 class="cta-heading">Training Needs Analysis: From Diagnostic to Decision</h2>
+      <p class="cta-desc">Start with a structured diagnostic. End with a risk-prioritised learning strategy backed by evidence, not assumptions.</p>
+      <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
+        <button class="cta-btn">
+          Commission Your Training Needs Analysis
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button style="display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:transparent;color:var(--navy);font-size:15px;font-weight:600;border:2px solid rgba(45,47,107,0.3);border-radius:8px;cursor:pointer;font-family:var(--font);transition:all 0.15s;">
+          Build a Data-Driven Learning Strategy
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 23: LEAD CAPTURE FORM
+       ══════════════════════════════════════════════════ -->
+  <section id="contact-form">
+    <div style="max-width:1120px;margin:0 auto 32px;text-align:center;">
+      <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <span style="width:24px;height:3px;background:var(--lime);border-radius:2px;display:inline-block;"></span>
+        <span style="font-size:12px;font-weight:700;color:var(--navy);letter-spacing:0.06em;text-transform:uppercase;">Get Started</span>
+        <span style="width:24px;height:3px;background:var(--lime);border-radius:2px;display:inline-block;"></span>
+      </div>
+    </div>
+    <div class="cf-inner">
+      <div class="cf-image" style="border:none;background:transparent;">
+        <img src="https://images.unsplash.com/photo-1758876203342-fc14c0bba67c?w=500&h=700&fit=crop&q=80" alt="Two colleagues collaborating on a TNA consulting project at a desk" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+      </div>
+      <div class="cf-panel">
+        <h2>Ready to Replace Assumptions With Evidence?</h2>
+        <p>Start with a diagnostic consultation, scoped to your organisation. Our TNA specialists will design the right diagnostic approach for your workforce.</p>
+        <form onsubmit="return false;">
+          <div class="cf-grid">
+            <div class="cf-field">
+              <input type="text" placeholder="Full Name *" required>
+            </div>
+            <div class="cf-field">
+              <input type="email" placeholder="Work Email *" required>
+            </div>
+            <div class="cf-field">
+              <input type="text" placeholder="Company Name *" required>
+            </div>
+            <div class="cf-field">
+              <input type="text" placeholder="Job Title *" required>
+            </div>
+            <div class="cf-field">
+              <select>
+                <option value="" disabled selected>Country *</option>
+                <option>United States</option>
+                <option>United Kingdom</option>
+                <option>India</option>
+                <option>Germany</option>
+                <option>Australia</option>
+                <option>Canada</option>
+                <option>Singapore</option>
+                <option>UAE</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="cf-field">
+              <input type="tel" placeholder="Phone Number">
+            </div>
+            <div class="cf-field">
+              <select>
+                <option value="" disabled selected>Company Size *</option>
+                <option>1-50</option>
+                <option>51-200</option>
+                <option>201-500</option>
+                <option>501-1000</option>
+                <option>1001-5000</option>
+                <option>5000+</option>
+              </select>
+            </div>
+            <div class="cf-field">
+              <select>
+                <option value="" disabled selected>L&amp;D Challenge *</option>
+                <option>Training needs identification</option>
+                <option>Skill gap analysis</option>
+                <option>Leadership assessment</option>
+                <option>Learning ROI measurement</option>
+                <option>Workforce readiness</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="cf-submit">
+            Request a TNA Consultation
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+        <p class="cf-form-note"><strong>What happens next?</strong> Our certified TNA specialists will review your requirements and contact you within 24 hours to schedule a scoped diagnostic consultation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       SECTION 24: FOOTER
+       ══════════════════════════════════════════════════ -->
+  <div id="page-footer">
+    <footer class="sf-footer">
+      <div class="sf-container">
+        <div class="sf-certs">
+          <span class="sf-cert">ISO 9001:2015 Certified</span>
+          <span class="sf-cert">ISO 27001:2022 Certified</span>
+        </div>
+        <div class="sf-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms and Conditions</a>
+          <a href="#">Modern Slavery Statement</a>
+        </div>
+        <div class="sf-social">
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z" fill="none" stroke="currentColor" stroke-width="2"/><rect x="2" y="9" width="4" height="12" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="4" cy="4" r="2" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+          <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" width="20" height="20"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z" fill="none" stroke="currentColor" stroke-width="2"/><polygon points="9.75,15.02 15.5,11.75 9.75,8.48" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+        </div>
+        <p class="sf-copy">&copy; 2021&ndash;2026 Edstellar. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     DEV REFERENCE PANEL
+     ══════════════════════════════════════════════════ -->
+<div class="dev-ref-panel">
+  <style>
+    .dev-ref-panel { max-width:1120px; margin:48px auto 64px; padding:0 48px; font-family:var(--font, 'Inter', sans-serif); }
+    .dev-ref-banner { background:#1A1A2E; border-radius:12px; overflow:hidden; }
+    .dev-ref-header { display:flex; align-items:center; justify-content:space-between; padding:20px 28px; cursor:pointer; user-select:none; }
+    .dev-ref-header:hover { background:rgba(255,255,255,0.03); }
+    .dev-ref-title { display:flex; align-items:center; gap:12px; }
+    .dev-ref-title h3 { font-size:15px; font-weight:700; color:#C5E826; letter-spacing:-0.01em; }
+    .dev-ref-badge { font-size:10px; font-weight:700; color:#1A1A2E; background:#C5E826; padding:3px 8px; border-radius:4px; text-transform:uppercase; letter-spacing:0.05em; }
+    .dev-ref-toggle { width:28px; height:28px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.2); background:transparent; color:rgba(255,255,255,0.6); font-size:18px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.25s; font-family:var(--font, 'Inter', sans-serif); }
+    .dev-ref-banner.open .dev-ref-toggle { transform:rotate(45deg); color:#C5E826; border-color:#C5E826; }
+    .dev-ref-body { max-height:0; overflow:hidden; transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .dev-ref-banner.open .dev-ref-body { max-height:5000px; }
+    .dev-ref-content { padding:0 28px 28px; }
+    .dev-ref-tabs { display:flex; gap:4px; margin-bottom:24px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0; }
+    .dev-ref-tab { padding:10px 18px; font-size:12px; font-weight:600; color:rgba(255,255,255,0.5); background:transparent; border:none; border-bottom:2px solid transparent; cursor:pointer; font-family:var(--font, 'Inter', sans-serif); transition:all 0.2s; margin-bottom:-1px; }
+    .dev-ref-tab:hover { color:rgba(255,255,255,0.8); }
+    .dev-ref-tab.active { color:#C5E826; border-bottom-color:#C5E826; }
+    .dev-ref-tab-content { display:none; }
+    .dev-ref-tab-content.active { display:block; }
+    .dev-ref-section { margin-bottom:24px; }
+    .dev-ref-section h4 { font-size:13px; font-weight:700; color:#C5E826; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:12px; }
+    .dev-ref-table { width:100%; border-collapse:collapse; font-size:12px; }
+    .dev-ref-table th { text-align:left; padding:8px 12px; color:rgba(255,255,255,0.5); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.04em; border-bottom:1px solid rgba(255,255,255,0.1); }
+    .dev-ref-table td { padding:8px 12px; color:rgba(255,255,255,0.75); border-bottom:1px solid rgba(255,255,255,0.05); vertical-align:top; line-height:1.5; }
+    .dev-ref-table tr:last-child td { border-bottom:none; }
+    .dev-ref-code { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:16px; font-family:'Courier New', monospace; font-size:11px; color:rgba(255,255,255,0.7); line-height:1.6; overflow-x:auto; white-space:pre; margin-bottom:16px; }
+    .dev-ref-note { font-size:11px; color:rgba(255,255,255,0.4); line-height:1.5; margin-top:8px; font-style:italic; }
+    .dev-ref-table a { color:#7B93DB; text-decoration:none; word-break:break-all; font-size:11px; }
+    .dev-ref-table a:hover { color:#C5E826; text-decoration:underline; }
+    @media (max-width:768px) { .dev-ref-panel { padding:0 16px; } .dev-ref-tabs { flex-wrap:wrap; } }
+  </style>
+
+  <div class="dev-ref-banner" id="devRefBanner">
+    <div class="dev-ref-header" onclick="document.getElementById('devRefBanner').classList.toggle('open')">
+      <div class="dev-ref-title">
+        <h3>Developer Reference Panel</h3>
+        <span class="dev-ref-badge">Internal Only</span>
+      </div>
+      <button class="dev-ref-toggle">+</button>
+    </div>
+    <div class="dev-ref-body">
+      <div class="dev-ref-content">
+
+        <div class="dev-ref-tabs" id="devRefTabs">
+          <button class="dev-ref-tab active" data-devtab="meta">SEO &amp; Meta Tags</button>
+          <button class="dev-ref-tab" data-devtab="images">Image Reference</button>
+        </div>
+
+        <!-- TAB 1: SEO & Meta Tags -->
+        <div class="dev-ref-tab-content active" id="devTab-meta">
+
+          <div class="dev-ref-section">
+            <h4>Core SEO Fields</h4>
+            <table class="dev-ref-table">
+              <tr><th>Field</th><th>Value</th></tr>
+              <tr><td>Page Slug</td><td>/corporate-training/training-needs-analysis-services</td></tr>
+              <tr><td>Primary Keyword</td><td>Training Needs Analysis</td></tr>
+              <tr><td>H1 Tag</td><td>Training Needs Analysis Services (33 chars)</td></tr>
+              <tr><td>Secondary Keywords</td><td>Learning Needs Analysis (LNA) &middot; TNA/LNA &middot; Training Needs Assessment &middot; skills gap analysis &middot; competency requirements analysis</td></tr>
+            </table>
+          </div>
+
+          <div class="dev-ref-section">
+            <h4>Variation 1: Primary Meta Tags (Search Engines)</h4>
+            <table class="dev-ref-table">
+              <tr><th>Tag</th><th>Value</th></tr>
+              <tr><td>title</td><td>Training Needs Analysis Services | Edstellar (45 chars)</td></tr>
+              <tr><td>meta description</td><td>Edstellar's Training Needs Analysis identifies skills gaps, maps competency requirements, and delivers a tailored L&amp;D roadmap for your workforce. (148 chars)</td></tr>
+              <tr><td>meta keywords</td><td>training needs analysis, learning needs analysis, TNA, LNA, training needs assessment, skills gap analysis, competency requirements analysis</td></tr>
+              <tr><td>canonical</td><td>https://edstellar.com/corporate-training/training-needs-analysis-services</td></tr>
+            </table>
+          </div>
+
+          <div class="dev-ref-section">
+            <h4>Variation 2: Open Graph Tags (Facebook, LinkedIn, Social Previews)</h4>
+            <table class="dev-ref-table">
+              <tr><th>Tag</th><th>Value</th></tr>
+              <tr><td>og:type</td><td>website</td></tr>
+              <tr><td>og:url</td><td>https://edstellar.com/corporate-training/training-needs-analysis-services</td></tr>
+              <tr><td>og:title</td><td>Training Needs Analysis Services | Edstellar</td></tr>
+              <tr><td>og:description</td><td>Edstellar's Training Needs Analysis identifies skills gaps, maps competency requirements, and delivers a tailored L&amp;D roadmap for your workforce.</td></tr>
+              <tr><td>og:image</td><td>https://edstellar.com/images/consulting/training-needs-analysis-og.jpg (1200x630px)</td></tr>
+            </table>
+          </div>
+
+          <div class="dev-ref-section">
+            <h4>Variation 3: Twitter Card Tags (X / Twitter Previews)</h4>
+            <table class="dev-ref-table">
+              <tr><th>Tag</th><th>Value</th></tr>
+              <tr><td>twitter:card</td><td>summary_large_image</td></tr>
+              <tr><td>twitter:url</td><td>https://edstellar.com/corporate-training/training-needs-analysis-services</td></tr>
+              <tr><td>twitter:title</td><td>Training Needs Analysis Services | Edstellar</td></tr>
+              <tr><td>twitter:description</td><td>Edstellar's Training Needs Analysis identifies skills gaps, maps competency requirements, and delivers a tailored L&amp;D roadmap for your workforce.</td></tr>
+              <tr><td>twitter:image</td><td>https://edstellar.com/images/consulting/training-needs-analysis-og.jpg (1200x630px)</td></tr>
+            </table>
+          </div>
+
+          <div class="dev-ref-section">
+            <h4>Ready-to-Copy Meta Tags</h4>
+            <div class="dev-ref-code">&lt;!-- Primary Meta Tags --&gt;
+&lt;title&gt;Training Needs Analysis Services | Edstellar&lt;/title&gt;
+&lt;meta name="description" content="Edstellar's Training Needs Analysis identifies skills gaps, maps competency requirements, and delivers a tailored L&amp;D roadmap for your workforce."&gt;
+&lt;meta name="keywords" content="training needs analysis, learning needs analysis, TNA, LNA, training needs assessment, skills gap analysis, competency requirements analysis"&gt;
+&lt;link rel="canonical" href="https://edstellar.com/corporate-training/training-needs-analysis-services"&gt;
+
+&lt;!-- Open Graph --&gt;
+&lt;meta property="og:type" content="website"&gt;
+&lt;meta property="og:url" content="https://edstellar.com/corporate-training/training-needs-analysis-services"&gt;
+&lt;meta property="og:title" content="Training Needs Analysis Services | Edstellar"&gt;
+&lt;meta property="og:description" content="Edstellar's Training Needs Analysis identifies skills gaps, maps competency requirements, and delivers a tailored L&amp;D roadmap for your workforce."&gt;
+&lt;meta property="og:image" content="https://edstellar.com/images/consulting/training-needs-analysis-og.jpg"&gt;
+
+&lt;!-- Twitter --&gt;
+&lt;meta property="twitter:card" content="summary_large_image"&gt;
+&lt;meta property="twitter:url" content="https://edstellar.com/corporate-training/training-needs-analysis-services"&gt;
+&lt;meta property="twitter:title" content="Training Needs Analysis Services | Edstellar"&gt;
+&lt;meta property="twitter:description" content="Edstellar's Training Needs Analysis identifies skills gaps, maps competency requirements, and delivers a tailored L&amp;D roadmap for your workforce."&gt;
+&lt;meta property="twitter:image" content="https://edstellar.com/images/consulting/training-needs-analysis-og.jpg"&gt;</div>
+          </div>
+
+          <div class="dev-ref-section">
+            <h4>Schema.org Structured Data</h4>
+            <div class="dev-ref-code">&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Training Needs Analysis Services",
+  "provider": {
+    "@type": "Organization",
+    "name": "Edstellar",
+    "url": "https://edstellar.com"
+  },
+  "description": "Edstellar's Training Needs Analysis identifies skills gaps, maps competency requirements, and delivers a tailored L&amp;D roadmap for your workforce.",
+  "areaServed": "Worldwide",
+  "serviceType": "Training Needs Analysis"
+}
+&lt;/script&gt;</div>
+          </div>
+
+          <p class="dev-ref-note">Validate schema at search.google.com/test/rich-results before deploying. OG image should be 1200x630px with navy background, lime accent, and service name in Inter font. Replace OG/Twitter image URLs with production-hosted versions.</p>
+        </div>
+
+        <!-- TAB 2: Image Reference -->
+        <div class="dev-ref-tab-content" id="devTab-images">
+
+          <div class="dev-ref-section">
+            <h4>Image Mapping, Section by Section</h4>
+            <table class="dev-ref-table">
+              <tr><th>#</th><th>Section</th><th>Category</th><th>Alt Text / Description</th><th>Ratio</th><th>Unsplash URL</th></tr>
+              <tr><td>1</td><td>Hero</td><td>HUMAN</td><td>Business professionals attending a training needs analysis presentation in a modern office boardroom</td><td>4:3</td><td><a href="https://images.unsplash.com/photo-1758691737182-d42aefd6dee8?w=800&h=600&fit=crop&q=80" target="_blank" rel="noopener">photo-1758691737182</a></td></tr>
+              <tr><td>2</td><td>Pillar: Stakeholder Alignment</td><td>HUMAN</td><td>Woman leading a stakeholder alignment session in modern office</td><td>16:10</td><td><a href="https://images.unsplash.com/photo-1758691736580-a41e0cfe9e9f?w=600&h=400&fit=crop&q=80" target="_blank" rel="noopener">photo-1758691736580</a></td></tr>
+              <tr><td>3</td><td>Pillar: Comprehensive Assessments</td><td>HUMAN</td><td>Woman presenting multi-source skills assessment charts to colleagues on screen</td><td>16:10</td><td><a href="https://images.unsplash.com/photo-1758691736542-c437fea2c673?w=600&h=400&fit=crop&q=80" target="_blank" rel="noopener">photo-1758691736542</a></td></tr>
+              <tr><td>4</td><td>Pillar: Clear Training Roadmap</td><td>CONCEPTUAL</td><td>Woman writing learning roadmap framework on whiteboard</td><td>16:10</td><td><a href="https://images.unsplash.com/photo-1663780852938-f44b86ec3060?w=600&h=400&fit=crop&q=80" target="_blank" rel="noopener">photo-1663780852938</a></td></tr>
+              <tr><td>5</td><td>Assessment: Organizational</td><td>HUMAN</td><td>Senior executive presenting organizational strategy to colleagues in a modern boardroom</td><td>16:10</td><td><a href="https://images.unsplash.com/photo-1758691736424-4b4273948341?w=600&h=400&fit=crop&q=80" target="_blank" rel="noopener">photo-1758691736424</a></td></tr>
+              <tr><td>6</td><td>Assessment: Operational</td><td>HUMAN</td><td>Diverse cross-functional team collaborating on performance evaluation around a shared table</td><td>16:10</td><td><a href="https://images.unsplash.com/photo-1758873269276-9518d0cb4a0b?w=600&h=400&fit=crop&q=80" target="_blank" rel="noopener">photo-1758873269276</a></td></tr>
+              <tr><td>7</td><td>Assessment: Leadership</td><td>HUMAN</td><td>Executive professionals discussing leadership development in a modern office setting</td><td>16:10</td><td><a href="https://images.unsplash.com/photo-1758518729463-0bb73ed899ac?w=600&h=400&fit=crop&q=80" target="_blank" rel="noopener">photo-1758518729463</a></td></tr>
+              <tr><td>8</td><td>Assessment: Change &amp; Capability</td><td>HUMAN</td><td>Diverse team brainstorming change readiness with sticky notes on glass wall</td><td>16:10</td><td><a href="https://images.unsplash.com/photo-1758691737045-3ece61135061?w=600&h=400&fit=crop&q=80" target="_blank" rel="noopener">photo-1758691737045</a></td></tr>
+              <tr><td>9</td><td>Deliverables (sidebar)</td><td>HUMAN</td><td>Senior leader presenting TNA diagnostic report and governance framework in boardroom</td><td>3:4</td><td><a href="https://images.unsplash.com/photo-1758691736433-4078b93abd72?w=500&h=700&fit=crop&q=80" target="_blank" rel="noopener">photo-1758691736433</a></td></tr>
+              <tr><td>10</td><td>Case Study: Technology</td><td>HUMAN</td><td>Assessment specialist presenting diagnostic findings and charts on screen during leadership meeting</td><td>42:55</td><td><a href="https://images.unsplash.com/photo-1758691736484-4914d363a3cc?w=600&h=500&fit=crop&q=80" target="_blank" rel="noopener">photo-1758691736484</a></td></tr>
+              <tr><td>11</td><td>Case Study: Financial Services</td><td>HUMAN</td><td>Business professionals collaborating on compliance and leadership pipeline diagnostics</td><td>42:55</td><td><a href="https://images.unsplash.com/photo-1758518730178-6e237bc8b87d?w=600&h=500&fit=crop&q=80" target="_blank" rel="noopener">photo-1758518730178</a></td></tr>
+              <tr><td>12</td><td>Case Study: Manufacturing</td><td>HUMAN</td><td>Professional facilitating an operational excellence workshop for manufacturing assessment</td><td>42:55</td><td><a href="https://images.unsplash.com/photo-1758691736548-073bc97cdff4?w=600&h=500&fit=crop&q=80" target="_blank" rel="noopener">photo-1758691736548</a></td></tr>
+              <tr><td>13</td><td>Resource Blog 1</td><td>HUMAN</td><td>HR leader presenting strategic workforce planning data to business unit heads</td><td>16:10</td><td><a href="https://images.unsplash.com/photo-1758691736764-2a88e313b1f2?w=600&h=400&fit=crop&q=80" target="_blank" rel="noopener">photo-1758691736764</a></td></tr>
+              <tr><td>14</td><td>Resource Blog 2</td><td>HUMAN</td><td>Professional working on behavioral profiling and assessment data in modern office</td><td>16:10</td><td><a href="https://images.unsplash.com/photo-1758873271831-c048f79b2283?w=600&h=400&fit=crop&q=80" target="_blank" rel="noopener">photo-1758873271831</a></td></tr>
+              <tr><td>15</td><td>Resource Blog 3</td><td>HUMAN</td><td>Professional leading a learning roadmap strategy workshop with team around laptops</td><td>16:10</td><td><a href="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&h=400&fit=crop&q=80" target="_blank" rel="noopener">photo-1542744173</a></td></tr>
+              <tr><td>16</td><td>Contact Form</td><td>WORKSPACE</td><td>Two colleagues collaborating on a TNA consulting project at a desk</td><td>portrait</td><td><a href="https://images.unsplash.com/photo-1758876203342-fc14c0bba67c?w=500&h=700&fit=crop&q=80" target="_blank" rel="noopener">photo-1758876203342</a></td></tr>
+            </table>
+          </div>
+
+          <p class="dev-ref-note">All 16 image slots populated with Unsplash images on 2026-03-22. All sourced from image library (royalty-free, no attribution required). Replace URLs with production-hosted versions before deploying. See output/Training-Needs-Analysis-images.md for the full manifest.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══ Section 13: Deliverables Accordion ═══ */
+(function() {
+  var dvItems = document.querySelectorAll('#deliverables .dv-item');
+  dvItems.forEach(function(item) {
+    var question = item.querySelector('.dv-question');
+    question.addEventListener('click', function() {
+      var wasActive = item.classList.contains('active');
+      dvItems.forEach(function(el) { el.classList.remove('active'); });
+      if (!wasActive) item.classList.add('active');
+    });
+  });
+})();
+
+/* ═══ Section 17: Case Studies Carousel ═══ */
+(function() {
+  var csIdx = 0;
+  var csPanels = document.querySelectorAll('#csPanels .cs-panel');
+  var csTotal = csPanels.length;
+  function navCase(dir) {
+    csPanels[csIdx].classList.remove('active');
+    csIdx = (csIdx + dir + csTotal) % csTotal;
+    csPanels[csIdx].classList.add('active');
+    document.getElementById('csNum').textContent = String(csIdx + 1).padStart(2, '0');
+  }
+  document.getElementById('csPrev').addEventListener('click', function() { navCase(-1); });
+  document.getElementById('csNext').addEventListener('click', function() { navCase(1); });
+})();
+
+/* ═══ Section 18: Testimonials Carousel ═══ */
+(function() {
+  var tmIdx = 0;
+  var tmCards = document.querySelectorAll('#tmCarousel .tm-card');
+  var tmTotal = tmCards.length;
+  function changeTm(dir) {
+    tmCards[tmIdx].classList.remove('active');
+    tmCards[tmIdx].classList.add('exit-left');
+    var prev = tmIdx;
+    setTimeout(function() { tmCards[prev].classList.remove('exit-left'); }, 450);
+    tmIdx = (tmIdx + dir + tmTotal) % tmTotal;
+    tmCards[tmIdx].classList.add('active');
+  }
+  document.getElementById('tmPrev').addEventListener('click', function() { changeTm(-1); });
+  document.getElementById('tmNext').addEventListener('click', function() { changeTm(1); });
+})();
+
+/* ═══ Section 20: FAQ Accordion ═══ */
+(function() {
+  var fqItems = document.querySelectorAll('#faq-section .fq-item');
+  fqItems.forEach(function(item) {
+    var question = item.querySelector('.fq-question');
+    question.addEventListener('click', function() {
+      var wasActive = item.classList.contains('active');
+      fqItems.forEach(function(el) { el.classList.remove('active'); });
+      if (!wasActive) item.classList.add('active');
+    });
+  });
+})();
+
+/* ═══ Dev Reference Panel Tabs ═══ */
+(function() {
+  var tabs = document.querySelectorAll('#devRefTabs .dev-ref-tab');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+      document.querySelectorAll('.dev-ref-tab-content').forEach(function(c) { c.classList.remove('active'); });
+      document.getElementById('devTab-' + this.getAttribute('data-devtab')).classList.add('active');
+    });
+  });
+})();
+
+/* ═══ Form Select Styling ═══ */
+(function() {
+  var selects = document.querySelectorAll('#contact-form select');
+  selects.forEach(function(sel) {
+    sel.addEventListener('change', function() {
+      this.classList.add('selected');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

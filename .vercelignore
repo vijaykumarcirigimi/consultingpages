@@ -1,0 +1,7 @@
+content/
+output/
+.claude/
+*.docx
+*.zip
+CLAUDE.md
+image-sourcing-rules-guide.md

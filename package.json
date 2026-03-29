@@ -1,0 +1,7 @@
+{
+  "name": "edstellar-design-library",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node build-library.js"
+  }
+}

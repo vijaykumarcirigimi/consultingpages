@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "defaultMode": "bypassPermissions",
+    "allow": [
+      "Bash(*)",
+      "Edit",
+      "Write",
+      "Read",
+      "Glob",
+      "Grep",
+      "WebSearch",
+      "WebFetch",
+      "mcp__claude_ai_Apify__apify-slash-rag-web-browser",
+      "Skill(update-config)",
+      "Skill(keyword-optimizer)",
+      "WebFetch(domain:trainingindustry.com)"
+    ]
+  }
+}

@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Needs Analysis Services | Enterprise Capability Diagnostics | Edstellar</title>
+<meta name="description" content="Data-driven Learning Needs Analysis (LNA) and Training Needs Analysis (TNA) services. Business-aligned capability diagnostics with measurable ROI. Enterprise-grade, evidence-based approach by Edstellar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════ */
+:root {
+  --ink: #0C1222;
+  --ink-90: #1A2035;
+  --ink-80: #2A2F3D;
+  --ink-60: #4A4F5E;
+  --ink-40: #7A7F8E;
+  --ink-20: #B0B4BF;
+  --ink-10: #D8DAE0;
+  --ink-05: #ECEDF0;
+  --ink-02: #F6F7F9;
+  --surface: #FFFFFF;
+
+  --blue: #1B6EF3;
+  --blue-dark: #0D4FBF;
+  --blue-light: #E8F0FE;
+  --blue-glow: rgba(27,110,243,0.10);
+
+  --teal: #0D9488;
+  --teal-light: #E6F7F5;
+
+  --violet: #7C3AED;
+  --violet-light: #F0EAFF;
+
+  --amber: #E67E22;
+  --amber-light: #FEF5EB;
+
+  --green: #16A34A;
+  --green-light: #EAFBF0;
+
+  --red: #DC2626;
+  --red-light: #FEF2F2;
+
+  --gold: #CA8A04;
+  --gold-light: #FDF9E8;
+
+  --rose: #E11D48;
+  --rose-light: #FFF1F2;
+
+  --radius: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --shadow-xs: 0 1px 2px rgba(12,18,34,0.04);
+  --shadow-sm: 0 2px 8px rgba(12,18,34,0.06);
+  --shadow-md: 0 4px 20px rgba(12,18,34,0.08);
+  --shadow-lg: 0 12px 40px rgba(12,18,34,0.10);
+  --shadow-xl: 0 24px 64px rgba(12,18,34,0.12);
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --max-w: 1200px;
+  --section-gap: 100px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--surface);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+
+/* ═══ TOPBAR ═══ */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--ink-05);
+  transition: box-shadow 0.3s;
+}
+.topbar.scrolled { box-shadow: var(--shadow-sm); }
+.topbar-inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; justify-content: space-between; height: 64px;
+}
+.logo { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
+.logo span { color: var(--blue); }
+.topbar-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 24px; background: var(--blue); color: #fff;
+  font-size: 0.84rem; font-weight: 600; border-radius: 10px; text-decoration: none;
+  transition: all 0.2s;
+}
+.topbar-cta:hover { background: var(--blue-dark); transform: translateY(-1px); }
+
+/* ═══ SHARED ═══ */
+section { padding: var(--section-gap) 0; }
+.bg-alt { background: var(--ink-02); }
+.bg-dark { background: var(--ink); color: #fff; }
+.bg-blue { background: linear-gradient(135deg, #1B6EF3 0%, #0D4FBF 100%); color: #fff; }
+
+.section-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px;
+  padding: 6px 16px; border-radius: 100px; width: fit-content;
+}
+.badge-blue { background: var(--blue-light); color: var(--blue); }
+.badge-teal { background: var(--teal-light); color: var(--teal); }
+.badge-violet { background: var(--violet-light); color: var(--violet); }
+.badge-amber { background: var(--amber-light); color: var(--amber); }
+.badge-green { background: var(--green-light); color: var(--green); }
+.badge-rose { background: var(--rose-light); color: var(--rose); }
+.badge-gold { background: var(--gold-light); color: var(--gold); }
+.badge-white { background: rgba(255,255,255,0.15); color: #fff; }
+
+.section-title {
+  font-family: var(--font-display); font-size: clamp(1.8rem,3vw,2.5rem);
+  font-weight: 700; line-height: 1.18; letter-spacing: -0.025em; margin-bottom: 14px;
+}
+.section-sub {
+  font-size: 1.05rem; color: var(--ink-60); line-height: 1.65; max-width: 640px; margin-bottom: 48px;
+}
+.bg-dark .section-sub, .bg-blue .section-sub { color: rgba(255,255,255,0.65); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; font-size: 0.9rem; font-weight: 600;
+  border-radius: 10px; text-decoration: none; border: none; cursor: pointer;
+  transition: all 0.2s; line-height: 1.2;
+}
+.btn-blue { background: var(--blue); color: #fff; }
+.btn-blue:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(27,110,243,0.3); }
+.btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--ink-20); }
+.btn-outline:hover { border-color: var(--ink-40); background: var(--ink-02); }
+.btn-white { background: #fff; color: var(--ink); }
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.btn-ghost-white { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.3); }
+.btn-ghost-white:hover { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.06); }
+.btn-teal { background: var(--teal); color: #fff; }
+.btn-teal:hover { background: #0B8377; transform: translateY(-1px); }
+.btn-center { display: flex; justify-content: center; }
+
+/* Icon box */
+.icon-box {
+  width: 48px; height: 48px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; flex-shrink: 0;
+}
+.icon-sm { width: 38px; height: 38px; border-radius: 10px; font-size: 1rem; }
+
+/* ═══════════════════════════════════════════
+   1. HERO
+   ═══════════════════════════════════════════ */
+.hero {
+  padding: 140px 0 var(--section-gap);
+  background: linear-gradient(168deg, #F0F6FF 0%, #FFFFFF 40%, #F6F7F9 100%);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -160px; right: -160px;
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(27,110,243,0.07) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: -100px; left: -100px;
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, rgba(13,148,136,0.05) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1.05fr; gap: 56px; align-items: center;
+}
+.hero h1 {
+  font-family: var(--font-display); font-size: clamp(2.2rem,3.6vw,3.2rem);
+  font-weight: 700; line-height: 1.12; letter-spacing: -0.03em;
+  margin-bottom: 18px;
+}
+.hero h1 em { font-style: italic; color: var(--blue); font-weight: 500; }
+.hero-sub { font-size: 1.08rem; color: var(--ink-60); line-height: 1.65; margin-bottom: 32px; max-width: 520px; }
+
+.hero-kpis {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 36px;
+}
+.hero-kpi {
+  padding: 16px 18px; background: var(--surface);
+  border: 1px solid var(--ink-10); border-radius: var(--radius);
+  display: flex; align-items: center; gap: 14px;
+  transition: box-shadow 0.2s;
+}
+.hero-kpi:hover { box-shadow: var(--shadow-sm); }
+.hero-kpi .icon-box { width: 40px; height: 40px; border-radius: 10px; font-size: 1.1rem; }
+.hero-kpi-text { font-size: 0.84rem; font-weight: 500; color: var(--ink-80); line-height: 1.35; }
+
+.hero-ctas { display: flex; gap: 14px; align-items: center; flex-wrap: nowrap; }
+
+/* Dashboard */
+.hero-dash {
+  background: var(--surface); border: 1px solid var(--ink-10);
+  border-radius: var(--radius-xl); box-shadow: var(--shadow-xl);
+  overflow: hidden; position: relative;
+  animation: dashIn 0.7s ease-out;
+}
+@keyframes dashIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.dash-bar {
+  padding: 14px 20px; background: var(--ink-02); border-bottom: 1px solid var(--ink-10);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.dash-bar-title { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; color: var(--ink-40); letter-spacing: 0.06em; text-transform: uppercase; }
+.dash-bar-live { display: flex; align-items: center; gap: 6px; font-size: 0.68rem; font-weight: 500; color: var(--green); }
+.dash-bar-live::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.dash-body { padding: 18px; }
+.dash-kpis { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 14px; }
+.dash-kpi { padding: 12px; background: var(--ink-02); border-radius: 10px; text-align: center; }
+.dash-kpi-val { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; line-height: 1; margin-bottom: 3px; }
+.dash-kpi-label { font-size: 0.62rem; color: var(--ink-40); font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+.dash-charts { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; }
+.dash-chart { background: var(--ink-02); border-radius: 10px; padding: 14px; }
+.dash-chart-label { font-size: 0.66rem; font-weight: 600; color: var(--ink-60); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 10px; }
+
+.heatmap-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 3px; }
+.hm-cell { aspect-ratio: 1; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.55rem; font-weight: 700; color: #fff; }
+
+.risk-bars { display: flex; flex-direction: column; gap: 7px; }
+.risk-row { display: flex; align-items: center; gap: 8px; }
+.risk-label { font-size: 0.62rem; color: var(--ink-40); width: 54px; text-align: right; }
+.risk-track { flex: 1; height: 10px; background: var(--ink-05); border-radius: 5px; overflow: hidden; }
+.risk-fill { height: 100%; border-radius: 5px; }
+
+/* ═══════════════════════════════════════════
+   2. DIAGNOSIS-LED LEARNING
+   ═══════════════════════════════════════════ */
+.flow-row {
+  display: flex; align-items: stretch; justify-content: center; gap: 0; flex-wrap: wrap; margin: 48px 0;
+}
+.flow-card {
+  flex: 1; min-width: 200px; max-width: 260px;
+  padding: 28px 22px; text-align: center;
+  border-radius: var(--radius); border: 1px solid var(--ink-10);
+  background: var(--surface); position: relative;
+  transition: all 0.2s;
+}
+.flow-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.flow-card .icon-box { margin: 0 auto 14px; }
+.flow-card h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 6px; }
+.flow-card p { font-size: 0.78rem; color: var(--ink-40); line-height: 1.45; }
+.flow-arrow {
+  display: flex; align-items: center; padding: 0 6px; font-size: 1.6rem; font-weight: 700;
+}
+.flow-arrow.c-blue { color: var(--blue); }
+.flow-arrow.c-teal { color: var(--teal); }
+.flow-arrow.c-violet { color: var(--violet); }
+
+.stat-strip {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 48px;
+}
+.stat-card {
+  padding: 28px; border-radius: var(--radius); text-align: center;
+  border: 1px solid var(--ink-10); background: var(--surface);
+}
+.stat-num { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; line-height: 1; margin-bottom: 8px; }
+.stat-label { font-size: 0.82rem; color: var(--ink-60); line-height: 1.4; }
+
+/* ═══════════════════════════════════════════
+   3. STAKEHOLDERS
+   ═══════════════════════════════════════════ */
+.stake-cards {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-bottom: 36px;
+}
+.stake-card {
+  padding: 28px; border-radius: var(--radius-lg); border: 1px solid var(--ink-10);
+  background: var(--surface); transition: all 0.2s; position: relative; overflow: hidden;
+}
+.stake-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+}
+.stake-card:nth-child(1)::before { background: var(--blue); }
+.stake-card:nth-child(2)::before { background: var(--teal); }
+.stake-card:nth-child(3)::before { background: var(--violet); }
+.stake-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.stake-card .icon-box { margin-bottom: 16px; }
+.stake-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+.stake-card p { font-size: 0.88rem; color: var(--ink-60); line-height: 1.55; }
+
+.callout-gold {
+  padding: 24px 28px; background: var(--gold-light); border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 0.95rem; color: var(--ink-80); line-height: 1.6; margin-bottom: 28px;
+}
+.callout-gold strong { color: var(--ink); }
+
+/* Priorities Table */
+.priorities-table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  border: 1px solid var(--ink-10); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 48px;
+}
+.priorities-table th {
+  padding: 16px 24px; font-size: 0.76rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; text-align: left; background: var(--ink); color: #fff;
+}
+.priorities-table th:first-child { width: 60px; }
+.priorities-table td {
+  padding: 20px 24px; font-size: 0.88rem; border-bottom: 1px solid var(--ink-05); vertical-align: middle;
+  color: var(--ink-60); line-height: 1.55;
+}
+.priorities-table tr:last-child td { border-bottom: none; }
+.priorities-table tr:hover td { background: var(--blue-light); }
+.pt-icon { width: 60px; text-align: center; }
+.pt-name { font-weight: 700; color: var(--ink); white-space: nowrap; }
+
+/* Before/After Table */
+.ba-table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  border: 1px solid var(--ink-10); border-radius: var(--radius-lg); overflow: hidden;
+}
+.ba-table th {
+  padding: 14px 24px; font-size: 0.76rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; text-align: left;
+}
+.ba-table th:first-child { background: var(--ink-02); color: var(--ink-60); }
+.ba-table th:nth-child(2) { background: var(--red-light); color: var(--red); }
+.ba-table th:nth-child(3) { background: var(--green-light); color: var(--green); }
+.ba-table td { padding: 15px 24px; font-size: 0.87rem; border-bottom: 1px solid var(--ink-05); }
+.ba-table tr:last-child td { border-bottom: none; }
+.ba-before { color: var(--ink-40); background: var(--red-light); position: relative; }
+.ba-after { color: var(--ink); font-weight: 500; background: var(--green-light); }
+
+/* ═══════════════════════════════════════════
+   5. METHODOLOGY
+   ═══════════════════════════════════════════ */
+.method-flow {
+  display: flex; align-items: flex-start; gap: 0; margin: 48px 0; overflow-x: auto; padding-bottom: 8px;
+}
+.method-card {
+  flex: 1; min-width: 190px; position: relative; text-align: center; padding: 0 10px;
+}
+.method-num-wrap {
+  width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: #fff;
+  position: relative; z-index: 1;
+}
+.method-card:not(:last-child)::after {
+  content: ''; position: absolute; top: 28px; left: calc(50% + 28px); right: calc(-50% + 28px);
+  height: 3px; background: linear-gradient(90deg, var(--blue), var(--teal));
+  z-index: 0;
+}
+.method-card h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+.method-card p { font-size: 0.76rem; color: var(--ink-40); line-height: 1.45; }
+.method-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-top: 10px; }
+.method-tag { font-size: 0.65rem; font-weight: 500; padding: 3px 9px; border-radius: 100px; background: var(--blue-light); color: var(--blue); }
+.method-expand { margin-top: 10px; font-size: 0.76rem; font-weight: 600; color: var(--blue); background: none; border: none; cursor: pointer; }
+.method-expand:hover { text-decoration: underline; }
+.method-detail {
+  max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+  text-align: left; font-size: 0.82rem; color: var(--ink-60); line-height: 1.55;
+  padding: 0 4px;
+}
+.method-detail.open { max-height: 300px; margin-top: 10px; }
+
+/* ═══════════════════════════════════════════
+   6. TRIANGULATION — HUB LAYOUT
+   ═══════════════════════════════════════════ */
+.tri-callout {
+  padding: 22px 28px; background: var(--blue-light); border: 1px solid rgba(27,110,243,0.15);
+  border-radius: var(--radius); display: flex; align-items: flex-start; gap: 14px; margin-bottom: 48px;
+}
+.tri-callout p { font-size: 0.9rem; color: var(--ink-80); line-height: 1.55; }
+.tri-callout strong { color: var(--blue-dark); }
+
+.tri-hub { position: relative; }
+
+.tri-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-bottom: 0;
+}
+.tri-card {
+  padding: 24px 14px 20px; border-radius: var(--radius-lg); border: 2px solid var(--ink-10);
+  background: var(--surface); cursor: pointer; transition: all 0.25s;
+  text-align: center; position: relative;
+}
+.tri-card::after {
+  content: 'Click to explore'; position: absolute; bottom: 8px; left: 0; right: 0;
+  font-size: 0.6rem; color: var(--ink-20); font-weight: 500; opacity: 0; transition: opacity 0.2s;
+}
+.tri-card:hover::after { opacity: 1; }
+.tri-card:hover { border-color: var(--blue); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.tri-card.active { border-color: var(--blue); background: var(--blue-light); box-shadow: 0 4px 16px rgba(27,110,243,0.15); }
+.tri-card-top { display: flex; justify-content: center; margin-bottom: 12px; }
+.tri-card-top .icon-box { width: 48px; height: 48px; border-radius: 14px; font-size: 1.3rem; }
+.tri-card h5 { font-size: 0.8rem; font-weight: 600; line-height: 1.3; color: var(--ink-80); }
+
+/* Detail panel — full width, 3-column */
+.tri-detail-panel {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.4s ease, padding 0.4s ease;
+  background: var(--surface); border: 2px solid var(--blue);
+  border-radius: var(--radius-lg); margin-top: 0; padding: 0 32px;
+  position: relative;
+}
+.tri-detail-panel.open {
+  max-height: 260px; opacity: 1; margin-top: 20px; padding: 28px 32px;
+}
+.tri-close {
+  position: absolute; top: 12px; right: 16px;
+  width: 28px; height: 28px; border-radius: 50%; border: none;
+  background: var(--ink-05); color: var(--ink-40); font-size: 0.85rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.tri-close:hover { background: var(--red-light); color: var(--red); }
+.tri-detail-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+}
+.tri-detail-col { }
+.tri-detail-label {
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+}
+.tri-detail-col p { font-size: 0.88rem; color: var(--ink-60); line-height: 1.55; }
+
+/* ═══════════════════════════════════════════
+   7. OUTCOMES (TABS)
+   ═══════════════════════════════════════════ */
+.outcome-tabs {
+  display: flex; gap: 4px; margin-bottom: 36px; border-bottom: 2px solid var(--ink-05);
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.o-tab {
+  padding: 12px 18px; font-size: 0.8rem; font-weight: 600; color: var(--ink-40);
+  background: none; border: none; cursor: pointer;
+  border-bottom: 2.5px solid transparent; margin-bottom: -2px; white-space: nowrap;
+  transition: all 0.2s;
+}
+.o-tab:hover { color: var(--ink); }
+.o-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+.o-panel { display: none; animation: panelIn 0.3s ease; }
+.o-panel.active { display: block; }
+@keyframes panelIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+.o-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: flex-start; }
+.o-text h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; }
+.o-text p { font-size: 0.9rem; color: var(--ink-60); line-height: 1.6; margin-bottom: 14px; }
+.o-list { list-style: none; }
+.o-list li { padding: 8px 0; font-size: 0.87rem; color: var(--ink-80); display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid var(--ink-05); }
+.o-list li:last-child { border-bottom: none; }
+.o-check { color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+.o-chart {
+  background: var(--ink-02); border: 1px solid var(--ink-10); border-radius: var(--radius-lg); padding: 24px;
+}
+.o-chart-title { font-size: 0.7rem; font-weight: 700; color: var(--ink-40); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+.o-chart-desc { font-size: 0.74rem; color: var(--ink-40); margin-bottom: 16px; line-height: 1.4; }
+.chart-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+.cl-item { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: var(--ink-60); }
+.cl-swatch { width: 10px; height: 10px; border-radius: 3px; }
+
+/* Heatmap */
+.sk-heatmap { display: grid; grid-template-columns: 110px repeat(5,1fr); gap: 2px; font-size: 0.66rem; }
+.sk-hdr { padding: 8px 6px; font-weight: 600; color: var(--ink-40); text-align: center; background: var(--ink-02); }
+.sk-row { padding: 10px 8px; font-weight: 500; color: var(--ink-80); background: var(--ink-02); display: flex; align-items: center; }
+.sk-cell { padding: 10px 6px; text-align: center; font-weight: 700; color: #fff; border-radius: 4px; font-size: 0.72rem; }
+
+/* Stacked bars */
+.sb-chart { display: flex; flex-direction: column; gap: 10px; }
+.sb-row { display: flex; align-items: center; gap: 10px; }
+.sb-label { font-size: 0.72rem; color: var(--ink-60); width: 90px; text-align: right; flex-shrink: 0; }
+.sb-track { flex: 1; height: 26px; display: flex; border-radius: 5px; overflow: hidden; }
+.sb-seg { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; color: #fff; }
+
+/* Bubble chart */
+.bubble-area { position: relative; height: 300px; border-left: 1.5px solid var(--ink-10); border-bottom: 1.5px solid var(--ink-10); margin: 16px 0 10px; }
+.b-axis-x { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 0.66rem; color: var(--ink-40); font-weight: 500; }
+.b-axis-y { position: absolute; left: -18px; top: 50%; transform: translateY(-50%) rotate(-90deg); font-size: 0.66rem; color: var(--ink-40); font-weight: 500; white-space: nowrap; }
+.bub {
+  position: absolute; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 0.56rem; font-weight: 700; color: #fff; cursor: default; transition: transform 0.2s; opacity: 0.85;
+}
+.bub:hover { transform: scale(1.15); opacity: 1; }
+.bub-tip { display: none; position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 5px 10px; border-radius: 6px; font-size: 0.65rem; white-space: nowrap; z-index: 10; }
+.bub:hover .bub-tip { display: block; }
+
+/* Pyramid */
+.pyramid { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 16px; }
+.pyramid-bar { padding: 14px; color: #fff; text-align: center; border-radius: 8px; font-size: 0.78rem; font-weight: 600; }
+
+/* Pie */
+.pie-wrap { display: flex; align-items: center; gap: 32px; }
+.pie-svg { width: 190px; height: 190px; flex-shrink: 0; }
+.pie-legend { flex: 1; }
+.pie-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--ink-05); font-size: 0.82rem; }
+.pie-row:last-child { border-bottom: none; }
+.pie-swatch { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+.pie-pct { font-weight: 700; margin-left: auto; }
+
+/* Roadmap */
+.roadmap { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin: 24px 0; }
+.rm-phase { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--ink-10); }
+.rm-head { padding: 14px 18px; font-size: 0.82rem; font-weight: 700; color: #fff; }
+.rm-body { padding: 18px; background: var(--surface); }
+.rm-body li { font-size: 0.8rem; color: var(--ink-60); padding: 5px 0; list-style: none; display: flex; gap: 8px; }
+.rm-body li::before { content: '→'; color: var(--ink-20); flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════
+   8. CASE STUDIES
+   ═══════════════════════════════════════════ */
+.cases-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.case-card { background: var(--surface); border: 1px solid var(--ink-10); border-radius: var(--radius-lg); overflow: hidden; transition: box-shadow 0.2s; }
+.case-card:hover { box-shadow: var(--shadow-lg); }
+.case-visual { height: 64px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+.case-header { padding: 0 24px 16px; }
+.case-ind { font-family: var(--font-mono); font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-40); }
+.case-header h4 { font-size: 1.02rem; font-weight: 700; margin-top: 4px; }
+.case-metrics { display: flex; gap: 20px; padding: 14px 24px; background: var(--ink-02); border-top: 1px solid var(--ink-05); border-bottom: 1px solid var(--ink-05); }
+.cm-val { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--blue); }
+.cm-label { font-size: 0.66rem; color: var(--ink-40); }
+.case-body { padding: 20px 24px; }
+.case-body dt { font-size: 0.68rem; font-weight: 700; color: var(--ink-40); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 12px; }
+.case-body dt:first-child { margin-top: 0; }
+.case-body dd { font-size: 0.84rem; color: var(--ink-60); line-height: 1.5; margin-top: 3px; }
+
+/* ═══════════════════════════════════════════
+   9. WHY EDSTELLAR
+   ═══════════════════════════════════════════ */
+.diff-table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  border: 1px solid var(--ink-10); border-radius: var(--radius-lg); overflow: hidden;
+}
+.diff-table th { padding: 16px 24px; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; text-align: left; }
+.diff-table th:first-child { background: var(--ink-02); color: var(--ink-40); width: 200px; }
+.diff-table th:nth-child(2) { background: var(--red-light); color: var(--red); }
+.diff-table th:nth-child(3) { background: var(--blue-light); color: var(--blue); }
+.diff-table td { padding: 15px 24px; font-size: 0.87rem; border-bottom: 1px solid var(--ink-05); }
+.diff-table tr:last-child td { border-bottom: none; }
+.diff-table td:nth-child(2) { color: var(--ink-40); }
+.diff-table td:nth-child(3) { color: var(--ink); font-weight: 500; }
+
+/* ═══════════════════════════════════════════
+   9. INDUSTRIES & DIAGNOSTIC USE CASES
+   ═══════════════════════════════════════════ */
+.ind-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 20px;
+}
+.ind-card {
+  padding: 28px 22px; border-radius: var(--radius-lg); border: 1px solid var(--ink-10);
+  background: var(--surface); position: relative; overflow: hidden;
+  transition: all 0.25s; cursor: default;
+}
+.ind-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+}
+.ind-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+.ind-card-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.35rem; margin-bottom: 16px;
+}
+.ind-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+.ind-card p { font-size: 0.82rem; color: var(--ink-60); line-height: 1.5; margin-bottom: 14px; }
+.ind-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.ind-tag {
+  font-size: 0.64rem; font-weight: 600; padding: 4px 10px;
+  border-radius: 100px; letter-spacing: 0.02em;
+}
+.ind-card-wide {
+  grid-column: span 2;
+}
+
+/* ═══════════════════════════════════════════
+   10. PROCESS — HORIZONTAL FLOW
+   ═══════════════════════════════════════════ */
+.proc-flow {
+  display: flex; align-items: flex-start; gap: 0; overflow-x: auto; padding-bottom: 8px;
+}
+.proc-step {
+  flex: 1; min-width: 160px; text-align: center; padding: 0 8px; position: relative;
+}
+.proc-step-icon {
+  width: 56px; height: 56px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; margin: 0 auto 8px;
+  box-shadow: var(--shadow-sm);
+}
+.proc-step-num {
+  width: 24px; height: 24px; border-radius: 50%;
+  color: #fff; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: -16px auto 12px; position: relative; z-index: 1;
+  border: 3px solid var(--surface); box-shadow: var(--shadow-xs);
+}
+.proc-step h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+.proc-step p { font-size: 0.78rem; color: var(--ink-60); line-height: 1.45; }
+.proc-arrow {
+  display: flex; align-items: center; font-size: 1.8rem; font-weight: 700;
+  padding: 0 2px; flex-shrink: 0; margin-top: 22px;
+}
+
+/* ═══════════════════════════════════════════
+   11. FAQs
+   ═══════════════════════════════════════════ */
+.faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 860px; }
+.faq-item { border: 1px solid var(--ink-10); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
+.faq-q {
+  display: flex; align-items: center; gap: 14px; padding: 20px 24px; cursor: pointer;
+  -webkit-user-select: none; user-select: none;
+}
+.faq-q h4 { flex: 1; font-size: 0.93rem; font-weight: 600; line-height: 1.4; }
+.faq-toggle {
+  width: 28px; height: 28px; border-radius: 50%; background: var(--blue-light); color: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 600; flex-shrink: 0; transition: all 0.2s;
+}
+.faq-item.open .faq-toggle { background: var(--blue); color: #fff; transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+.faq-a-inner { padding: 0 24px 20px 24px; font-size: 0.88rem; color: var(--ink-60); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════
+   12. FINAL CTA
+   ═══════════════════════════════════════════ */
+.final-cta { padding: 80px 0; text-align: center; position: relative; overflow: hidden; }
+.final-cta::before { content: ''; position: absolute; top: -100px; right: -80px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%); border-radius: 50%; }
+.final-cta h2 { font-family: var(--font-display); font-size: clamp(1.8rem,3vw,2.5rem); font-weight: 700; margin-bottom: 14px; letter-spacing: -0.02em; }
+.final-cta p { font-size: 1rem; color: rgba(255,255,255,0.6); margin-bottom: 36px; max-width: 540px; margin-left: auto; margin-right: auto; }
+.final-cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* Footer */
+footer { padding: 28px 0; border-top: 1px solid var(--ink-05); text-align: center; font-size: 0.76rem; color: var(--ink-40); }
+
+/* ═══ SCROLL REVEAL ═══ */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.vis { opacity: 1; transform: translateY(0); }
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1000px){
+  .hero-grid,.o-split,.dash-charts { grid-template-columns:1fr; }
+  .hero { padding: 120px 0 64px; }
+  .hero-kpis { grid-template-columns: 1fr; }
+  .dash-kpis { grid-template-columns: repeat(2,1fr); }
+  .flow-row { flex-direction: column; align-items: center; }
+  .flow-arrow { transform: rotate(90deg); }
+  .stat-strip,.stake-cards,.cases-grid { grid-template-columns: 1fr; }
+  .ind-grid { grid-template-columns: repeat(2, 1fr); }
+  .ind-card-wide { grid-column: span 1; }
+  .proc-flow { flex-wrap: wrap; justify-content: center; }
+  .proc-arrow { transform: rotate(90deg); margin: 4px auto; }
+  .method-flow { flex-direction: column; align-items: center; }
+  .method-card:not(:last-child)::after { display: none; }
+  .tri-visual { flex-direction: column; gap: 20px; }
+  .tri-sources.left,.tri-sources.right { padding: 0; }
+  .tri-sources { grid-template-columns: repeat(3,1fr); }
+  .tri-grid { grid-template-columns: repeat(3,1fr); }
+  .tri-detail-grid { grid-template-columns: 1fr; gap: 16px; }
+  .roadmap { grid-template-columns: 1fr; }
+  .pie-wrap { flex-direction: column; }
+}
+@media(max-width:640px){
+  .container { padding: 0 18px; }
+  :root { --section-gap: 64px; }
+  .tri-sources { grid-template-columns: 1fr; }
+  .tri-grid { grid-template-columns: repeat(2,1fr); }
+  .ind-grid { grid-template-columns: 1fr; }
+  .ind-card-wide { grid-column: span 1; }
+  .hero-kpis { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ TOPBAR ═══ -->
+<nav class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="logo">ed<span>stellar</span></a>
+    <a href="#final-cta" class="topbar-cta">Book Diagnostic Consultation →</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     1. HERO
+     ═══════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="section-badge badge-blue">◆ Enterprise Capability Diagnostics</div>
+        <h1>Learning Needs<br>Analysis <em>Services</em></h1>
+        <p class="hero-sub">Data-driven capability diagnostics that align learning investments to business performance, risk, and ROI.</p>
+        <div class="hero-kpis">
+          <div class="hero-kpi">
+            <div class="icon-box" style="background:var(--blue-light);color:var(--blue)">◎</div>
+            <div class="hero-kpi-text">Business-aligned Learning Needs Analysis Services</div>
+          </div>
+          <div class="hero-kpi">
+            <div class="icon-box" style="background:var(--amber-light);color:var(--amber)">⚡</div>
+            <div class="hero-kpi-text">Role and risk based Learning Needs Analysis</div>
+          </div>
+          <div class="hero-kpi">
+            <div class="icon-box" style="background:var(--green-light);color:var(--green)">◈</div>
+            <div class="hero-kpi-text">Measurable training outcomes and ROI visibility</div>
+          </div>
+          <div class="hero-kpi">
+            <div class="icon-box" style="background:var(--violet-light);color:var(--violet)">▣</div>
+            <div class="hero-kpi-text">Enterprise-grade, structured, evidence-based approach</div>
+          </div>
+        </div>
+        <div class="hero-ctas">
+          <a href="#final-cta" class="btn btn-blue">Book a Diagnostic Consultation →</a>
+          <a href="#" class="btn btn-outline">↓ Download Sample TNA Report</a>
+        </div>
+      </div>
+
+      <!-- Dashboard Mockup -->
+      <div class="hero-dash">
+        <div class="dash-bar">
+          <div class="dash-bar-title">LNA Executive Dashboard</div>
+          <div class="dash-bar-live">Analysis Complete</div>
+        </div>
+        <div class="dash-body">
+          <div class="dash-kpis">
+            <div class="dash-kpi"><div class="dash-kpi-val" style="color:var(--red)">34</div><div class="dash-kpi-label">Critical Gaps</div></div>
+            <div class="dash-kpi"><div class="dash-kpi-val" style="color:var(--amber)">67%</div><div class="dash-kpi-label">Role Readiness</div></div>
+            <div class="dash-kpi"><div class="dash-kpi-val" style="color:var(--green)">$2.1M</div><div class="dash-kpi-label">Projected Savings</div></div>
+            <div class="dash-kpi"><div class="dash-kpi-val" style="color:var(--blue)">89</div><div class="dash-kpi-label">Priority Score</div></div>
+          </div>
+          <div class="dash-charts">
+            <div class="dash-chart">
+              <div class="dash-chart-label">Skill Gap Heatmap</div>
+              <div class="heatmap-grid" id="heroHeatmap"></div>
+            </div>
+            <div class="dash-chart">
+              <div class="dash-chart-label">Risk Exposure</div>
+              <div class="risk-bars">
+                <div class="risk-row"><div class="risk-label">Revenue</div><div class="risk-track"><div class="risk-fill" style="width:78%;background:var(--red)"></div></div></div>
+                <div class="risk-row"><div class="risk-label">Compliance</div><div class="risk-track"><div class="risk-fill" style="width:62%;background:var(--amber)"></div></div></div>
+                <div class="risk-row"><div class="risk-label">Safety</div><div class="risk-track"><div class="risk-fill" style="width:41%;background:var(--amber)"></div></div></div>
+                <div class="risk-row"><div class="risk-label">Attrition</div><div class="risk-track"><div class="risk-fill" style="width:55%;background:var(--red)"></div></div></div>
+                <div class="risk-row"><div class="risk-label">Readiness</div><div class="risk-track"><div class="risk-fill" style="width:33%;background:var(--green)"></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     2. DIAGNOSIS-LED LEARNING
+     ═══════════════════════════════════════════════════════ -->
+<section class="bg-alt" id="diagnosis">
+  <div class="container">
+    <div class="section-badge badge-teal reveal">02 — Strategic Alignment</div>
+    <h2 class="section-title reveal">Edstellar's Diagnosis-Led Learning for Business-Aligned Prioritization</h2>
+    <p class="section-sub reveal">Diagnosis-led training converts learning investment into measurable performance impact. A structured Learning Needs Analysis aligns business goals, role expectations, and skill requirements into a single decision framework for precise prioritization and higher ROI.</p>
+
+    <div class="flow-row reveal">
+      <div class="flow-card">
+        <div class="icon-box" style="background:var(--blue-light);color:var(--blue)">🎯</div>
+        <h4>Business Goals</h4>
+        <p>Revenue, growth, transformation targets</p>
+      </div>
+      <div class="flow-arrow c-blue">→</div>
+      <div class="flow-card">
+        <div class="icon-box" style="background:var(--teal-light);color:var(--teal)">👤</div>
+        <h4>Role Expectations</h4>
+        <p>Performance standards by job family</p>
+      </div>
+      <div class="flow-arrow c-teal">→</div>
+      <div class="flow-card">
+        <div class="icon-box" style="background:var(--amber-light);color:var(--amber)">📊</div>
+        <h4>Skill Requirements</h4>
+        <p>Competency gaps and skill gaps analysis</p>
+      </div>
+      <div class="flow-arrow c-violet">→</div>
+      <div class="flow-card">
+        <div class="icon-box" style="background:var(--green-light);color:var(--green)">✅</div>
+        <h4>Learning Priorities</h4>
+        <p>Risk-ranked, ROI-driven interventions</p>
+      </div>
+    </div>
+
+    <div class="stat-strip reveal">
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--blue)">68%</div>
+        <div class="stat-label">of enterprise training spend addresses low-priority skill gaps</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--teal)">3.2×</div>
+        <div class="stat-label">higher ROI when learning investments are diagnostically prioritized</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--violet)">41%</div>
+        <div class="stat-label">of performance issues traced to non-training root causes via LNA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     3. STAKEHOLDERS
+     ═══════════════════════════════════════════════════════ -->
+<section id="stakeholders">
+  <div class="container">
+    <div class="section-badge badge-violet reveal">03 — Stakeholder Relevance</div>
+    <h2 class="section-title reveal">Leadership &amp; Transformation Teams Enabled by Edstellar's Learning Needs Analysis</h2>
+    <p class="section-sub reveal">LNA delivers decision-grade insights for every leader involved in workforce capability, training investment, or organizational transformation.</p>
+
+    <div class="stake-cards reveal">
+      <div class="stake-card">
+        <div class="icon-box" style="background:var(--blue-light);color:var(--blue)">🏛️</div>
+        <h4>CHROs &amp; L&amp;D Leaders</h4>
+        <p>Prioritize training spend with evidence. Redirect budget from low-impact programs to capability-critical interventions with board-ready justification.</p>
+      </div>
+      <div class="stake-card">
+        <div class="icon-box" style="background:var(--teal-light);color:var(--teal)">📈</div>
+        <h4>BU / Functional Heads</h4>
+        <p>Close role-critical capability gaps. Identify where skill shortfalls create operational risk, revenue exposure, or delivery bottlenecks across business units.</p>
+      </div>
+      <div class="stake-card">
+        <div class="icon-box" style="background:var(--violet-light);color:var(--violet)">🔄</div>
+        <h4>HRBPs &amp; Transformation Teams</h4>
+        <p>Separate training vs. structural issues. Determine whether performance gaps require learning interventions, process redesign, or role restructuring.</p>
+      </div>
+    </div>
+
+    <div class="callout-gold reveal">
+      <strong>If you're unsure what to train, who to train, or whether training is even the right solution</strong> — Learning Needs Analysis is the right starting point.
+    </div>
+    <div class="btn-center reveal">
+      <a href="#final-cta" class="btn btn-blue">Start Here →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     4. BUSINESS PRIORITIES (ACCORDION + BA TABLE)
+     ═══════════════════════════════════════════════════════ -->
+<section class="bg-alt" id="priorities">
+  <div class="container">
+    <div class="section-badge badge-amber reveal">04 — Business Priorities</div>
+    <h2 class="section-title reveal">Business Priorities Strengthened Through Edstellar's Learning Needs Analysis</h2>
+    <p class="section-sub reveal">These are the enterprise-level priorities Edstellar's structured diagnostic accelerates — each tied to measurable business outcomes.</p>
+
+    <table class="priorities-table reveal">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Business Priority</th>
+          <th>How Edstellar's LNA Addresses It</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="pt-icon"><div class="icon-box icon-sm" style="background:var(--blue-light);color:var(--blue)">🎯</div></td>
+          <td class="pt-name">Precise Training Prioritization</td>
+          <td>Replaces assumption-based planning with evidence-based prioritization — directing resources to the skill gaps with the highest business impact and lowest current coverage.</td>
+        </tr>
+        <tr>
+          <td class="pt-icon"><div class="icon-box icon-sm" style="background:var(--teal-light);color:var(--teal)">📐</div></td>
+          <td class="pt-name">Skill–Role Alignment Across Job Families</td>
+          <td>Maps proficiency against structured role requirements across every critical job family, surfacing the exact gaps between current capability and role expectations.</td>
+        </tr>
+        <tr>
+          <td class="pt-icon"><div class="icon-box icon-sm" style="background:var(--violet-light);color:var(--violet)">🏆</div></td>
+          <td class="pt-name">Leadership Pipeline Readiness</td>
+          <td>Provides a quantified view of leadership pipeline health — from first-time managers to C-suite candidates — enabling proactive succession and development investments.</td>
+        </tr>
+        <tr>
+          <td class="pt-icon"><div class="icon-box icon-sm" style="background:var(--green-light);color:var(--green)">💰</div></td>
+          <td class="pt-name">Maximized ROI from Learning Spend</td>
+          <td>Creates a direct linkage between learning activity and business outcomes — ensuring every dollar of training investment drives measurable capability gains.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:600;margin-bottom:16px;" class="reveal">Before vs. After Edstellar's LNA</h3>
+    <table class="ba-table reveal">
+      <thead>
+        <tr><th>Decision Dimension</th><th>❌ Before LNA</th><th>✅ After Edstellar's LNA</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:600">🎯 Training prioritization</td><td class="ba-before">Based on requests and vendor availability</td><td class="ba-after">Based on risk, impact, and role criticality</td></tr>
+        <tr><td style="font-weight:600">📊 Skill visibility</td><td class="ba-before">Anecdotal, manager-dependent</td><td class="ba-after">Quantified, triangulated, role-mapped</td></tr>
+        <tr><td style="font-weight:600">💰 Spend efficiency</td><td class="ba-before">Flat budget, equal allocation</td><td class="ba-after">Weighted by business exposure and gap severity</td></tr>
+        <tr><td style="font-weight:600">🔍 Root cause clarity</td><td class="ba-before">"We need more training"</td><td class="ba-after">Training vs. process vs. systems vs. role design</td></tr>
+        <tr><td style="font-weight:600">📈 Executive reporting</td><td class="ba-before">Activity metrics (hours, completions)</td><td class="ba-after">Capability readiness, risk reduction, ROI projection</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     5. METHODOLOGY (HORIZONTAL FLOW)
+     ═══════════════════════════════════════════════════════ -->
+<section id="methodology">
+  <div class="container">
+    <div class="section-badge badge-blue reveal">05 — Diagnostic Framework</div>
+    <h2 class="section-title reveal">Edstellar's Learning Needs Analysis Methodology</h2>
+    <p class="section-sub reveal">A systematic diagnostic process designed for enterprise scale, rigor, and actionability. Each stage produces decision-ready outputs.</p>
+
+    <div class="method-flow reveal">
+      <div class="method-card">
+        <div class="method-num-wrap" style="background:var(--blue)">1</div>
+        <h4>Business &amp; Performance Context</h4>
+        <p>Map strategy, KPIs, and transformation priorities</p>
+        <div class="method-tags"><span class="method-tag">Strategy alignment</span><span class="method-tag">KPI mapping</span></div>
+        <button class="method-expand" onclick="toggleMethod(this)">View details +</button>
+        <div class="method-detail">Interviews with CXOs and BU heads establish strategic context. We map business objectives to workforce capability requirements, identify priority job families, and define diagnostic success criteria aligned to business outcomes.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num-wrap" style="background:linear-gradient(135deg,var(--blue),var(--teal))">2</div>
+        <h4>Role &amp; Skill Architecture Mapping</h4>
+        <p>Build structured skill taxonomy by role family</p>
+        <div class="method-tags"><span class="method-tag">Skill taxonomy</span><span class="method-tag">Role mapping</span></div>
+        <button class="method-expand" onclick="toggleMethod(this)">View details +</button>
+        <div class="method-detail">Using industry benchmarks and organizational context, we construct or validate a role-skill architecture mapping technical, functional, and behavioral competencies to job families, levels, and career progression.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num-wrap" style="background:var(--teal)">3</div>
+        <h4>Skill &amp; Capability Assessments</h4>
+        <p>Triangulated multi-source skill assessments</p>
+        <div class="method-tags"><span class="method-tag">Skill assessments</span><span class="method-tag">360° inputs</span></div>
+        <button class="method-expand" onclick="toggleMethod(this)">View details +</button>
+        <div class="method-detail">We deploy a minimum of three independent data sources per insight — combining quantitative assessments, qualitative inputs, and performance data to produce validated, bias-reduced findings.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num-wrap" style="background:linear-gradient(135deg,var(--teal),var(--violet))">4</div>
+        <h4>Gap Prioritization &amp; Risk Classification</h4>
+        <p>Rank gaps by impact, exposure, criticality</p>
+        <div class="method-tags"><span class="method-tag">Risk scoring</span><span class="method-tag">Priority matrix</span></div>
+        <button class="method-expand" onclick="toggleMethod(this)">View details +</button>
+        <div class="method-detail">Each gap is scored across business impact (revenue, safety, compliance), workforce exposure (roles affected), and time sensitivity — producing a quadrant-based priority matrix for resource allocation.</div>
+      </div>
+      <div class="method-card">
+        <div class="method-num-wrap" style="background:var(--green)">5</div>
+        <h4>Learning Strategy &amp; Execution Alignment</h4>
+        <p>Phased roadmap with clear ownership</p>
+        <div class="method-tags"><span class="method-tag">30-60-90 roadmap</span><span class="method-tag">ROI modeling</span></div>
+        <button class="method-expand" onclick="toggleMethod(this)">View details +</button>
+        <div class="method-detail">The final stage produces a modular learning architecture with phased interventions, role-specific pathways, and measurement frameworks. Includes distinction between training solutions, process improvements, and structural changes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     6. TRIANGULATION
+     ═══════════════════════════════════════════════════════ -->
+<section class="bg-alt" id="triangulation">
+  <div class="container">
+    <div class="section-badge badge-teal reveal">06 — Diagnostic Rigor</div>
+    <h2 class="section-title reveal">Edstellar's Evidence-Based, Triangulated Diagnostics</h2>
+    <p class="section-sub reveal">Single-source assessments produce biased decisions. Edstellar's diagnostic model requires multi-source validation for every critical finding.</p>
+
+    <div class="tri-callout reveal">
+      <span style="font-size:1.4rem;flex-shrink:0">🔷</span>
+      <p><strong>Triangulation Rule:</strong> All key insights are validated using a minimum of three independent data sources. No capability gap is classified as critical based on a single assessment method.</p>
+    </div>
+
+    <div class="tri-hub reveal">
+      <!-- 6 source cards -->
+      <div class="tri-grid">
+        <div class="tri-card" data-tri="0" onclick="openTri(0)">
+          <div class="tri-card-top">
+            <div class="icon-box" style="background:var(--blue-light);color:var(--blue)">📋</div>
+          </div>
+          <h5>Structured Surveys</h5>
+        </div>
+        <div class="tri-card" data-tri="1" onclick="openTri(1)">
+          <div class="tri-card-top">
+            <div class="icon-box" style="background:var(--teal-light);color:var(--teal)">👥</div>
+          </div>
+          <h5>Manager &amp; Leadership Inputs</h5>
+        </div>
+        <div class="tri-card" data-tri="2" onclick="openTri(2)">
+          <div class="tri-card-top">
+            <div class="icon-box" style="background:var(--violet-light);color:var(--violet)">🎙️</div>
+          </div>
+          <h5>Interviews &amp; Focus Groups</h5>
+        </div>
+        <div class="tri-card" data-tri="3" onclick="openTri(3)">
+          <div class="tri-card-top">
+            <div class="icon-box" style="background:var(--amber-light);color:var(--amber)">📊</div>
+          </div>
+          <h5>Performance &amp; Operational Data</h5>
+        </div>
+        <div class="tri-card" data-tri="4" onclick="openTri(4)">
+          <div class="tri-card-top">
+            <div class="icon-box" style="background:var(--green-light);color:var(--green)">🗂️</div>
+          </div>
+          <h5>Role &amp; Skill Architecture</h5>
+        </div>
+        <div class="tri-card" data-tri="5" onclick="openTri(5)">
+          <div class="tri-card-top">
+            <div class="icon-box" style="background:var(--rose-light);color:var(--rose)">🧠</div>
+          </div>
+          <h5>Psychometric &amp; Behavioral</h5>
+        </div>
+      </div>
+
+      <!-- Detail panel — full-width, appears below -->
+      <div class="tri-detail-panel" id="triPanel">
+        <button class="tri-close" onclick="closeTri()">✕</button>
+        <div class="tri-detail-grid">
+          <div class="tri-detail-col">
+            <div class="tri-detail-label" style="color:var(--blue)">📥 Data Provided</div>
+            <p id="triData"></p>
+          </div>
+          <div class="tri-detail-col">
+            <div class="tri-detail-label" style="color:var(--teal)">🛡️ Bias Reduced</div>
+            <p id="triBias"></p>
+          </div>
+          <div class="tri-detail-col">
+            <div class="tri-detail-label" style="color:var(--violet)">🎯 Decision Enabled</div>
+            <p id="triDecision"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     7. OUTCOMES & DELIVERABLES (TABS)
+     ═══════════════════════════════════════════════════════ -->
+<section id="outcomes">
+  <div class="container">
+    <div class="section-badge badge-green reveal">07 — Outcomes &amp; Deliverables</div>
+    <h2 class="section-title reveal">Edstellar's Diagnostic Outcomes &amp; Deliverables</h2>
+    <p class="section-sub reveal">Each deliverable enables a specific enterprise decision — from board-level investment cases to team-level learning plans.</p>
+
+    <div class="outcome-tabs reveal" role="tablist">
+      <button class="o-tab active" onclick="oTab(this,'p-heatmap')">Skill Heatmap</button>
+      <button class="o-tab" onclick="oTab(this,'p-coverage')">Role Coverage</button>
+      <button class="o-tab" onclick="oTab(this,'p-risk')">Risk Classification</button>
+      <button class="o-tab" onclick="oTab(this,'p-leadership')">Leadership Readiness</button>
+      <button class="o-tab" onclick="oTab(this,'p-root')">Root Cause Clarity</button>
+      <button class="o-tab" onclick="oTab(this,'p-roadmap')">30-60-90 Roadmap</button>
+    </div>
+
+    <!-- A: Skill Heatmap -->
+    <div class="o-panel active" id="p-heatmap">
+      <div class="o-split">
+        <div class="o-text">
+          <h3>Skill Mapping &amp; Capability Assessment</h3>
+          <p>Role-based skill mapping quantified across teams, levels, and leadership pipelines. Every capability gap is measured, not assumed.</p>
+          <ul class="o-list">
+            <li><span class="o-check">✓</span> Role-specific skill proficiency mapping across all assessed job families</li>
+            <li><span class="o-check">✓</span> Team- and department-level capability aggregation with drill-down</li>
+            <li><span class="o-check">✓</span> Quantified gap severity scores (1–5) with confidence intervals</li>
+            <li><span class="o-check">✓</span> Leadership pipeline readiness indicators by competency cluster</li>
+          </ul>
+        </div>
+        <div class="o-chart">
+          <div class="o-chart-title">Skill Gap Heatmap — Sample Output</div>
+          <div class="o-chart-desc">X-axis: Skill domains. Y-axis: Role groups. Color: Gap severity (green = proficient, red = critical). Decision: Which role groups have the most critical shortfalls.</div>
+          <div class="sk-heatmap">
+            <div class="sk-hdr"></div><div class="sk-hdr">Strategic</div><div class="sk-hdr">Technical</div><div class="sk-hdr">Digital</div><div class="sk-hdr">Leadership</div><div class="sk-hdr">Analytical</div>
+            <div class="sk-row">Senior Leaders</div><div class="sk-cell" style="background:var(--green)">4.2</div><div class="sk-cell" style="background:var(--amber)">2.8</div><div class="sk-cell" style="background:var(--red)">1.9</div><div class="sk-cell" style="background:var(--green)">4.0</div><div class="sk-cell" style="background:var(--amber)">3.1</div>
+            <div class="sk-row">Mid Managers</div><div class="sk-cell" style="background:var(--amber)">3.0</div><div class="sk-cell" style="background:var(--green)">3.8</div><div class="sk-cell" style="background:var(--amber)">2.5</div><div class="sk-cell" style="background:var(--red)">2.1</div><div class="sk-cell" style="background:var(--green)">3.6</div>
+            <div class="sk-row">Team Leads</div><div class="sk-cell" style="background:var(--red)">2.0</div><div class="sk-cell" style="background:var(--green)">3.9</div><div class="sk-cell" style="background:var(--amber)">2.7</div><div class="sk-cell" style="background:var(--red)">1.8</div><div class="sk-cell" style="background:var(--amber)">3.2</div>
+            <div class="sk-row">IC / Specialists</div><div class="sk-cell" style="background:var(--red)">1.5</div><div class="sk-cell" style="background:var(--green)">4.3</div><div class="sk-cell" style="background:var(--green)">3.5</div><div class="sk-cell" style="background:var(--red)">1.4</div><div class="sk-cell" style="background:var(--green)">4.1</div>
+            <div class="sk-row">Operations</div><div class="sk-cell" style="background:var(--red)">1.8</div><div class="sk-cell" style="background:var(--amber)">2.9</div><div class="sk-cell" style="background:var(--red)">1.7</div><div class="sk-cell" style="background:var(--amber)">2.4</div><div class="sk-cell" style="background:var(--amber)">2.6</div>
+          </div>
+          <div class="chart-legend" style="margin-top:12px">
+            <div class="cl-item"><div class="cl-swatch" style="background:var(--green)"></div> 3.5+ Proficient</div>
+            <div class="cl-item"><div class="cl-swatch" style="background:var(--amber)"></div> 2.5–3.4 Developing</div>
+            <div class="cl-item"><div class="cl-swatch" style="background:var(--red)"></div> &lt;2.5 Critical</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- B: Role Coverage -->
+    <div class="o-panel" id="p-coverage">
+      <div class="o-split">
+        <div class="o-text">
+          <h3>Role-Based Skill Coverage Analysis</h3>
+          <p>Role-wise readiness vs. requirement across critical job families. Identifies which roles need the most investment.</p>
+          <ul class="o-list">
+            <li><span class="o-check">✓</span> Skill coverage percentage by role group and proficiency tier</li>
+            <li><span class="o-check">✓</span> Gap-to-target ratios for priority competencies</li>
+            <li><span class="o-check">✓</span> Team-level comparisons for resource allocation decisions</li>
+          </ul>
+        </div>
+        <div class="o-chart">
+          <div class="o-chart-title">Role Coverage — Stacked Proficiency</div>
+          <div class="o-chart-desc">X-axis: Proficiency levels (Foundational/Intermediate/Advanced/Expert). Y-axis: Role groups. Stacked bars: Coverage %. Decision: Where role groups fall short of advanced proficiency.</div>
+          <div class="chart-legend">
+            <div class="cl-item"><div class="cl-swatch" style="background:var(--red)"></div> Foundational</div>
+            <div class="cl-item"><div class="cl-swatch" style="background:var(--amber)"></div> Intermediate</div>
+            <div class="cl-item"><div class="cl-swatch" style="background:var(--blue)"></div> Advanced</div>
+            <div class="cl-item"><div class="cl-swatch" style="background:var(--green)"></div> Expert</div>
+          </div>
+          <div class="sb-chart">
+            <div class="sb-row"><div class="sb-label">Engineering</div><div class="sb-track"><div class="sb-seg" style="width:12%;background:var(--red)">12%</div><div class="sb-seg" style="width:28%;background:var(--amber)">28%</div><div class="sb-seg" style="width:38%;background:var(--blue)">38%</div><div class="sb-seg" style="width:22%;background:var(--green)">22%</div></div></div>
+            <div class="sb-row"><div class="sb-label">Product</div><div class="sb-track"><div class="sb-seg" style="width:8%;background:var(--red)"></div><div class="sb-seg" style="width:35%;background:var(--amber)">35%</div><div class="sb-seg" style="width:40%;background:var(--blue)">40%</div><div class="sb-seg" style="width:17%;background:var(--green)">17%</div></div></div>
+            <div class="sb-row"><div class="sb-label">Operations</div><div class="sb-track"><div class="sb-seg" style="width:22%;background:var(--red)">22%</div><div class="sb-seg" style="width:38%;background:var(--amber)">38%</div><div class="sb-seg" style="width:28%;background:var(--blue)">28%</div><div class="sb-seg" style="width:12%;background:var(--green)">12%</div></div></div>
+            <div class="sb-row"><div class="sb-label">Sales</div><div class="sb-track"><div class="sb-seg" style="width:18%;background:var(--red)">18%</div><div class="sb-seg" style="width:42%;background:var(--amber)">42%</div><div class="sb-seg" style="width:30%;background:var(--blue)">30%</div><div class="sb-seg" style="width:10%;background:var(--green)">10%</div></div></div>
+            <div class="sb-row"><div class="sb-label">Leadership</div><div class="sb-track"><div class="sb-seg" style="width:5%;background:var(--red)"></div><div class="sb-seg" style="width:25%;background:var(--amber)">25%</div><div class="sb-seg" style="width:45%;background:var(--blue)">45%</div><div class="sb-seg" style="width:25%;background:var(--green)">25%</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C: Risk Classification -->
+    <div class="o-panel" id="p-risk">
+      <div class="o-split">
+        <div class="o-text">
+          <h3>Skill Criticality &amp; Risk Classification</h3>
+          <p>Ranks every identified skill gap by business impact and workforce exposure for risk-weighted investment allocation.</p>
+          <ul class="o-list">
+            <li><span class="o-check">✓</span> Business impact scoring (revenue, safety, compliance)</li>
+            <li><span class="o-check">✓</span> Workforce exposure measurement (% of roles affected)</li>
+            <li><span class="o-check">✓</span> Board-ready risk visualization for executive reporting</li>
+          </ul>
+        </div>
+        <div class="o-chart">
+          <div class="o-chart-title">Skill Risk Matrix — Bubble Chart</div>
+          <div class="o-chart-desc">X-axis: Business impact (low→high). Y-axis: Skill availability (low→high). Bubble size: Workforce exposure. Color: Risk type. Decision: Which gaps to close first.</div>
+          <div class="chart-legend">
+            <div class="cl-item"><div class="cl-swatch" style="background:var(--red)"></div> Revenue Risk</div>
+            <div class="cl-item"><div class="cl-swatch" style="background:var(--amber)"></div> Compliance Risk</div>
+            <div class="cl-item"><div class="cl-swatch" style="background:var(--blue)"></div> Safety Risk</div>
+          </div>
+          <div class="bubble-area">
+            <div class="b-axis-x">Business Impact →</div>
+            <div class="b-axis-y">Skill Availability →</div>
+            <div class="bub" style="width:70px;height:70px;background:var(--red);left:72%;bottom:18%">AI/ML<div class="bub-tip">AI/ML — High impact, low availability — 340 roles</div></div>
+            <div class="bub" style="width:54px;height:54px;background:var(--amber);left:55%;bottom:38%">GRC<div class="bub-tip">Governance — Moderate impact — 210 roles</div></div>
+            <div class="bub" style="width:46px;height:46px;background:var(--blue);left:32%;bottom:55%">Safety<div class="bub-tip">Safety — Moderate impact, higher availability — 180 roles</div></div>
+            <div class="bub" style="width:62px;height:62px;background:var(--red);left:80%;bottom:28%">Cloud<div class="bub-tip">Cloud Architecture — Very high impact — 280 roles</div></div>
+            <div class="bub" style="width:38px;height:38px;background:var(--amber);left:18%;bottom:65%">PM<div class="bub-tip">Project Mgmt — Lower impact — 120 roles</div></div>
+            <div class="bub" style="width:50px;height:50px;background:var(--red);left:62%;bottom:42%">Data<div class="bub-tip">Data Engineering — High impact — 240 roles</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- D: Leadership -->
+    <div class="o-panel" id="p-leadership">
+      <div class="o-split">
+        <div class="o-text">
+          <h3>Leadership &amp; Critical Capability Readiness</h3>
+          <p>Maps leadership competency readiness across the hierarchy and identifies succession opportunities in critical roles.</p>
+          <ul class="o-list">
+            <li><span class="o-check">✓</span> Leadership competency profiling by tier (C-suite to first-time managers)</li>
+            <li><span class="o-check">✓</span> Succession readiness scores for critical positions</li>
+            <li><span class="o-check">✓</span> Future-state capability model aligned to strategic goals</li>
+            <li><span class="o-check">✓</span> High-potential identification with development pathways</li>
+          </ul>
+        </div>
+        <div class="o-chart">
+          <div class="o-chart-title">Leadership Competency Pyramid</div>
+          <div class="o-chart-desc">Width: headcount at tier. Color: readiness level. Decision: Where the leadership pipeline carries highest development opportunity.</div>
+          <div class="pyramid">
+            <div class="pyramid-bar" style="width:30%;background:var(--green)">C-Suite — 82% Ready</div>
+            <div class="pyramid-bar" style="width:50%;background:var(--amber)">Senior Directors — 61% Ready</div>
+            <div class="pyramid-bar" style="width:70%;background:var(--red)">Mid-Level Managers — 43% Ready</div>
+            <div class="pyramid-bar" style="width:90%;background:var(--red)">First-Time Managers — 28% Ready</div>
+          </div>
+          <div class="chart-legend" style="margin-top:14px;justify-content:center;">
+            <div class="cl-item"><div class="cl-swatch" style="background:var(--green)"></div> Ready (≥70%)</div>
+            <div class="cl-item"><div class="cl-swatch" style="background:var(--amber)"></div> Developing (50–69%)</div>
+            <div class="cl-item"><div class="cl-swatch" style="background:var(--red)"></div> Opportunity (&lt;50%)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- E: Root Cause -->
+    <div class="o-panel" id="p-root">
+      <div class="o-split">
+        <div class="o-text">
+          <h3>Root Cause Clarity: Learning vs. Operational Constraints</h3>
+          <p>Not every performance gap is a training gap. This analysis separates true skill deficiencies from process, tools, role design, and leadership constraints — optimizing every investment dollar.</p>
+          <ul class="o-list">
+            <li><span class="o-check">✓</span> Performance gap categorization by root cause type</li>
+            <li><span class="o-check">✓</span> Non-training intervention recommendations</li>
+            <li><span class="o-check">✓</span> Training spend redirection opportunities quantified</li>
+          </ul>
+        </div>
+        <div class="o-chart">
+          <div class="o-chart-title">Performance Gap Root Cause Distribution</div>
+          <div class="o-chart-desc">Pie chart: Proportion of performance gaps by root cause. Decision: What proportion of spend is addressing the right problem.</div>
+          <div class="pie-wrap">
+            <svg class="pie-svg" viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="80" fill="none" stroke="var(--blue)" stroke-width="38" stroke-dasharray="190.4 502.7" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+              <circle cx="100" cy="100" r="80" fill="none" stroke="var(--amber)" stroke-width="38" stroke-dasharray="120.6 502.7" stroke-dashoffset="-190.4" transform="rotate(-90 100 100)"/>
+              <circle cx="100" cy="100" r="80" fill="none" stroke="var(--green)" stroke-width="38" stroke-dasharray="90.5 502.7" stroke-dashoffset="-311" transform="rotate(-90 100 100)"/>
+              <circle cx="100" cy="100" r="80" fill="none" stroke="var(--violet)" stroke-width="38" stroke-dasharray="60.3 502.7" stroke-dashoffset="-401.5" transform="rotate(-90 100 100)"/>
+              <circle cx="100" cy="100" r="80" fill="none" stroke="var(--red)" stroke-width="38" stroke-dasharray="40.2 502.7" stroke-dashoffset="-461.8" transform="rotate(-90 100 100)"/>
+            </svg>
+            <div class="pie-legend">
+              <div class="pie-row"><div class="pie-swatch" style="background:var(--blue)"></div> Training / Skill Gaps <div class="pie-pct">38%</div></div>
+              <div class="pie-row"><div class="pie-swatch" style="background:var(--amber)"></div> Process Gaps <div class="pie-pct">24%</div></div>
+              <div class="pie-row"><div class="pie-swatch" style="background:var(--green)"></div> Tools &amp; Systems <div class="pie-pct">18%</div></div>
+              <div class="pie-row"><div class="pie-swatch" style="background:var(--violet)"></div> Role Design <div class="pie-pct">12%</div></div>
+              <div class="pie-row"><div class="pie-swatch" style="background:var(--red)"></div> Leadership Constraints <div class="pie-pct">8%</div></div>
+            </div>
+          </div>
+          <p style="font-size:0.76rem;color:var(--ink-40);margin-top:14px;line-height:1.5;font-style:italic">62% of performance issues are non-training root causes. LNA ensures the right fix for each root cause.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- F: Roadmap -->
+    <div class="o-panel" id="p-roadmap">
+      <div class="o-split">
+        <div class="o-text">
+          <h3>Prioritized 30–60–90 Day Capability Roadmap</h3>
+          <p>Role- and level-specific interventions organized into a phased, executable plan with clear ownership and success metrics.</p>
+          <ul class="o-list">
+            <li><span class="o-check">✓</span> Phased intervention calendar with role-specific pathways</li>
+            <li><span class="o-check">✓</span> Modular learning architecture (not monolithic programs)</li>
+            <li><span class="o-check">✓</span> Non-training recommendations integrated into the roadmap</li>
+            <li><span class="o-check">✓</span> Measurement framework with leading and lagging indicators</li>
+          </ul>
+          <div style="margin-top:20px"><a href="#" class="btn btn-outline">↓ Download Sample 30-60-90 Day Roadmap</a></div>
+        </div>
+        <div class="o-chart">
+          <div class="o-chart-title">Phased Capability Roadmap</div>
+          <div class="o-chart-desc">Three-phase timeline: intervention type, target roles, expected outcomes. Decision: Execute immediately with phased resource allocation.</div>
+          <div class="roadmap">
+            <div class="rm-phase"><div class="rm-head" style="background:var(--red)">Days 1–30: Critical Priorities</div><div class="rm-body"><ul><li>Close compliance-critical skill gaps</li><li>Deploy safety &amp; regulatory training</li><li>Address role-design issues (non-training)</li><li>Launch manager capability baselines</li></ul></div></div>
+            <div class="rm-phase"><div class="rm-head" style="background:var(--amber)">Days 31–60: Capability Building</div><div class="rm-body"><ul><li>Roll out technical upskilling programs</li><li>Launch leadership development tracks</li><li>Implement process improvements</li><li>Begin tools/systems remediation</li></ul></div></div>
+            <div class="rm-phase"><div class="rm-head" style="background:var(--green)">Days 61–90: Strategic Growth</div><div class="rm-body"><ul><li>Deploy advanced future-state programs</li><li>Activate succession pipeline development</li><li>Measure impact vs. baseline KPIs</li><li>Calibrate ongoing learning architecture</li></ul></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="callout-gold" style="margin-top:32px">
+        <strong>Clear visibility on what to fix, what to train, what not to train, and where to invest first.</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     8. CASE STUDIES
+     ═══════════════════════════════════════════════════════ -->
+<section class="bg-alt" id="cases">
+  <div class="container">
+    <div class="section-badge badge-gold reveal">08 — Evidence of Impact</div>
+    <h2 class="section-title reveal">Edstellar Case Studies — Metrics-First Outcomes</h2>
+    <p class="section-sub reveal">Diagnostic outcomes measured against business KPIs, not training activity.</p>
+
+    <div class="cases-grid reveal">
+      <div class="case-card">
+        <div class="case-visual" style="background:linear-gradient(135deg,#E8F0FE,#D4E4FD)">⟐</div>
+        <div class="case-header">
+          <div class="case-ind">Global Technology</div>
+          <h4>Enterprise Cloud &amp; AI Capability Diagnostic</h4>
+        </div>
+        <div class="case-metrics">
+          <div><div class="cm-val">45%</div><div class="cm-label">Efficiency gain</div></div>
+          <div><div class="cm-val">$2.4M</div><div class="cm-label">Annual savings</div></div>
+        </div>
+        <div class="case-body">
+          <dl>
+            <dt>Baseline Issue</dt><dd>$5.2M training budget with no measurable business outcome linkage. Cloud migration stalled.</dd>
+            <dt>Diagnostic Method</dt><dd>5-stage LNA across 1,200 technical roles. Triangulated assessments, manager inputs, production metrics.</dd>
+            <dt>Diagnostic Output</dt><dd>78% of spend targeting non-critical skills. 23 role families with critical cloud gaps.</dd>
+            <dt>Post-Intervention</dt><dd>Redirected 45% of budget. Cloud readiness at target in 90 days. $2.4M in reallocated spend.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-visual" style="background:linear-gradient(135deg,#EAFBF0,#D4F5E0)">◈</div>
+        <div class="case-header">
+          <div class="case-ind">Financial Services</div>
+          <h4>Compliance &amp; Leadership Pipeline Diagnostic</h4>
+        </div>
+        <div class="case-metrics">
+          <div><div class="cm-val">30%</div><div class="cm-label">Attrition reduction</div></div>
+          <div><div class="cm-val">85%</div><div class="cm-label">Role clarity</div></div>
+        </div>
+        <div class="case-body">
+          <dl>
+            <dt>Baseline Issue</dt><dd>38% attrition in mid-management. Role expectations undefined across 15 job families.</dd>
+            <dt>Diagnostic Method</dt><dd>LNA with focus groups, 360° assessments, compliance performance data. 800 employees.</dd>
+            <dt>Diagnostic Output</dt><dd>60% of attrition linked to role ambiguity (non-training). Compliance gaps in 3 functions.</dd>
+            <dt>Post-Intervention</dt><dd>Role redesign for 15 families. Targeted compliance deep-dives. 30% attrition drop in 6 months.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-visual" style="background:linear-gradient(135deg,#FEF5EB,#FDE8D0)">⚙</div>
+        <div class="case-header">
+          <div class="case-ind">Advanced Manufacturing</div>
+          <h4>Operational Excellence &amp; Safety Diagnostic</h4>
+        </div>
+        <div class="case-metrics">
+          <div><div class="cm-val">20%</div><div class="cm-label">Throughput increase</div></div>
+          <div><div class="cm-val">$0</div><div class="cm-label">New training spend</div></div>
+        </div>
+        <div class="case-body">
+          <dl>
+            <dt>Baseline Issue</dt><dd>Throughput plateaued despite 3 years of increased training. Safety incidents stable.</dd>
+            <dt>Diagnostic Method</dt><dd>LNA across 2,400 operations roles. Skill assessments + production data + incident audits.</dd>
+            <dt>Diagnostic Output</dt><dd>72% of gaps were process/tools issues. 4 critical safety skills had zero training coverage.</dd>
+            <dt>Post-Intervention</dt><dd>Eliminated redundant programs. Redirected budget. 20% throughput gain with $0 incremental spend.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     9. INDUSTRIES & DIAGNOSTIC USE CASES
+     ═══════════════════════════════════════════════════════ -->
+<section id="industries">
+  <div class="container">
+    <div class="section-badge badge-rose reveal">09 — Industry Diagnostics</div>
+    <h2 class="section-title reveal">Industries &amp; Diagnostic Use Cases</h2>
+    <p class="section-sub reveal">Edstellar's LNA methodology adapts to sector-specific competency frameworks, regulatory requirements, and workforce structures.</p>
+
+    <div class="ind-grid reveal">
+
+      <!-- IT & Technology -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--blue);"></div>
+        <div class="ind-card-icon" style="background:var(--blue-light);color:var(--blue)">⟐</div>
+        <h4>IT &amp; Technology</h4>
+        <p>Cloud, AI/ML, cybersecurity skill readiness assessments mapped to digital transformation roadmaps and engineering role architectures.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:var(--blue-light);color:var(--blue)">Cloud Migration</span>
+          <span class="ind-tag" style="background:var(--blue-light);color:var(--blue)">AI/ML Readiness</span>
+          <span class="ind-tag" style="background:var(--blue-light);color:var(--blue)">Cybersecurity</span>
+          <span class="ind-tag" style="background:var(--blue-light);color:var(--blue)">DevOps</span>
+        </div>
+      </div>
+
+      <!-- Manufacturing -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--amber);"></div>
+        <div class="ind-card-icon" style="background:var(--amber-light);color:var(--amber)">⚙</div>
+        <h4>Manufacturing</h4>
+        <p>Operational excellence, safety compliance, lean methodology, and process engineering capability diagnostics across production teams.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:var(--amber-light);color:var(--amber)">Lean &amp; Six Sigma</span>
+          <span class="ind-tag" style="background:var(--amber-light);color:var(--amber)">Safety Compliance</span>
+          <span class="ind-tag" style="background:var(--amber-light);color:var(--amber)">Process Excellence</span>
+        </div>
+      </div>
+
+      <!-- BFSI -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--teal);"></div>
+        <div class="ind-card-icon" style="background:var(--teal-light);color:var(--teal)">◈</div>
+        <h4>BFSI</h4>
+        <p>Regulatory compliance, risk management, digital transformation readiness, and financial acumen diagnostics for banking, insurance, and fintech teams.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:var(--teal-light);color:var(--teal)">Compliance &amp; Risk</span>
+          <span class="ind-tag" style="background:var(--teal-light);color:var(--teal)">Digital Banking</span>
+          <span class="ind-tag" style="background:var(--teal-light);color:var(--teal)">Fintech Readiness</span>
+        </div>
+      </div>
+
+      <!-- Healthcare -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--green);"></div>
+        <div class="ind-card-icon" style="background:var(--green-light);color:var(--green)">✚</div>
+        <h4>Healthcare</h4>
+        <p>Clinical competency validation, patient safety protocols, regulatory readiness, and care quality improvement diagnostics across medical and administrative teams.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:var(--green-light);color:var(--green)">Clinical Competency</span>
+          <span class="ind-tag" style="background:var(--green-light);color:var(--green)">Patient Safety</span>
+          <span class="ind-tag" style="background:var(--green-light);color:var(--green)">Regulatory Readiness</span>
+        </div>
+      </div>
+
+      <!-- Energy & Utilities -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--gold);"></div>
+        <div class="ind-card-icon" style="background:var(--gold-light);color:var(--gold)">⚡</div>
+        <h4>Energy &amp; Utilities</h4>
+        <p>Safety-critical skill assessments, sustainability capability, and operational compliance diagnostics across distributed field and engineering workforces.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:var(--gold-light);color:var(--gold)">HSE Compliance</span>
+          <span class="ind-tag" style="background:var(--gold-light);color:var(--gold)">Sustainability</span>
+          <span class="ind-tag" style="background:var(--gold-light);color:var(--gold)">Field Operations</span>
+        </div>
+      </div>
+
+      <!-- Retail & Consumer -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--rose);"></div>
+        <div class="ind-card-icon" style="background:var(--rose-light);color:var(--rose)">🛒</div>
+        <h4>Retail &amp; Consumer</h4>
+        <p>Customer experience, omnichannel capability, supply chain readiness, and commercial skill diagnostics for frontline and management roles.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:var(--rose-light);color:var(--rose)">CX Excellence</span>
+          <span class="ind-tag" style="background:var(--rose-light);color:var(--rose)">Omnichannel</span>
+          <span class="ind-tag" style="background:var(--rose-light);color:var(--rose)">Supply Chain</span>
+        </div>
+      </div>
+
+      <!-- Telecom -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--violet);"></div>
+        <div class="ind-card-icon" style="background:var(--violet-light);color:var(--violet)">📡</div>
+        <h4>Telecommunications</h4>
+        <p>Network technology readiness, digital service capability, and customer retention skill diagnostics for rapidly evolving telecom workforces.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:var(--violet-light);color:var(--violet)">5G / Network</span>
+          <span class="ind-tag" style="background:var(--violet-light);color:var(--violet)">Digital Services</span>
+          <span class="ind-tag" style="background:var(--violet-light);color:var(--violet)">CX Retention</span>
+        </div>
+      </div>
+
+      <!-- Government & Public Sector -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:var(--ink-60);"></div>
+        <div class="ind-card-icon" style="background:var(--ink-05);color:var(--ink-60)">🏛️</div>
+        <h4>Government &amp; Public Sector</h4>
+        <p>Policy execution capability, digital governance readiness, and public service competency diagnostics for civil service and administrative teams.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:var(--ink-05);color:var(--ink-60)">Digital Governance</span>
+          <span class="ind-tag" style="background:var(--ink-05);color:var(--ink-60)">Policy Execution</span>
+          <span class="ind-tag" style="background:var(--ink-05);color:var(--ink-60)">Public Service</span>
+        </div>
+      </div>
+
+      <!-- Automobile -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:#2563EB;"></div>
+        <div class="ind-card-icon" style="background:#EFF6FF;color:#2563EB">🚗</div>
+        <h4>Automobile</h4>
+        <p>EV transition readiness, ADAS engineering capability, quality management systems, and shop-floor-to-leadership diagnostics across OEM and supplier workforces.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:#EFF6FF;color:#2563EB">EV &amp; ADAS</span>
+          <span class="ind-tag" style="background:#EFF6FF;color:#2563EB">Quality Systems</span>
+          <span class="ind-tag" style="background:#EFF6FF;color:#2563EB">Supply Chain</span>
+          <span class="ind-tag" style="background:#EFF6FF;color:#2563EB">Shop Floor Excellence</span>
+        </div>
+      </div>
+
+      <!-- Logistics & Supply Chain -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:#0891B2;"></div>
+        <div class="ind-card-icon" style="background:#ECFEFF;color:#0891B2">📦</div>
+        <h4>Logistics &amp; Supply Chain</h4>
+        <p>Warehouse operations capability, demand planning readiness, last-mile optimization skills, and end-to-end supply chain competency diagnostics.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:#ECFEFF;color:#0891B2">Demand Planning</span>
+          <span class="ind-tag" style="background:#ECFEFF;color:#0891B2">Warehouse Ops</span>
+          <span class="ind-tag" style="background:#ECFEFF;color:#0891B2">Last-Mile</span>
+        </div>
+      </div>
+
+      <!-- Pharma & Life Sciences -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:#7C3AED;"></div>
+        <div class="ind-card-icon" style="background:#F5F3FF;color:#7C3AED">🧬</div>
+        <h4>Pharma &amp; Life Sciences</h4>
+        <p>Drug safety compliance, clinical trial readiness, GxP workforce validation, and R&amp;D capability diagnostics across research and commercial teams.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:#F5F3FF;color:#7C3AED">GxP Compliance</span>
+          <span class="ind-tag" style="background:#F5F3FF;color:#7C3AED">Clinical Readiness</span>
+          <span class="ind-tag" style="background:#F5F3FF;color:#7C3AED">R&amp;D Capability</span>
+        </div>
+      </div>
+
+      <!-- Professional Services -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:#4338CA;"></div>
+        <div class="ind-card-icon" style="background:#EEF2FF;color:#4338CA">💼</div>
+        <h4>Professional Services</h4>
+        <p>Client delivery excellence, consulting methodology proficiency, knowledge management, and billable-team competency diagnostics for advisory firms.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:#EEF2FF;color:#4338CA">Client Delivery</span>
+          <span class="ind-tag" style="background:#EEF2FF;color:#4338CA">Advisory Skills</span>
+          <span class="ind-tag" style="background:#EEF2FF;color:#4338CA">Knowledge Mgmt</span>
+        </div>
+      </div>
+
+      <!-- Real Estate & Construction -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:#B45309;"></div>
+        <div class="ind-card-icon" style="background:#FFFBEB;color:#B45309">🏗️</div>
+        <h4>Real Estate &amp; Construction</h4>
+        <p>Project execution capability, safety compliance readiness, BIM proficiency, and site-to-leadership competency diagnostics across construction workforces.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:#FFFBEB;color:#B45309">Project Execution</span>
+          <span class="ind-tag" style="background:#FFFBEB;color:#B45309">Safety Compliance</span>
+          <span class="ind-tag" style="background:#FFFBEB;color:#B45309">BIM Proficiency</span>
+        </div>
+      </div>
+
+      <!-- Education & EdTech -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:#059669;"></div>
+        <div class="ind-card-icon" style="background:#ECFDF5;color:#059669">🎓</div>
+        <h4>Education &amp; EdTech</h4>
+        <p>Digital pedagogy readiness, instructional design capability, learning technology adoption, and faculty competency diagnostics for academic institutions.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:#ECFDF5;color:#059669">Digital Pedagogy</span>
+          <span class="ind-tag" style="background:#ECFDF5;color:#059669">EdTech Adoption</span>
+          <span class="ind-tag" style="background:#ECFDF5;color:#059669">Faculty Development</span>
+        </div>
+      </div>
+
+      <!-- Hospitality & Travel -->
+      <div class="ind-card" style="border-top: none;">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:#DB2777;"></div>
+        <div class="ind-card-icon" style="background:#FDF2F8;color:#DB2777">🏨</div>
+        <h4>Hospitality &amp; Travel</h4>
+        <p>Guest experience excellence, revenue management capability, multi-property service standards, and frontline-to-leadership diagnostics for hospitality teams.</p>
+        <div class="ind-tags">
+          <span class="ind-tag" style="background:#FDF2F8;color:#DB2777">Guest Experience</span>
+          <span class="ind-tag" style="background:#FDF2F8;color:#DB2777">Revenue Mgmt</span>
+          <span class="ind-tag" style="background:#FDF2F8;color:#DB2777">Service Standards</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout-gold reveal" style="margin-top: 36px;">
+      <strong>Every diagnostic is calibrated to your industry's competency frameworks, regulatory environment, and workforce structure</strong> — not a generic template applied across sectors.
+    </div>
+
+    <div class="btn-center reveal" style="margin-top: 24px;">
+      <a href="#final-cta" class="btn btn-blue">Discuss Your Industry Diagnostic →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     10. PROCESS & TIMELINE
+     ═══════════════════════════════════════════════════════ -->
+<section class="bg-alt" id="process">
+  <div class="container">
+    <div class="section-badge badge-teal reveal">10 — Process &amp; Timeline</div>
+    <h2 class="section-title reveal">Edstellar LNA: Process and Timeline</h2>
+    <p class="section-sub reveal">Our Training Needs Analysis engagements are structured for speed, rigor, and minimal disruption.</p>
+
+    <div class="proc-flow reveal">
+      <div class="proc-step">
+        <div class="proc-step-icon" style="background:var(--blue-light);color:var(--blue)">⏱️</div>
+        <div class="proc-step-num" style="background:var(--blue)">1</div>
+        <h4>Typical Duration</h4>
+        <p>2–6 weeks depending on scope and organization size</p>
+      </div>
+      <div class="proc-arrow" style="color:var(--blue)">→</div>
+      <div class="proc-step">
+        <div class="proc-step-icon" style="background:var(--teal-light);color:var(--teal)">🔍</div>
+        <div class="proc-step-num" style="background:var(--teal)">2</div>
+        <h4>Scope Options</h4>
+        <p>Org-wide baseline, BU-level analysis, or focused critical role assessment</p>
+      </div>
+      <div class="proc-arrow" style="color:var(--teal)">→</div>
+      <div class="proc-step">
+        <div class="proc-step-icon" style="background:var(--amber-light);color:var(--amber)">📥</div>
+        <div class="proc-step-num" style="background:var(--amber)">3</div>
+        <h4>Inputs Required</h4>
+        <p>Role definitions, performance metrics, stakeholder participation</p>
+      </div>
+      <div class="proc-arrow" style="color:var(--violet)">→</div>
+      <div class="proc-step">
+        <div class="proc-step-icon" style="background:var(--violet-light);color:var(--violet)">🤝</div>
+        <div class="proc-step-num" style="background:var(--violet)">4</div>
+        <h4>Stakeholders Involved</h4>
+        <p>CHRO / L&amp;D leadership, BU heads, HRBPs &amp; transformation teams</p>
+      </div>
+      <div class="proc-arrow" style="color:var(--green)">→</div>
+      <div class="proc-step">
+        <div class="proc-step-icon" style="background:var(--green-light);color:var(--green)">🚀</div>
+        <div class="proc-step-num" style="background:var(--green)">5</div>
+        <h4>After the Diagnostic</h4>
+        <p>L&amp;D architecture design, targeted training, ongoing capability tracking</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     11. FAQs
+     ═══════════════════════════════════════════════════════ -->
+<section id="faqs">
+  <div class="container">
+    <div class="section-badge badge-violet reveal">11 — Executive FAQs</div>
+    <h2 class="section-title reveal">Frequently Asked Questions About Edstellar's LNA</h2>
+    <p class="section-sub reveal">Executive-grade answers linked to business outcomes.</p>
+
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this.parentElement)">
+          <h4>What business outcomes will this TNA improve — and how is impact measured?</h4>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Revenue throughput, quality metrics, cycle time, attrition, customer satisfaction — each is baselined pre-diagnostic, targeted post-analysis, and tracked through execution. Measurement is built into the 30-60-90 roadmap with leading and lagging indicators.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this.parentElement)">
+          <h4>How does LNA distinguish training issues from process, role, or system constraints?</h4>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">We separate skill gaps from non-training root causes through triangulated data analysis. Performance issues are categorized as training, process, tools/systems, role design, or leadership constraints — so investments go to the highest-impact fix, not just the default "more training" response.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this.parentElement)">
+          <h4>Which roles and teams should be prioritized first for maximum ROI?</h4>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">The diagnostic produces a "critical roles + highest-risk gaps" priority map — scoring every gap by business impact, workforce exposure, and time sensitivity. This enables precise resource allocation to the interventions that generate the fastest, highest-value returns.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this.parentElement)">
+          <h4>What do the deliverables look like — and how actionable are they?</h4>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Capability heatmaps, gap breakdowns by role and function, risk-prioritized intervention recommendations, and a phased 30-60-90 day roadmap with ownership, timelines, and success metrics. Every deliverable is designed to drive a specific decision, not just inform one.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this.parentElement)">
+          <h4>How fast can we move from diagnosis to an execution-ready plan?</h4>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">A structured action plan is delivered at the conclusion of the diagnostic (typically 2–6 weeks). It includes timelines, role-level ownership assignments, quick wins for immediate impact, and long-term interventions with milestone checkpoints.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this.parentElement)">
+          <h4>What makes Edstellar different from training vendors who also offer TNA?</h4>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Diagnostic-led: evidence-based analysis first, then recommendations — including alternatives beyond training. Most vendors start with training catalogs and work backward. Edstellar starts with root cause analysis, builds a priority-ranked capability roadmap, and only then recommends interventions (training and non-training alike).</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     12. FINAL CTA
+     ═══════════════════════════════════════════════════════ -->
+<section class="final-cta bg-dark" id="final-cta">
+  <div class="container">
+    <h2>From Diagnostic to Decision.<br>From Insight to Execution.</h2>
+    <p>Start with a structured diagnostic. End with a risk-prioritized learning strategy backed by evidence — not assumptions.</p>
+    <div class="final-cta-btns">
+      <a href="#" class="btn btn-white">Request an LNA Consultation →</a>
+      <a href="#" class="btn btn-ghost-white">Build a Data-Driven Learning Strategy</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">© 2026 Edstellar. Enterprise Learning Needs Analysis &amp; Training Needs Analysis Services.</div>
+</footer>
+
+<!-- ═══ JS ═══ -->
+<script>
+// Topbar scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('topbar').classList.toggle('scrolled', scrollY > 20);
+});
+
+// Hero heatmap — colors correlated to percentage values
+(function(){
+  const g = document.getElementById('heroHeatmap');
+  const pcts = [92,78,45,88,33,67, 71,56,29,84,62,41, 77,38,53,90,48,35, 81,59,44,73,27,86, 65,51,39,82,57,43];
+  function getColor(v){
+    if(v>=70) return '#16A34A'; // green — strong proficiency
+    if(v>=50) return '#E67E22'; // amber — developing
+    return '#DC2626';           // red — critical gap
+  }
+  for(let i=0;i<30;i++){
+    const c = document.createElement('div');
+    c.className='hm-cell';
+    c.style.background=getColor(pcts[i]);
+    c.textContent=pcts[i]+'%';
+    g.appendChild(c);
+  }
+})();
+
+// Method expand
+function toggleMethod(btn){
+  const d = btn.nextElementSibling;
+  const isOpen = d.classList.contains('open');
+  document.querySelectorAll('.method-detail').forEach(x=>x.classList.remove('open'));
+  document.querySelectorAll('.method-expand').forEach(x=>x.textContent='View details +');
+  if(!isOpen){ d.classList.add('open'); btn.textContent='Hide details −'; }
+}
+
+// Triangulation cards
+const triData = [
+  { data:'Skill self-ratings, confidence levels, frequency of application across populations', bias:'Manager subjectivity, recency bias, small-sample anecdotes', decision:'Broad-base skill visibility and quantified proficiency baselines' },
+  { data:'Performance gaps, readiness assessments, promotion considerations from direct managers', bias:'Self-assessment inflation, Dunning-Kruger effects', decision:'Succession readiness scoring and development priority ranking' },
+  { data:'Root cause insights, cultural barriers, systemic issues from qualitative deep-dives', bias:'Survey fatigue, quantitative blind spots, context loss', decision:'Training vs. non-training root cause separation' },
+  { data:'Objective performance baselines, trend analysis, error rates, productivity metrics', bias:'Perception-based assessments, opinion-driven conclusions', decision:'ROI modeling, impact quantification, baseline-to-target tracking' },
+  { data:'Required vs. actual skill profiles mapped to each role family and career level', bias:'Ad-hoc skill definitions, role ambiguity, inconsistent expectations', decision:'Role-specific gap quantification and coverage analysis' },
+  { data:'Behavioral tendencies, cognitive styles, leadership potential indicators', bias:'Skills-only lens for leadership roles, technical-bias in promotion', decision:'Leadership development pathways, high-potential identification' }
+];
+function openTri(i){
+  document.querySelectorAll('.tri-card').forEach(c=>c.classList.remove('active'));
+  document.querySelector('[data-tri="'+i+'"]').classList.add('active');
+  document.getElementById('triData').textContent=triData[i].data;
+  document.getElementById('triBias').textContent=triData[i].bias;
+  document.getElementById('triDecision').textContent=triData[i].decision;
+  document.getElementById('triPanel').classList.add('open');
+}
+function closeTri(){
+  document.getElementById('triPanel').classList.remove('open');
+  document.querySelectorAll('.tri-card').forEach(c=>c.classList.remove('active'));
+}
+
+// Outcome tabs
+function oTab(tab,id){
+  document.querySelectorAll('.o-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.o-panel').forEach(p=>p.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+// FAQ
+function toggleFaq(el){
+  const open = el.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>{ i.classList.remove('open'); i.querySelector('.faq-a').style.maxHeight=0; });
+  if(!open){ el.classList.add('open'); el.querySelector('.faq-a').style.maxHeight=el.querySelector('.faq-a').scrollHeight+'px'; }
+}
+
+// Scroll reveal
+const obs = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('vis'); });
+},{threshold:0.08, rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Technology Consulting Services | Edstellar</title>
+<meta name="description" content="Vendor-neutral learning technology consulting — LMS selection, LXP advisory, learning ecosystem design, and implementation. Edstellar helps enterprises build technology stacks that drive real capability.">
+<meta name="keywords" content="learning technology consulting, LMS selection, LXP advisory, learning ecosystem design, e-learning consulting, LMS implementation, learning analytics, Edstellar">
+<link rel="canonical" href="https://www.edstellar.com/consulting/learning-technology-consulting">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.edstellar.com/consulting/learning-technology-consulting">
+<meta property="og:title" content="Learning Technology Consulting Services | Edstellar">
+<meta property="og:description" content="Vendor-neutral learning technology consulting — LMS selection, LXP advisory, learning ecosystem design, and implementation for modern enterprises.">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://www.edstellar.com/consulting/learning-technology-consulting">
+<meta property="twitter:title" content="Learning Technology Consulting Services | Edstellar">
+<meta property="twitter:description" content="Vendor-neutral learning technology consulting — LMS selection, LXP advisory, learning ecosystem design, and implementation for modern enterprises.">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Learning Technology Consulting Services",
+  "provider": {
+    "@type": "Organization",
+    "name": "Edstellar",
+    "url": "https://www.edstellar.com"
+  },
+  "description": "Edstellar designs, selects, and integrates the technology ecosystem your enterprise actually needs — LMS, LXP, authoring tools, and analytics — aligned to business goals, not vendor promises.",
+  "areaServed": "Worldwide",
+  "serviceType": "Learning Technology Consulting"
+}
+</script>
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════
+   MASTER CSS VARIABLES
+   ═══════════════════════════════════════════════════ */
+:root {
+  --navy: #2D2F6B;
+  --navy-card: #2E3054;
+  --navy-deep: #232558;
+  --navy-light: #3A3C7E;
+  --lime: #C5E826;
+  --lime-hover: #D4F23A;
+  --lime-text: #1A2600;
+  --lime-dim: rgba(197,232,38,0.08);
+  --red: #D94848;
+  --red-bg: #FDF0F0;
+  --red-dim: rgba(217,72,72,0.06);
+  --white: #FFFFFF;
+  --off-white: #F4F5F7;
+  --light-bg: #EEF0F4;
+  --surface: #FFFFFF;
+  --text-primary: #1A1A2E;
+  --text-secondary: #5C5E6E;
+  --text-muted: #8A8C9A;
+  --text-body: #D0D2E0;
+  --text-muted-navy: #9496B0;
+  --border: #DCDEE5;
+  --border-navy: rgba(255,255,255,0.1);
+  --border-light: #E2E3E8;
+  --chrome-text: #1A1A1A;
+  --chrome-muted: #6B6D7B;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --font: 'Inter', -apple-system, sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:var(--font); background:var(--off-white); color:var(--chrome-text); -webkit-font-smoothing:antialiased; }
+
+/* ═══════════════════════════════════════════════════
+   SHARED
+   ═══════════════════════════════════════════════════ */
+.section { padding:64px 48px; }
+.section-inner { max-width:1060px; margin:0 auto; }
+.section-label { display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+.section-label .bar { width:24px; height:3px; background:var(--lime); border-radius:2px; }
+.section-label span { font-size:12px; font-weight:700; color:var(--navy); letter-spacing:0.06em; text-transform:uppercase; }
+.btn-lime { display:inline-flex; align-items:center; gap:8px; padding:13px 28px; background:var(--lime); color:var(--lime-text); font-size:14px; font-weight:700; border:none; border-radius:8px; cursor:pointer; font-family:var(--font); transition:background 0.15s; white-space:nowrap; text-decoration:none; }
+.btn-lime:hover { background:var(--lime-hover); }
+
+/* ═══════════════════════════════════════════════════
+   NAV
+   ═══════════════════════════════════════════════════ */
+.ed-nav { display:flex; align-items:center; justify-content:space-between; padding:14px 48px; background:var(--surface); border-bottom:1px solid var(--border-light); }
+.ed-nav-left { display:flex; align-items:center; gap:32px; }
+.ed-logo { font-size:20px; font-weight:800; color:var(--navy); letter-spacing:-0.03em; display:flex; align-items:center; gap:8px; }
+.ed-logo-icon { width:30px; height:30px; border-radius:50%; border:2.5px solid var(--navy); display:flex; align-items:center; justify-content:center; }
+.ed-logo-icon span { font-size:11px; font-weight:800; color:var(--navy); }
+.ed-nav-links { display:flex; gap:24px; list-style:none; }
+.ed-nav-links li { font-size:14px; font-weight:500; color:var(--chrome-muted); cursor:pointer; transition:color 0.15s; }
+.ed-nav-links li:hover { color:var(--chrome-text); }
+.ed-nav-links li.active { color:var(--chrome-text); font-weight:700; }
+.ed-nav-right { display:flex; align-items:center; gap:16px; }
+.nav-search { width:36px; height:36px; border-radius:50%; border:1px solid var(--border-light); background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.ed-nav-cta { padding:10px 22px; background:var(--navy); color:var(--white); font-size:14px; font-weight:700; border:none; border-radius:8px; cursor:pointer; font-family:var(--font); letter-spacing:-0.01em; transition:background 0.15s; }
+.ed-nav-cta:hover { background:var(--navy-deep); }
+
+/* ═══════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════ */
+.hero { background:var(--navy); padding:52px 48px 56px; }
+.hero-grid { display:grid; grid-template-columns:55% 42%; gap:3%; align-items:center; }
+.breadcrumb { font-size:13px; color:var(--text-muted-navy); margin-bottom:18px; }
+.breadcrumb a { color:var(--text-body); text-decoration:none; }
+.breadcrumb a:hover { text-decoration:underline; }
+.hero h1 { font-size:40px; font-weight:800; line-height:1.15; color:var(--white); letter-spacing:-0.03em; }
+.hero h1 .accent { color:var(--lime); }
+.hero-sub { font-size:15px; line-height:1.7; color:var(--text-body); margin-top:18px; max-width:490px; }
+.hero-sub strong { color:var(--white); font-weight:700; }
+.check-list { display:flex; flex-direction:column; gap:12px; margin:28px 0 32px; }
+.check-item { display:flex; align-items:center; gap:12px; font-size:14px; font-weight:500; color:var(--text-body); }
+.check-icon { width:24px; height:24px; border-radius:50%; background:var(--lime); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.cta-row { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+.hero .btn-lime { padding:14px 30px; font-size:15px; gap:6px; }
+.btn-outline { display:inline-flex; align-items:center; gap:6px; padding:14px 30px; background:transparent; color:var(--white); font-size:15px; font-weight:600; border:1.5px solid rgba(255,255,255,0.35); border-radius:8px; cursor:pointer; font-family:var(--font); letter-spacing:-0.01em; transition:all 0.15s; }
+.btn-outline:hover { border-color:rgba(255,255,255,0.65); background:rgba(255,255,255,0.06); }
+.hero-image { width:100%; aspect-ratio:4/3; border-radius:var(--radius-lg); overflow:hidden; background:#C8CAD8; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:var(--navy); font-size:13px; font-weight:500; border:2px dashed rgba(45,47,107,0.2); }
+.logo-strip { padding:18px 48px; display:flex; align-items:center; gap:24px; background:var(--surface); border-top:1px solid var(--border-light); }
+.logo-strip .label { font-size:12px; color:var(--chrome-muted); white-space:nowrap; font-weight:600; }
+.logo-strip .logos { display:flex; gap:28px; flex:1; flex-wrap:wrap; }
+.logo-pill { width:72px; height:20px; border-radius:4px; background:#E8E9ED; border:1px solid var(--border-light); }
+
+@media (max-width:900px) {
+  .hero { padding:36px 24px 40px; }
+  .hero-grid { grid-template-columns:1fr; gap:32px; }
+  .hero h1 { font-size:30px; }
+  .ed-nav { padding:12px 24px; }
+  .ed-nav-links { display:none; }
+  .logo-strip { padding:16px 24px; }
+}
+
+/* ═══════════════════════════════════════════════════
+   STATS
+   ═══════════════════════════════════════════════════ */
+.stats-section { padding:52px 48px 56px; background:var(--light-bg); }
+.stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; max-width:1120px; margin:0 auto; }
+.stat-card { background:var(--navy-card); border-radius:var(--radius-lg); padding:28px 24px 30px; }
+.stat-bar { width:28px; height:3px; background:var(--lime); border-radius:2px; margin-bottom:20px; }
+.stat-number { font-size:44px; font-weight:800; color:var(--white); letter-spacing:-0.04em; line-height:1; }
+.stat-number .symbol { color:var(--lime); }
+.stat-number.sm { font-size:32px; }
+.stat-label { font-size:14px; color:#B8BAC8; margin-top:12px; line-height:1.5; font-weight:500; }
+
+@media (max-width:900px) {
+  .stats-section { padding:36px 20px 40px; }
+  .stats-grid { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:520px) {
+  .stats-grid { grid-template-columns:1fr; }
+}
+
+/* ═══════════════════════════════════════════════════
+   WHY IT MATTERS (Differentiators layout)
+   ═══════════════════════════════════════════════════ */
+#why-matters { background:var(--surface); }
+#why-matters .layout { display:grid; grid-template-columns:42% 54%; gap:4%; align-items:start; }
+.left-col h2 { font-size:28px; font-weight:800; color:var(--navy); line-height:1.2; letter-spacing:-0.03em; margin-bottom:10px; }
+.left-col .bold-sub { font-size:15px; font-weight:700; color:var(--text-primary); line-height:1.5; margin-bottom:8px; }
+.left-col .desc { font-size:14px; color:var(--text-secondary); line-height:1.65; margin-bottom:24px; }
+#why-matters .img-slot { width:100%; aspect-ratio:4/3; border-radius:var(--radius-lg); overflow:hidden; background:#D8DAE8; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:var(--navy); font-size:12px; font-weight:500; border:2px dashed rgba(45,47,107,0.2); }
+.metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.metric-card { background:var(--light-bg); border-radius:var(--radius-lg); padding:24px 20px; border:1px solid var(--border); }
+.metric-card .m-num { font-size:32px; font-weight:800; color:var(--navy); letter-spacing:-0.04em; line-height:1; }
+.metric-card .m-num .sym { color:var(--lime); }
+.metric-card .m-label { font-size:12px; color:var(--text-secondary); margin-top:8px; line-height:1.5; font-weight:500; }
+
+@media (max-width:768px) {
+  #why-matters .layout { grid-template-columns:1fr; gap:32px; }
+  .metric-grid { grid-template-columns:1fr; }
+}
+
+/* ═══════════════════════════════════════════════════
+   CHALLENGES
+   ═══════════════════════════════════════════════════ */
+#challenges { background:var(--surface); }
+#challenges .section-inner > h2 { font-size:30px; font-weight:800; line-height:1.2; letter-spacing:-0.03em; margin-bottom:8px; }
+#challenges .section-inner > h2 .accent { color:var(--navy); }
+#challenges .section-inner > h2 .dark { color:var(--text-primary); }
+#challenges .sub { font-size:15px; color:var(--text-secondary); line-height:1.6; max-width:620px; margin-bottom:36px; }
+#challenges .layout { display:grid; grid-template-columns:42% 55%; gap:3%; align-items:start; }
+#challenges .image-col { position:sticky; top:80px; }
+#challenges .img-slot { width:100%; aspect-ratio:3/4; border-radius:var(--radius-xl); overflow:hidden; background:#C8CAD8; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; font-size:12px; color:var(--text-muted); font-weight:500; border:2px dashed rgba(45,47,107,0.15); }
+.img-stat { margin-top:16px; background:var(--navy); border-radius:var(--radius-lg); padding:20px 24px; display:flex; align-items:center; gap:16px; }
+.img-stat .num { font-size:36px; font-weight:800; color:var(--white); letter-spacing:-0.04em; line-height:1; }
+.img-stat .num .sym { color:var(--lime); }
+.img-stat .label { font-size:13px; color:var(--text-muted); line-height:1.45; font-weight:500; flex:1; }
+.pain-list { display:flex; flex-direction:column; gap:0; }
+.pain-item { padding:24px 0; border-bottom:1px solid var(--border); display:flex; gap:16px; align-items:flex-start; transition:background 0.2s; cursor:default; }
+.pain-item:first-child { padding-top:0; }
+.pain-item:last-child { border-bottom:none; padding-bottom:0; }
+.pain-item:hover { background:var(--red-dim); margin:0 -16px; padding-left:16px; padding-right:16px; border-radius:var(--radius-lg); }
+.pain-icon { width:44px; height:44px; border-radius:12px; background:var(--red-bg); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.pain-item h4 { font-size:16px; font-weight:700; color:var(--text-primary); line-height:1.3; letter-spacing:-0.01em; margin-bottom:6px; }
+.pain-item p { font-size:13px; color:var(--text-secondary); line-height:1.6; }
+.pain-tag { display:inline-flex; align-items:center; gap:4px; margin-top:8px; font-size:11px; font-weight:700; color:var(--red); letter-spacing:0.02em; }
+.pain-tag .dot { width:6px; height:6px; border-radius:50%; background:var(--red); }
+.bottom-cta { margin-top:40px; padding:32px; background:var(--light-bg); border-radius:var(--radius-xl); display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+.bottom-cta p { font-size:15px; color:var(--text-secondary); line-height:1.6; max-width:560px; }
+.bottom-cta p strong { color:var(--text-primary); font-weight:700; }
+
+@media (max-width:768px) {
+  #challenges .layout { grid-template-columns:1fr; gap:28px; }
+  #challenges .image-col { position:static; }
+  #challenges .img-slot { aspect-ratio:16/9; }
+  .pain-item:hover { margin:0; padding-left:0; padding-right:0; }
+}
+
+/* ═══════════════════════════════════════════════════
+   SERVICES (Sub-service cards)
+   ═══════════════════════════════════════════════════ */
+#services { background:var(--light-bg); }
+#services .section-header { margin-bottom:40px; }
+#services .section-header h2 { font-size:30px; font-weight:800; color:var(--navy); line-height:1.2; letter-spacing:-0.03em; margin-bottom:8px; }
+#services .section-header p { font-size:15px; color:var(--text-secondary); line-height:1.6; max-width:620px; }
+.cards-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.svc-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; transition:box-shadow 0.3s, transform 0.3s; cursor:pointer; display:flex; flex-direction:column; }
+.svc-card:hover { box-shadow:0 12px 40px rgba(45,47,107,0.10); transform:translateY(-4px); }
+.card-img { width:100%; height:200px; overflow:hidden; position:relative; }
+.card-img-inner { width:100%; height:100%; background:#C8CAD8; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; font-size:11px; color:var(--text-muted); font-weight:500; transition:transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+.svc-card:hover .card-img-inner { transform:scale(1.08); }
+.card-body { padding:22px 24px 28px; flex:1; display:flex; flex-direction:column; }
+.card-title-row { display:flex; align-items:flex-start; gap:12px; margin-bottom:10px; }
+.card-accent { width:4px; height:24px; border-radius:2px; background:var(--lime); flex-shrink:0; margin-top:2px; }
+.card-body h3 { font-size:17px; font-weight:700; color:var(--text-primary); line-height:1.3; letter-spacing:-0.01em; }
+.card-body p { font-size:13px; color:var(--text-secondary); line-height:1.6; margin-bottom:20px; flex:1; }
+.card-link { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:var(--navy); text-decoration:none; cursor:pointer; transition:gap 0.2s; }
+.card-link:hover { gap:10px; }
+
+@media (max-width:900px) {
+  #services { padding:40px 20px; }
+  .cards-grid { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:580px) {
+  .cards-grid { grid-template-columns:1fr; }
+}
+
+/* ═══════════════════════════════════════════════════
+   ARCHITECTURE (Tab Pills)
+   ═══════════════════════════════════════════════════ */
+#architecture { background:var(--surface); }
+#architecture .section-header { margin-bottom:32px; }
+#architecture .section-header h2 { font-size:30px; font-weight:800; color:var(--navy); line-height:1.2; letter-spacing:-0.03em; }
+#architecture .section-header p { font-size:15px; color:var(--text-secondary); line-height:1.6; max-width:620px; margin-top:8px; }
+.tab-pills { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:28px; }
+.tab-pill { padding:10px 20px; font-family:var(--font); font-size:13px; font-weight:600; border:1.5px solid var(--border); border-radius:50px; background:var(--surface); color:var(--text-secondary); cursor:pointer; transition:all 0.2s; }
+.tab-pill:hover { border-color:var(--navy); color:var(--navy); }
+.tab-pill.active { background:var(--navy); border-color:var(--navy); color:var(--white); }
+.detail-panel { display:none; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-xl); overflow:hidden; animation:slideDown 0.3s ease-out; }
+.detail-panel.active { display:grid; grid-template-columns:55% 45%; }
+@keyframes slideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+.detail-content { padding:40px 36px; }
+.detail-num { font-size:48px; font-weight:800; color:var(--light-bg); letter-spacing:-0.04em; line-height:1; margin-bottom:8px; }
+.detail-content h3 { font-size:24px; font-weight:800; color:var(--text-primary); line-height:1.25; letter-spacing:-0.02em; margin-bottom:14px; }
+.detail-content p { font-size:14px; color:var(--text-secondary); line-height:1.7; margin-bottom:20px; }
+.detail-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:20px; }
+.detail-tag { font-size:11px; font-weight:700; padding:4px 12px; border-radius:6px; background:var(--lime-dim); color:var(--navy); letter-spacing:0.02em; }
+.detail-features { display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
+.detail-feat { display:flex; align-items:center; gap:10px; font-size:13px; font-weight:600; color:var(--text-primary); }
+.feat-check { width:20px; height:20px; border-radius:50%; background:var(--lime); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.feat-check svg { width:10px; height:10px; }
+.detail-visual { background:var(--navy); display:flex; align-items:center; justify-content:center; padding:40px; position:relative; }
+.visual-placeholder { width:100%; aspect-ratio:4/3; border-radius:var(--radius-lg); border:2px dashed var(--border-navy); background:rgba(255,255,255,0.04); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:var(--text-muted-navy); font-size:12px; font-weight:500; }
+.detail-visual .stat-float { position:absolute; bottom:24px; left:24px; background:var(--surface); border-radius:var(--radius); padding:12px 16px; display:flex; align-items:center; gap:10px; }
+.stat-float .num { font-size:20px; font-weight:800; color:var(--navy); letter-spacing:-0.03em; }
+.stat-float .label { font-size:11px; color:var(--text-secondary); font-weight:500; }
+
+@media (max-width:768px) {
+  #architecture { padding:40px 20px; }
+  .detail-panel.active { grid-template-columns:1fr; }
+  .detail-visual { min-height:200px; }
+}
+
+/* ═══════════════════════════════════════════════════
+   TESTIMONIALS (single quote variant)
+   ═══════════════════════════════════════════════════ */
+#testimonials { padding:72px 48px; background:#EAECF2; }
+#testimonials .layout { display:grid; grid-template-columns:40% 56%; gap:4%; align-items:center; }
+#testimonials .left h2 { font-size:32px; font-weight:800; line-height:1.2; letter-spacing:-0.03em; margin-bottom:16px; }
+#testimonials .left h2 .accent { color:var(--navy); }
+#testimonials .left h2 .dark { color:var(--text-primary); }
+#testimonials .left p { font-size:15px; color:var(--text-secondary); line-height:1.7; max-width:400px; }
+.quote-card { background:var(--surface); border-radius:var(--radius-xl); padding:40px 36px 36px; box-shadow:0 4px 24px rgba(45,47,107,0.06); }
+.quote-text { font-size:18px; font-weight:500; font-style:italic; color:var(--text-primary); line-height:1.65; margin-bottom:28px; letter-spacing:-0.01em; }
+.quote-author { display:flex; align-items:center; gap:14px; }
+.author-avatar { width:52px; height:52px; border-radius:50%; background:#D0D2E0; display:flex; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; font-size:18px; font-weight:700; color:var(--navy); }
+.author-name { font-size:15px; font-weight:700; color:var(--text-primary); margin-bottom:2px; }
+.author-role { font-size:13px; color:var(--text-secondary); line-height:1.45; }
+
+@media (max-width:768px) {
+  #testimonials { padding:48px 20px; }
+  #testimonials .layout { grid-template-columns:1fr; gap:32px; }
+  .quote-text { font-size:16px; }
+}
+
+/* ═══════════════════════════════════════════════════
+   EMERGING TECH (Icon Grid)
+   ═══════════════════════════════════════════════════ */
+#emerging { background:var(--surface); }
+#emerging .section-header { text-align:center; margin-bottom:44px; }
+#emerging .section-label { display:inline-flex; }
+#emerging .section-header h2 { font-size:30px; font-weight:800; color:var(--navy); line-height:1.2; letter-spacing:-0.03em; margin-bottom:8px; }
+#emerging .section-header p { font-size:15px; color:var(--text-secondary); line-height:1.6; max-width:620px; margin:0 auto; }
+.ind-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.ind-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-xl); padding:28px 24px; transition:all 0.25s; cursor:default; }
+.ind-card:hover { border-color:var(--lime); box-shadow:0 8px 28px rgba(45,47,107,0.06); transform:translateY(-3px); }
+.ind-icon { width:56px; height:56px; border-radius:16px; background:var(--lime-dim); display:flex; align-items:center; justify-content:center; margin-bottom:16px; transition:background 0.25s; }
+.ind-card:hover .ind-icon { background:var(--lime); }
+.ind-card:hover .ind-icon svg { stroke:var(--lime-text); }
+.ind-badge { font-size:10px; font-weight:700; color:var(--navy); letter-spacing:0.06em; text-transform:uppercase; margin-bottom:10px; }
+.ind-card h4 { font-size:15px; font-weight:700; color:var(--text-primary); margin-bottom:6px; letter-spacing:-0.01em; }
+.ind-card p { font-size:12px; color:var(--text-secondary); line-height:1.55; }
+
+@media (max-width:768px) {
+  #emerging { padding:40px 20px; }
+  .ind-grid { grid-template-columns:1fr 1fr; }
+}
+@media (max-width:480px) {
+  .ind-grid { grid-template-columns:1fr; }
+}
+
+/* ═══════════════════════════════════════════════════
+   PROCESS (Vertical Stepper)
+   ═══════════════════════════════════════════════════ */
+#process { background:var(--navy); }
+#process .section-header { display:grid; grid-template-columns:40% 56%; gap:4%; align-items:end; margin-bottom:48px; }
+#process .section-label span { color:var(--lime); }
+#process .header-left h2 { font-size:30px; font-weight:800; color:var(--white); line-height:1.2; letter-spacing:-0.03em; }
+#process .header-right p { font-size:14px; color:#9496B0; line-height:1.65; }
+.stepper { position:relative; padding-left:40px; }
+.stepper::before { content:''; position:absolute; left:18px; top:28px; bottom:28px; width:3px; background:rgba(255,255,255,0.1); border-radius:2px; }
+.step { position:relative; padding-bottom:32px; }
+.step:last-child { padding-bottom:0; }
+.step-marker { position:absolute; left:-40px; top:0; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.08); border:2px solid rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:800; color:var(--white); z-index:1; transition:all 0.3s; }
+.step:hover .step-marker { background:var(--lime); border-color:var(--lime); color:var(--lime-text); }
+.step-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius-xl); padding:28px; transition:all 0.25s; }
+.step:hover .step-card { background:rgba(255,255,255,0.07); border-color:rgba(197,232,38,0.2); }
+.step-top { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:10px; flex-wrap:wrap; }
+.step-title { font-size:18px; font-weight:800; color:var(--white); letter-spacing:-0.02em; }
+.step-badges { display:flex; gap:6px; }
+.badge { font-size:11px; font-weight:700; padding:4px 12px; border-radius:6px; letter-spacing:0.02em; }
+.badge-duration { background:var(--lime); color:var(--lime-text); }
+.badge-format { background:rgba(255,255,255,0.08); color:#9496B0; }
+.step-desc { font-size:14px; color:#B8BAC8; line-height:1.6; margin-bottom:16px; max-width:600px; }
+.step-bullets { display:flex; gap:16px; flex-wrap:wrap; }
+.step-bullet { display:flex; align-items:center; gap:8px; font-size:12px; font-weight:600; color:var(--white); }
+.bullet-check { width:18px; height:18px; border-radius:50%; background:var(--lime-dim); flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+.bullet-check svg { width:10px; height:10px; }
+
+@media (max-width:768px) {
+  #process { padding:40px 20px; }
+  #process .section-header { grid-template-columns:1fr; gap:16px; }
+  .stepper { padding-left:32px; }
+  .step-marker { left:-32px; width:28px; height:28px; font-size:11px; }
+  .step-bullets { flex-direction:column; gap:8px; }
+}
+
+/* ═══════════════════════════════════════════════════
+   VENDOR TABLE
+   ═══════════════════════════════════════════════════ */
+#vendor-eval { background:var(--light-bg); }
+#vendor-eval .section-header { margin-bottom:32px; }
+#vendor-eval .section-header h2 { font-size:30px; font-weight:800; color:var(--navy); line-height:1.2; letter-spacing:-0.03em; margin-bottom:8px; }
+#vendor-eval .section-header p { font-size:15px; color:var(--text-secondary); line-height:1.6; max-width:620px; }
+.eval-table-wrap { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-xl); overflow:hidden; margin-bottom:32px; }
+.eval-table { width:100%; border-collapse:collapse; font-size:14px; }
+.eval-table thead th { background:var(--navy); color:var(--white); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; padding:16px 20px; text-align:left; }
+.eval-table thead th:first-child { padding-left:28px; }
+.eval-table tbody td { padding:14px 20px; border-bottom:1px solid var(--border); color:var(--text-secondary); font-weight:500; }
+.eval-table tbody td:first-child { padding-left:28px; color:var(--text-primary); font-weight:600; }
+.eval-table tbody tr:last-child td { border-bottom:none; background:var(--light-bg); font-weight:700; color:var(--text-primary); }
+.eval-table tbody tr:last-child td:first-child { color:var(--navy); }
+.eval-table .score-high { color:var(--navy); font-weight:700; }
+.eval-table .weight { color:var(--chrome-muted); font-size:12px; font-weight:600; }
+
+@media (max-width:768px) {
+  #vendor-eval { padding:40px 16px; }
+  .eval-table-wrap { overflow-x:auto; }
+  .eval-table { min-width:600px; }
+}
+
+/* ═══════════════════════════════════════════════════
+   WHY EDSTELLAR (Stats Icon Cards)
+   ═══════════════════════════════════════════════════ */
+#why-edstellar { padding:56px 48px 60px; background:var(--surface); }
+#why-edstellar .we-layout { display:grid; grid-template-columns:32% 64%; gap:4%; align-items:start; max-width:1120px; margin:0 auto; }
+#why-edstellar .we-heading-bar { display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+#why-edstellar .we-heading-bar .bar { width:24px; height:3px; background:var(--lime); border-radius:2px; }
+#why-edstellar .we-heading-bar .label { font-size:12px; font-weight:700; color:var(--navy); letter-spacing:0.06em; text-transform:uppercase; }
+#why-edstellar .we-heading h2 { font-size:26px; font-weight:800; color:var(--navy); line-height:1.2; letter-spacing:-0.02em; margin-bottom:12px; }
+#why-edstellar .we-heading p { font-size:14px; color:var(--chrome-muted); line-height:1.6; }
+#why-edstellar .we-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+#why-edstellar .we-card { background:var(--navy-card); border-radius:var(--radius-lg); padding:26px 22px; display:flex; gap:16px; align-items:flex-start; }
+#why-edstellar .we-icon { width:44px; height:44px; border-radius:12px; background:rgba(197,232,38,0.15); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+#why-edstellar .we-card h4 { font-size:14px; font-weight:700; color:var(--white); margin-bottom:6px; }
+#why-edstellar .we-card p { font-size:12px; color:#B8BAC8; line-height:1.55; }
+
+@media (max-width:900px) {
+  #why-edstellar { padding:36px 20px 40px; }
+  #why-edstellar .we-layout { grid-template-columns:1fr; gap:28px; }
+}
+@media (max-width:520px) {
+  #why-edstellar .we-grid { grid-template-columns:1fr; }
+}
+
+/* ═══════════════════════════════════════════════════
+   DOWNLOAD ASSET
+   ═══════════════════════════════════════════════════ */
+#download { padding:56px 48px; background:var(--light-bg); }
+.banner-card { max-width:1060px; margin:0 auto; background:var(--navy-card); border-radius:var(--radius-xl); overflow:hidden; display:grid; grid-template-columns:58% 42%; position:relative; }
+.banner-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--lime); }
+.banner-left { padding:44px 40px 44px 48px; }
+.banner-label { display:inline-flex; align-items:center; gap:8px; margin-bottom:18px; }
+.banner-label .bar { width:20px; height:3px; background:var(--lime); border-radius:2px; }
+.banner-label span { font-size:12px; font-weight:700; color:var(--lime); letter-spacing:0.06em; text-transform:uppercase; }
+.banner-left h2 { font-size:26px; font-weight:800; color:var(--white); line-height:1.2; letter-spacing:-0.03em; margin-bottom:12px; }
+.banner-left p { font-size:14px; color:var(--text-body); line-height:1.65; margin-bottom:24px; max-width:420px; }
+.banner-features { display:flex; gap:20px; margin-bottom:28px; flex-wrap:wrap; }
+.banner-feat { display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--text-body); }
+#download .feat-check { width:18px; height:18px; }
+#download .feat-check svg { width:9px; height:9px; }
+#download .btn-lime { padding:12px 26px; }
+.btn-ghost { display:inline-flex; align-items:center; gap:6px; padding:12px 24px; background:transparent; color:var(--white); font-size:14px; font-weight:600; border:1.5px solid rgba(255,255,255,0.3); border-radius:8px; cursor:pointer; font-family:var(--font); transition:all 0.15s; }
+.btn-ghost:hover { border-color:rgba(255,255,255,0.6); background:rgba(255,255,255,0.05); }
+.banner-right { display:flex; align-items:center; justify-content:center; padding:32px; background:rgba(255,255,255,0.04); border-left:1px solid var(--border-navy); }
+.asset-preview { background:var(--surface); border-radius:var(--radius-lg); padding:24px 20px 20px; text-align:center; width:100%; max-width:280px; }
+.asset-thumb { width:100%; aspect-ratio:4/3; background:var(--light-bg); border-radius:var(--radius); border:1px solid var(--border); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; margin-bottom:16px; }
+.asset-thumb svg { opacity:0.2; }
+.asset-thumb span { font-size:11px; color:var(--text-secondary); font-weight:500; }
+.asset-name { font-size:14px; font-weight:700; color:var(--text-primary); letter-spacing:-0.01em; margin-bottom:4px; }
+.asset-meta { font-size:12px; color:var(--text-secondary); }
+.asset-format { display:inline-flex; align-items:center; gap:4px; margin-top:10px; padding:4px 10px; background:var(--light-bg); border-radius:6px; font-size:11px; font-weight:700; color:var(--text-secondary); letter-spacing:0.03em; text-transform:uppercase; }
+
+@media (max-width:768px) {
+  #download { padding:36px 16px; }
+  .banner-card { grid-template-columns:1fr; }
+  .banner-left { padding:32px 24px 28px 28px; }
+  .banner-right { padding:0 24px 28px; border-left:none; border-top:1px solid var(--border-navy); justify-content:flex-start; }
+}
+
+/* ═══════════════════════════════════════════════════
+   CONNECTED SERVICES
+   ═══════════════════════════════════════════════════ */
+#connected { background:var(--light-bg); }
+#connected .section-header { text-align:center; margin-bottom:40px; }
+#connected .section-label { display:inline-flex; }
+#connected .section-header h2 { font-size:30px; font-weight:800; color:var(--navy); line-height:1.2; letter-spacing:-0.03em; margin-bottom:8px; }
+#connected .section-header p { font-size:15px; color:var(--text-secondary); line-height:1.6; max-width:540px; margin:0 auto; }
+.cs-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.cs-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-xl); padding:32px 24px 28px; display:flex; flex-direction:column; transition:all 0.25s; cursor:pointer; position:relative; overflow:hidden; }
+.cs-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--lime); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+.cs-card:hover::before { transform:scaleX(1); }
+.cs-card:hover { box-shadow:0 10px 32px rgba(45,47,107,0.08); transform:translateY(-4px); }
+.cs-icon { width:48px; height:48px; border-radius:14px; background:var(--lime-dim); display:flex; align-items:center; justify-content:center; margin-bottom:18px; transition:background 0.25s; }
+.cs-card:hover .cs-icon { background:var(--lime); }
+.cs-card:hover .cs-icon svg { stroke:var(--lime-text); }
+.cs-card h3 { font-size:17px; font-weight:700; color:var(--text-primary); line-height:1.3; letter-spacing:-0.01em; margin-bottom:8px; }
+.cs-card p { font-size:13px; color:var(--text-secondary); line-height:1.6; margin-bottom:20px; flex:1; }
+.cs-link { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:var(--navy); text-decoration:none; transition:gap 0.2s; }
+.cs-link:hover { gap:10px; }
+
+@media (max-width:768px) {
+  #connected { padding:40px 20px; }
+  .cs-cards { grid-template-columns:1fr; }
+}
+
+/* ═══════════════════════════════════════════════════
+   FAQ
+   ═══════════════════════════════════════════════════ */
+#faq-section { background:var(--surface); }
+#faq-section .section-inner { max-width:760px; }
+#faq-section .section-inner > h2 { font-size:30px; font-weight:800; line-height:1.2; letter-spacing:-0.03em; margin-bottom:8px; }
+#faq-section .section-inner > h2 .dark { color:var(--text-primary); }
+#faq-section .section-inner > h2 .accent { color:var(--navy); }
+#faq-section .section-inner > p { font-size:15px; color:var(--text-secondary); line-height:1.6; margin-bottom:36px; }
+.faq-list { display:flex; flex-direction:column; gap:0; }
+.faq-item { border-bottom:2px solid var(--navy); transition:border-color 0.2s; }
+.faq-item.active { border-bottom-color:var(--lime); }
+.faq-question { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:22px 0; cursor:pointer; }
+.faq-question h3 { font-size:16px; font-weight:700; color:var(--text-primary); line-height:1.4; letter-spacing:-0.01em; flex:1; }
+.faq-toggle { width:32px; height:32px; border-radius:50%; border:none; background:transparent; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:all 0.25s; color:var(--text-muted); font-size:22px; font-weight:300; font-family:var(--font); }
+.faq-item.active .faq-toggle { color:var(--navy); transform:rotate(45deg); }
+.faq-answer { max-height:0; overflow:hidden; transition:max-height 0.35s cubic-bezier(0.4,0,0.2,1), padding 0.3s; padding:0; }
+.faq-item.active .faq-answer { max-height:400px; padding:0 0 24px 0; }
+.faq-answer p { font-size:14px; color:var(--text-secondary); line-height:1.7; max-width:640px; }
+
+@media (max-width:768px) {
+  #faq-section { padding:40px 20px; }
+  .faq-question h3 { font-size:15px; }
+}
+
+/* ═══════════════════════════════════════════════════
+   FINAL CTA
+   ═══════════════════════════════════════════════════ */
+#final-cta { background:var(--navy); padding:64px 48px; }
+#final-cta .section-inner { text-align:center; max-width:680px; }
+#final-cta .eyebrow { font-size:12px; font-weight:700; color:var(--lime); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:14px; }
+#final-cta h2 { font-size:32px; font-weight:800; color:var(--white); line-height:1.2; letter-spacing:-0.03em; margin-bottom:14px; }
+#final-cta p { font-size:15px; color:var(--text-body); line-height:1.7; margin-bottom:28px; }
+#final-cta .cta-row { justify-content:center; }
+
+@media (max-width:768px) {
+  #final-cta { padding:40px 20px; }
+  #final-cta h2 { font-size:26px; }
+}
+
+/* ═══════════════════════════════════════════════════
+   FORM
+   ═══════════════════════════════════════════════════ */
+#form-section { padding:0; background:var(--light-bg); }
+#form-section .section-inner { max-width:1120px; display:grid; grid-template-columns:45% 55%; min-height:720px; border-radius:var(--radius-xl); overflow:hidden; }
+.form-image { background:#C8CAD8; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; font-size:12px; color:var(--text-muted); font-weight:500; position:relative; }
+.form-panel { background:var(--surface); padding:48px 44px; display:flex; flex-direction:column; justify-content:center; }
+.form-panel h2 { font-size:28px; font-weight:800; color:var(--text-primary); line-height:1.2; letter-spacing:-0.03em; margin-bottom:12px; }
+.form-panel > p { font-size:14px; color:var(--text-secondary); line-height:1.65; margin-bottom:28px; max-width:440px; }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+.form-field { display:flex; flex-direction:column; }
+.form-field.full { grid-column:1 / -1; }
+.form-field input, .form-field select, .form-field textarea { font-family:var(--font); font-size:14px; color:var(--text-primary); padding:12px 16px; border:1.5px solid var(--border); border-radius:10px; background:var(--surface); outline:none; transition:border-color 0.2s; width:100%; }
+.form-field input::placeholder, .form-field textarea::placeholder { color:var(--text-muted); font-weight:400; }
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color:var(--navy); }
+.form-field select { color:var(--text-muted); appearance:none; background-image:url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 4.5l3 3 3-3' stroke='%238A8C9A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:36px; }
+.form-field select.selected { color:var(--text-primary); }
+.form-field textarea { resize:vertical; min-height:90px; }
+.phone-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.btn-submit { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:14px 28px; background:var(--navy); color:var(--white); font-size:15px; font-weight:700; border:none; border-radius:10px; cursor:pointer; font-family:var(--font); letter-spacing:-0.01em; transition:background 0.15s, transform 0.1s; margin-top:8px; }
+.btn-submit:hover { background:#232558; transform:translateY(-1px); }
+.form-note { margin-top:16px; font-size:12px; color:var(--text-secondary); line-height:1.55; }
+.form-note strong { color:var(--text-primary); font-weight:700; }
+
+@media (max-width:768px) {
+  #form-section .section-inner { grid-template-columns:1fr; margin:0 16px; }
+  .form-image { min-height:240px; }
+  .form-panel { padding:32px 24px; }
+  .form-grid { grid-template-columns:1fr; }
+  .phone-row { grid-template-columns:1fr; }
+}
+
+@media (max-width:768px) {
+  .section { padding:40px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     NAV + HERO
+     ═══════════════════════════════════════════════════ -->
+
+<nav class="ed-nav">
+  <div class="ed-nav-left">
+    <div class="ed-logo">
+      <div class="ed-logo-icon"><span>e</span></div>
+      edstellar
+    </div>
+    <ul class="ed-nav-links">
+      <li>Training Programs</li>
+      <li>Platform</li>
+      <li>Managed Training</li>
+      <li class="active">Consulting</li>
+      <li>Company</li>
+      <li>Resources</li>
+    </ul>
+  </div>
+  <div class="ed-nav-right">
+    <button class="nav-search">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="var(--chrome-muted)" stroke-width="1.5"/><path d="M11 11l3.5 3.5" stroke="var(--chrome-muted)" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <button class="ed-nav-cta">View Pricing</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="breadcrumb">
+        <a href="#">Home</a> &nbsp;&gt;&nbsp; <a href="#">Consulting</a> &nbsp;&gt;&nbsp; <span style="color:var(--lime)">Learning Technology</span>
+      </div>
+
+      <h1>
+        Learning Technology Consulting<br>
+        <span class="accent">Services for Modern Organizations</span>
+      </h1>
+
+      <p class="hero-sub">
+        <strong>Your LMS isn't your learning strategy.</strong>
+        Edstellar designs, selects, and integrates the technology ecosystem your enterprise actually needs — LMS, LXP, authoring tools, and analytics — aligned to business goals, not vendor promises.
+      </p>
+
+      <div class="check-list">
+        <div class="check-item">
+          <div class="check-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3 5-5" stroke="var(--lime-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          100% Vendor-Neutral LMS/LXP Advisory
+        </div>
+        <div class="check-item">
+          <div class="check-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3 5-5" stroke="var(--lime-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          40+ Evaluation Criteria Per Platform
+        </div>
+        <div class="check-item">
+          <div class="check-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3 5-5" stroke="var(--lime-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          Full Ecosystem Design &amp; Implementation
+        </div>
+        <div class="check-item">
+          <div class="check-icon"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2.5 6.5l3 3 5-5" stroke="var(--lime-text)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          Fortune 500 Enterprise Experience
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <button class="btn-lime">Schedule a Consultation</button>
+        <button class="btn-outline">View Our Methodology</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="hero-image">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="8" stroke="var(--navy)" stroke-width="2"/><path d="M18 30l6-8 4 5 6-9" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Hero image placeholder</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="logo-strip">
+  <span class="label">Trusted by</span>
+  <div class="logos">
+    <div class="logo-pill"></div><div class="logo-pill"></div><div class="logo-pill"></div><div class="logo-pill"></div><div class="logo-pill"></div><div class="logo-pill"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     STATS
+     ═══════════════════════════════════════════════════ -->
+
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-bar"></div>
+      <div class="stat-number">14<span class="symbol">+</span></div>
+      <div class="stat-label">Years Enterprise L&amp;D Experience</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-bar"></div>
+      <div class="stat-number sm">LMS &amp; LXP</div>
+      <div class="stat-label">Learning Ecosystem Advisory</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-bar"></div>
+      <div class="stat-number sm">Fortune 500</div>
+      <div class="stat-label">Trusted by Visa, ABB &amp; Aditya Birla Group</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-bar"></div>
+      <div class="stat-number">100<span class="symbol">+</span></div>
+      <div class="stat-label">Global Enterprise Engagements</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     WHY IT MATTERS
+     ═══════════════════════════════════════════════════ -->
+
+<section id="why-matters" class="section">
+  <div class="section-inner">
+    <div class="layout">
+
+      <div class="left-col">
+        <div class="section-label"><div class="bar"></div><span>Why it matters</span></div>
+        <h2>Why Learning Technology Is the Backbone of Modern L&amp;D</h2>
+        <p class="desc">Modern learning is digital, distributed, and integrated into everyday work. But many organizations invest in platforms before designing the ecosystem that supports them. Without a clear architecture, companies often experience low platform adoption, disconnected systems, and technology investments that fail to deliver real workforce capability improvements.</p>
+        <p class="desc">Edstellar's learning technology consulting helps organizations design a structured learning ecosystem, evaluate platforms objectively, and implement technology that supports real learning behavior — not just software features.</p>
+
+        <div class="img-slot" style="border:none;background:#D8DAE8;">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="8" stroke="var(--navy)" stroke-width="2"/><path d="M18 30l6-8 4 5 6-9" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Image placeholder</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="m-num">3<span class="sym">x</span></div>
+            <div class="m-label">Higher platform adoption with structured learning ecosystem design</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-num">40<span class="sym">+</span></div>
+            <div class="m-label">Vendor-neutral evaluation criteria used in every LMS/LXP selection</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-num">8–12</div>
+            <div class="m-label">Weeks — typical timeline from discovery to technology architecture blueprint</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-num">2,000<span class="sym">+</span></div>
+            <div class="m-label">Training programs ready to populate enterprise learning ecosystems</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     CHALLENGES (Technology Trap)
+     ═══════════════════════════════════════════════════ -->
+
+<section id="challenges" class="section">
+  <div class="section-inner">
+
+    <div class="section-label"><div class="bar"></div><span>The technology trap</span></div>
+    <h2><span class="accent">Common Learning Technology</span> <span class="dark">Challenges Organizations Face</span></h2>
+    <p class="sub">Most organizations buy platforms before they design ecosystems. The result is shelfware, fragmented data, and an L&amp;D team stuck managing tools instead of driving capability.</p>
+
+    <div class="layout">
+
+      <div class="image-col">
+        <div class="img-slot">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="8" stroke="currentColor" stroke-width="2"/><path d="M18 30l6-8 4 5 6-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Challenge image placeholder</span>
+        </div>
+        <div class="img-stat">
+          <div><div class="num">70<span class="sym">%</span></div></div>
+          <div class="label">of enterprise LMS implementations fail to meet adoption targets within the first year</div>
+        </div>
+      </div>
+
+      <div class="pain-list">
+
+        <div class="pain-item">
+          <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M10 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16z"/><path d="M10 6v4l2.5 2.5" stroke-linecap="round"/></svg></div>
+          <div class="pain-content">
+            <h4>Vendor-Led Platform Decisions</h4>
+            <p>Platform selected based on demos and sales pitches — not organizational requirements, integration needs, or learner workflows.</p>
+            <div class="pain-tag"><span class="dot"></span> Impacts technology ROI</div>
+          </div>
+        </div>
+
+        <div class="pain-item">
+          <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M3 14l4-8 4 5 3-3 3 6" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="3" width="16" height="14" rx="2"/></svg></div>
+          <div class="pain-content">
+            <h4>Disconnected Systems &amp; Siloed Data</h4>
+            <p>LMS, HRIS, talent management, and skills platforms sitting in silos — no data flows, no unified reporting, no single source of truth.</p>
+            <div class="pain-tag"><span class="dot"></span> Impacts data integrity</div>
+          </div>
+        </div>
+
+        <div class="pain-item">
+          <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="var(--red)" stroke-width="1.8"><path d="M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"/><path d="M10 7v3M10 13h.01" stroke-linecap="round"/></svg></div>
+          <div class="pain-content">
+            <h4>Low Platform Adoption Rates</h4>
+            <p>Learners bypass the platform. Managers don't use dashboards. Content sits unfinished because the UX doesn't match real workflows.</p>
+            <div class="pain-tag"><span class="dot"></span> Impacts learner engagement</div>
+          </div>
+        </div>
+
+        <div class="pain-item">
+          <div class="pain-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="var(--red)" stroke-width="1.8"><circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2a12 12 0 0 1 3 8 12 12 0 0 1-3 8 12 12 0 0 1-3-8 12 12 0 0 1 3-8z"/></svg></div>
+          <div class="pain-content">
+            <h4>Wasted Technology Investment</h4>
+            <p>Thousands spent on platform licenses with no architecture to connect learning outcomes to business performance.</p>
+            <div class="pain-tag"><span class="dot"></span> Impacts budget efficiency</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="bottom-cta">
+      <p>Recognise these challenges in your organization? <strong>Talk to our L&amp;D technology experts</strong> — no commitment, just clarity on where your stack stands.</p>
+      <button class="btn-lime">Talk to Our L&amp;D Technology Experts <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SERVICES (Sub-service Cards)
+     ═══════════════════════════════════════════════════ -->
+
+<section id="services" class="section">
+  <div class="section-inner">
+
+    <div class="section-header">
+      <div class="section-label"><div class="bar"></div><span>Our services</span></div>
+      <h2>Our Learning Technology Solutions &amp; Services</h2>
+      <p>From LMS selection and implementation to e-learning development, learning analytics, and workflow optimization — Edstellar covers the full learning technology lifecycle, vendor-neutral and globally delivered.</p>
+    </div>
+
+    <div class="cards-grid">
+
+      <div class="svc-card">
+        <div class="card-img"><div class="card-img-inner"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="4" width="28" height="28" rx="6" stroke="currentColor" stroke-width="1.5"/><path d="M13 22l5-6 3 4 4-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Image placeholder</span></div></div>
+        <div class="card-body">
+          <div class="card-title-row"><div class="card-accent"></div><h3>LMS Selection &amp; Advisory</h3></div>
+          <p>Vendor-neutral evaluation across 40+ criteria. Needs assessment, shortlisting, demos, and scored recommendation matrix.</p>
+          <a class="card-link">Read more <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="card-img"><div class="card-img-inner"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="4" width="28" height="28" rx="6" stroke="currentColor" stroke-width="1.5"/><path d="M13 22l5-6 3 4 4-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Image placeholder</span></div></div>
+        <div class="card-body">
+          <div class="card-title-row"><div class="card-accent"></div><h3>LMS Implementation &amp; Configuration</h3></div>
+          <p>End-to-end LMS setup — system configuration, user roles, course structure, SCORM/xAPI import, and integrations.</p>
+          <a class="card-link">Read more <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="card-img"><div class="card-img-inner"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="4" width="28" height="28" rx="6" stroke="currentColor" stroke-width="1.5"/><path d="M13 22l5-6 3 4 4-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Image placeholder</span></div></div>
+        <div class="card-body">
+          <div class="card-title-row"><div class="card-accent"></div><h3>Learning Ecosystem Strategy &amp; Design</h3></div>
+          <p>LMS + LXP architecture, HRIS integrations, learning pathways, role-based journeys, and governance frameworks.</p>
+          <a class="card-link">Read more <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="card-img"><div class="card-img-inner"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="4" width="28" height="28" rx="6" stroke="currentColor" stroke-width="1.5"/><path d="M13 22l5-6 3 4 4-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Image placeholder</span></div></div>
+        <div class="card-body">
+          <div class="card-title-row"><div class="card-accent"></div><h3>Learning Analytics &amp; Reporting Dashboards</h3></div>
+          <p>Dashboard setup, engagement metrics, compliance reporting, and learner behavior insights connected to business KPIs.</p>
+          <a class="card-link">Read more <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="card-img"><div class="card-img-inner"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="4" width="28" height="28" rx="6" stroke="currentColor" stroke-width="1.5"/><path d="M13 22l5-6 3 4 4-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Image placeholder</span></div></div>
+        <div class="card-body">
+          <div class="card-title-row"><div class="card-accent"></div><h3>Content Migration &amp; Platform Transition</h3></div>
+          <p>Structured audits and migration support when organizations move from one platform to another.</p>
+          <a class="card-link">Read more <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="card-img"><div class="card-img-inner"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="4" width="28" height="28" rx="6" stroke="currentColor" stroke-width="1.5"/><path d="M13 22l5-6 3 4 4-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Image placeholder</span></div></div>
+        <div class="card-body">
+          <div class="card-title-row"><div class="card-accent"></div><h3>Managed Learning Platform Services</h3></div>
+          <p>Ongoing LMS administration, vendor management, governance, and L&amp;D operational support for enterprise organizations.</p>
+          <a class="card-link">Read more <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="bottom-cta" style="margin-top:32px;">
+      <p>Not sure which services you need? <strong>Get a free learning ecosystem assessment</strong> — we'll map your current stack and identify the highest-impact gaps.</p>
+      <button class="btn-lime">Get a Free Assessment <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     ARCHITECTURE (Tab Pills)
+     ═══════════════════════════════════════════════════ -->
+
+<section id="architecture" class="section">
+  <div class="section-inner">
+
+    <div class="section-header">
+      <div class="section-label"><div class="bar"></div><span>Our framework</span></div>
+      <h2>Edstellar's Four-Layer Learning Technology Architecture</h2>
+      <p>Every enterprise learning ecosystem sits on four interdependent layers. Weakness in any one creates friction across the entire stack.</p>
+    </div>
+
+    <div class="tab-pills" id="tabPills">
+      <button class="tab-pill active" data-tab="0">Core Platform</button>
+      <button class="tab-pill" data-tab="1">Content &amp; Authoring</button>
+      <button class="tab-pill" data-tab="2">Data &amp; Analytics</button>
+      <button class="tab-pill" data-tab="3">Integration &amp; Ecosystem</button>
+    </div>
+
+    <div id="archPanels">
+
+      <div class="detail-panel active">
+        <div class="detail-content">
+          <div class="detail-num">01</div>
+          <h3>Core Platform</h3>
+          <p>LMS and/or LXP — the foundation for content delivery, learner management, compliance tracking, and self-directed discovery.</p>
+          <div class="detail-tags">
+            <span class="detail-tag">LMS</span>
+            <span class="detail-tag">LXP</span>
+            <span class="detail-tag">LCMS</span>
+          </div>
+          <div class="detail-features">
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> Structured learning delivery &amp; compliance</div>
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> Self-directed content discovery</div>
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> Learner management &amp; certification</div>
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> User experience &amp; adoption design</div>
+          </div>
+          <button class="btn-lime">Explore this layer <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div class="detail-visual">
+          <div class="visual-placeholder"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="8" stroke="currentColor" stroke-width="2"/><path d="M18 30l6-8 4 5 6-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Layer visual</span></div>
+          <div class="stat-float"><div><div class="num">40<span style="color:var(--lime)">+</span></div><div class="label">Evaluation criteria</div></div></div>
+        </div>
+      </div>
+
+      <div class="detail-panel">
+        <div class="detail-content">
+          <div class="detail-num">02</div>
+          <h3>Content &amp; Authoring</h3>
+          <p>Authoring tools, e-learning content libraries, SCORM/xAPI standards, and third-party content integrations.</p>
+          <div class="detail-tags">
+            <span class="detail-tag">SCORM/xAPI</span>
+            <span class="detail-tag">Authoring</span>
+            <span class="detail-tag">Video</span>
+          </div>
+          <div class="detail-features">
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> Authoring tool selection &amp; configuration</div>
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> SCORM/xAPI standards compliance</div>
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> Third-party content library integration</div>
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> Video &amp; multimedia production pipelines</div>
+          </div>
+          <button class="btn-lime">Explore this layer <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div class="detail-visual">
+          <div class="visual-placeholder"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="8" stroke="currentColor" stroke-width="2"/><path d="M18 30l6-8 4 5 6-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Layer visual</span></div>
+          <div class="stat-float"><div><div class="num">2,000<span style="color:var(--lime)">+</span></div><div class="label">Programs available</div></div></div>
+        </div>
+      </div>
+
+      <div class="detail-panel">
+        <div class="detail-content">
+          <div class="detail-num">03</div>
+          <h3>Data &amp; Analytics</h3>
+          <p>xAPI data streams, learning analytics dashboards, reporting pipelines, and BI infrastructure connecting learning to business KPIs.</p>
+          <div class="detail-tags">
+            <span class="detail-tag">xAPI/LRS</span>
+            <span class="detail-tag">Dashboards</span>
+            <span class="detail-tag">BI</span>
+          </div>
+          <div class="detail-features">
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> xAPI data stream configuration</div>
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> Learning analytics dashboard design</div>
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> Business KPI connection &amp; reporting</div>
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> BI integration &amp; executive reporting</div>
+          </div>
+          <button class="btn-lime">Explore this layer <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div class="detail-visual">
+          <div class="visual-placeholder"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="8" stroke="currentColor" stroke-width="2"/><path d="M18 30l6-8 4 5 6-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Layer visual</span></div>
+          <div class="stat-float"><div><div class="num">100<span style="color:var(--lime)">+</span></div><div class="label">Global locations</div></div></div>
+        </div>
+      </div>
+
+      <div class="detail-panel">
+        <div class="detail-content">
+          <div class="detail-num">04</div>
+          <h3>Integration &amp; Ecosystem</h3>
+          <p>API connections, SSO, middleware, and data flows linking the learning stack to HRIS, talent management, and skills platforms.</p>
+          <div class="detail-tags">
+            <span class="detail-tag">SSO</span>
+            <span class="detail-tag">APIs</span>
+            <span class="detail-tag">HRIS</span>
+            <span class="detail-tag">Skills</span>
+          </div>
+          <div class="detail-features">
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> HRIS &amp; talent platform integration</div>
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> SSO &amp; single sign-on configuration</div>
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> API middleware &amp; data flow architecture</div>
+            <div class="detail-feat"><div class="feat-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div> Skills platform connectivity</div>
+          </div>
+          <button class="btn-lime">Explore this layer <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <div class="detail-visual">
+          <div class="visual-placeholder"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="8" stroke="currentColor" stroke-width="2"/><path d="M18 30l6-8 4 5 6-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Layer visual</span></div>
+          <div class="stat-float"><div><div class="num">14<span style="color:var(--lime)">+</span></div><div class="label">Years experience</div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     TESTIMONIAL
+     ═══════════════════════════════════════════════════ -->
+
+<section id="testimonials" class="section">
+  <div class="section-inner">
+    <div class="layout">
+      <div class="left">
+        <h2>
+          <span class="accent">Learning technology</span><br>
+          <span class="dark">that delivers results</span>
+        </h2>
+        <p>Organizations trust Edstellar to design, evaluate, and implement learning technology ecosystems that drive real adoption and measurable capability improvement.</p>
+      </div>
+
+      <div>
+        <div class="quote-card">
+          <div class="quote-text">"Edstellar's learning technology consulting saved us from a costly LMS migration mistake. Their vendor evaluation was more rigorous than anything we'd seen from the Big 4 — and they delivered it in half the time."</div>
+          <div class="quote-author">
+            <div class="author-avatar">CIO</div>
+            <div>
+              <div class="author-name">Chief Information Officer</div>
+              <div class="author-role">Global Financial Services Organization</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     EMERGING TECHNOLOGIES (Icon Grid)
+     ═══════════════════════════════════════════════════ -->
+
+<section id="emerging" class="section">
+  <div class="section-inner">
+
+    <div class="section-header">
+      <div class="section-label"><div class="bar"></div><span>Emerging technologies</span><div class="bar"></div></div>
+      <h2>Emerging Learning Technologies: VR, AR, Gamification &amp; Beyond</h2>
+      <p>Edstellar helps organizations evaluate, pilot, and scale emerging learning technologies that drive deeper engagement and measurable skill transfer.</p>
+    </div>
+
+    <div class="ind-grid">
+
+      <div class="ind-card">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M2 8h20v10H2z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="13" r="2"/><circle cx="16" cy="13" r="2"/><path d="M4 8l4-4h8l4 4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ind-badge">Immersive Learning</div>
+        <h4>Virtual Reality (VR) &amp; Augmented Reality (AR)</h4>
+        <p>Immersive VR and AR learning experiences for high-stakes scenarios — hazardous procedures, complex equipment, leadership simulations.</p>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M12 2l3 6h6l-5 4 2 6-6-4-6 4 2-6-5-4h6z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ind-badge">Engagement Design</div>
+        <h4>Gamification &amp; Simulation-Based Learning</h4>
+        <p>Points, badges, leaderboards, narrative progression, and realistic simulations that transform compliance training into engaging experiences.</p>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2" stroke-linecap="round"/><path d="M8 16a5 5 0 0 1 8 0" stroke-linecap="round"/></svg></div>
+        <div class="ind-badge">Intelligent Learning</div>
+        <h4>AI-Powered Learning &amp; Intelligent Automation</h4>
+        <p>AI-curated content pathways, intelligent tutoring, automated content tagging, and predictive analytics for L&amp;D teams.</p>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M12 18h.01" stroke-linecap="round"/><path d="M9 6h6" stroke-linecap="round"/></svg></div>
+        <div class="ind-badge">Mobile-First</div>
+        <h4>Mobile Learning Solutions</h4>
+        <p>Mobile-first learning design for distributed and deskless workforces. Responsive content architecture, mobile LMS evaluation, and offline workflows.</p>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18M7 14h2M12 14h5" stroke-linecap="round"/></svg></div>
+        <div class="ind-badge">Trust &amp; Verification</div>
+        <h4>Blockchain-Based Credentialing &amp; Certification</h4>
+        <p>Secure, tamper-proof digital credentials using blockchain. Verifiable credential frameworks for professional networks.</p>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M4 4h16v16H4z" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 9h16M9 4v16" stroke-linecap="round"/><circle cx="15" cy="14" r="2"/></svg></div>
+        <div class="ind-badge">EdTech Integration</div>
+        <h4>Educational Technology Integration</h4>
+        <p>Seamlessly incorporating virtual classrooms, AI tutors, adaptive assessments, and social learning within a coherent ecosystem.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     PROCESS (Vertical Stepper)
+     ═══════════════════════════════════════════════════ -->
+
+<section id="process" class="section">
+  <div class="section-inner">
+
+    <div class="section-header">
+      <div class="header-left">
+        <div class="section-label"><div class="bar"></div><span>Our approach</span></div>
+        <h2>Our Approach to Learning Technology Consulting</h2>
+      </div>
+      <div class="header-right">
+        <p>Four phases. Vendor-neutral. Grounded in organizational requirements, not platform marketing. Designed to deliver a technology ecosystem that actually gets adopted.</p>
+      </div>
+    </div>
+
+    <div class="stepper">
+
+      <div class="step">
+        <div class="step-marker">01</div>
+        <div class="step-card">
+          <div class="step-top">
+            <div class="step-title">Discovery &amp; Audit</div>
+            <div class="step-badges">
+              <span class="badge badge-duration">2–3 Weeks</span>
+              <span class="badge badge-format">Audit</span>
+            </div>
+          </div>
+          <div class="step-desc">Map current technology stack, data flows, integration gaps, and stakeholder requirements. Audit existing platform utilization and pain points.</div>
+          <div class="step-bullets">
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Technology stack mapping</div>
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Data flow analysis</div>
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Stakeholder interviews</div>
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Utilization audit</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker">02</div>
+        <div class="step-card">
+          <div class="step-top">
+            <div class="step-title">Requirements &amp; Design</div>
+            <div class="step-badges">
+              <span class="badge badge-duration">3–4 Weeks</span>
+              <span class="badge badge-format">Design</span>
+            </div>
+          </div>
+          <div class="step-desc">Define functional, technical, and UX requirements. Design the target-state architecture — layers, integrations, data models, and governance rules.</div>
+          <div class="step-bullets">
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Requirements definition</div>
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Architecture design</div>
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Data model mapping</div>
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Governance framework</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker">03</div>
+        <div class="step-card">
+          <div class="step-top">
+            <div class="step-title">Vendor Evaluation</div>
+            <div class="step-badges">
+              <span class="badge badge-duration">2–4 Weeks</span>
+              <span class="badge badge-format">Evaluation</span>
+            </div>
+          </div>
+          <div class="step-desc">Vendor-neutral scoring across 40+ criteria. Manage shortlist demos, proof-of-concept, and deliver a scored recommendation matrix with TCO analysis.</div>
+          <div class="step-bullets">
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>40+ criteria scoring</div>
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Shortlist demos</div>
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Proof-of-concept</div>
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>TCO analysis</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-marker">04</div>
+        <div class="step-card">
+          <div class="step-top">
+            <div class="step-title">Implementation &amp; Governance</div>
+            <div class="step-badges">
+              <span class="badge badge-duration">Ongoing</span>
+              <span class="badge badge-format">Support</span>
+            </div>
+          </div>
+          <div class="step-desc">Integration architecture deployment, SSO configuration, data migration support, admin training, and post-launch governance framework.</div>
+          <div class="step-bullets">
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Integration deployment</div>
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>SSO configuration</div>
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Admin training</div>
+            <div class="step-bullet"><div class="bullet-check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="var(--lime)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Post-launch governance</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     VENDOR EVALUATION TABLE
+     ═══════════════════════════════════════════════════ -->
+
+<section id="vendor-eval" class="section">
+  <div class="section-inner">
+
+    <div class="section-header">
+      <div class="section-label"><div class="bar"></div><span>Vendor selection</span></div>
+      <h2>LMS &amp; LXP Selection — 40+ Criteria, Zero Vendor Bias</h2>
+      <p>Every platform promises everything. Edstellar cuts through the noise with a structured, evidence-based evaluation that your procurement, IT, and L&amp;D teams can trust.</p>
+    </div>
+
+    <div class="eval-table-wrap">
+      <table class="eval-table">
+        <thead>
+          <tr>
+            <th>Evaluation Criteria</th>
+            <th>Vendor A</th>
+            <th>Vendor B</th>
+            <th>Vendor C</th>
+            <th>Weighting</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Functional Fit</td><td class="score-high">8.5</td><td>7.2</td><td>8.0</td><td class="weight">25%</td></tr>
+          <tr><td>Integration Depth</td><td>7.0</td><td class="score-high">8.8</td><td>7.5</td><td class="weight">20%</td></tr>
+          <tr><td>Scalability &amp; Performance</td><td class="score-high">9.1</td><td>7.5</td><td>8.3</td><td class="weight">15%</td></tr>
+          <tr><td>Security &amp; Compliance</td><td>8.0</td><td>8.3</td><td class="score-high">9.0</td><td class="weight">15%</td></tr>
+          <tr><td>Total Cost of Ownership</td><td class="score-high">7.8</td><td>6.9</td><td>7.2</td><td class="weight">15%</td></tr>
+          <tr><td>Learning Analytics &amp; Reporting</td><td>6.5</td><td class="score-high">9.0</td><td>7.8</td><td class="weight">10%</td></tr>
+          <tr><td>Weighted Total</td><td class="score-high">8.02</td><td>7.89</td><td>7.95</td><td class="weight">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     DOWNLOAD ASSET
+     ═══════════════════════════════════════════════════ -->
+
+<section id="download" class="section">
+  <div class="banner-card">
+    <div class="banner-left">
+      <div class="banner-label"><div class="bar"></div><span>Free resource</span></div>
+      <h2>Download: Learning Technology Architecture Blueprint</h2>
+      <p>The four architecture layers, vendor evaluation criteria, integration patterns, and governance models in one downloadable PDF framework.</p>
+
+      <div class="banner-features">
+        <div class="banner-feat"><div class="feat-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2.5" stroke="var(--lime-text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Architecture layers</div>
+        <div class="banner-feat"><div class="feat-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2.5" stroke="var(--lime-text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Evaluation criteria</div>
+        <div class="banner-feat"><div class="feat-check"><svg viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2L7.5 2.5" stroke="var(--lime-text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Governance models</div>
+      </div>
+
+      <div class="cta-row">
+        <button class="btn-lime">Download the Blueprint (PDF) <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v8M5 8l3 3 3-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 13h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+        <button class="btn-ghost">View sample</button>
+      </div>
+    </div>
+
+    <div class="banner-right">
+      <div class="asset-preview">
+        <div class="asset-thumb">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="2" width="18" height="24" rx="3" stroke="var(--text-secondary)" stroke-width="1.8"/><path d="M9 10h8M9 14h5M9 18h8" stroke="var(--text-secondary)" stroke-width="1.5" stroke-linecap="round"/><rect x="12" y="7" width="16" height="22" rx="3" stroke="var(--text-secondary)" stroke-width="1.8" fill="var(--surface)"/><path d="M17 14h6M17 18h4M17 22h6" stroke="var(--text-secondary)" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span>Asset preview</span>
+        </div>
+        <div class="asset-name">Technology Architecture Blueprint</div>
+        <div class="asset-meta">Framework document &middot; Editable</div>
+        <div class="asset-format">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><rect x="1" y="1" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+          pdf
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     WHY EDSTELLAR
+     ═══════════════════════════════════════════════════ -->
+
+<section id="why-edstellar">
+  <div class="we-layout">
+
+    <div class="we-heading">
+      <div class="we-heading-bar">
+        <div class="bar"></div>
+        <span class="label">Why Edstellar</span>
+      </div>
+      <h2>Why Choose Edstellar for Learning Technology Services</h2>
+      <p>14+ years of enterprise L&amp;D experience. 5,000+ trainers and consultants. Fortune 500 clients across 100+ global locations.</p>
+    </div>
+
+    <div class="we-grid">
+
+      <div class="we-card">
+        <div class="we-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0z" stroke="var(--lime)" stroke-width="1.8"/><path d="M7 10l2 2 4-4" stroke="var(--lime)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <h4>100% Vendor-Neutral</h4>
+          <p>No referral partnerships, no platform commissions. Every recommendation is based purely on organizational requirements.</p>
+        </div>
+      </div>
+
+      <div class="we-card">
+        <div class="we-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16z" stroke="var(--lime)" stroke-width="1.8"/><path d="M12 8a2.83 2.83 0 0 0-4 0 2.83 2.83 0 0 0 0 4 2.83 2.83 0 0 0 4 0" stroke="var(--lime)" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div>
+          <h4>5,000+ Learning Technology Experts</h4>
+          <p>LMS architects, instructional designers, xAPI specialists, and e-learning developers with hands-on experience across every major platform.</p>
+        </div>
+      </div>
+
+      <div class="we-card">
+        <div class="we-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="var(--lime)" stroke-width="1.8"/><path d="M2 10h16M10 2a12 12 0 0 1 3 8 12 12 0 0 1-3 8 12 12 0 0 1-3-8 12 12 0 0 1 3-8z" stroke="var(--lime)" stroke-width="1.8"/></svg></div>
+        <div>
+          <h4>Global Delivery, Local Expertise</h4>
+          <p>100+ locations across APAC, Middle East, Europe, and the Americas — with regional compliance, language, and workforce learning expertise.</p>
+        </div>
+      </div>
+
+      <div class="we-card">
+        <div class="we-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 14l4-8 4 5 3-3 3 6" stroke="var(--lime)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="3" width="16" height="14" rx="2" stroke="var(--lime)" stroke-width="1.8"/></svg></div>
+        <div>
+          <h4>End-to-End L&amp;D Capability</h4>
+          <p>Technology architecture combined with 2,000+ training programs — so your ecosystem is built to be used, not just configured.</p>
+        </div>
+      </div>
+
+      <div class="we-card">
+        <div class="we-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16z" stroke="var(--lime)" stroke-width="1.8"/><path d="M10 6v4l2.5 2.5" stroke="var(--lime)" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div>
+          <h4>Proven with Fortune 500 Clients</h4>
+          <p>Trusted by Visa, ABB, and Aditya Birla Group with a track record of learning technology transformations at enterprise scale.</p>
+        </div>
+      </div>
+
+      <div class="we-card">
+        <div class="we-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M14 3v4a1 1 0 0 0 1 1h4" stroke="var(--lime)" stroke-width="1.8" stroke-linecap="round"/><path d="M5 17V5a2 2 0 0 1 2-2h5l5 5v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z" stroke="var(--lime)" stroke-width="1.8"/><path d="M9 11h4M9 14h2" stroke="var(--lime)" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div>
+          <h4>Talent Transformation Partner</h4>
+          <p>Learning technology as a talent transformation enabler — not an IT project. Every engagement drives measurable capability uplift.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     CONNECTED SERVICES
+     ═══════════════════════════════════════════════════ -->
+
+<section id="connected" class="section">
+  <div class="section-inner">
+
+    <div class="section-header">
+      <div class="section-label"><div class="bar"></div><span>Connected capabilities</span><div class="bar"></div></div>
+      <h2>Explore Connected Capabilities</h2>
+      <p>Learning technology delivers maximum impact when connected to strategy, operations, and intelligence infrastructure.</p>
+    </div>
+
+    <div class="cs-cards">
+
+      <div class="cs-card">
+        <div class="cs-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M11 2a9 9 0 1 1 0 18 9 9 0 0 1 0-18z"/><path d="M11 6v5l3 3" stroke-linecap="round"/></svg></div>
+        <h3>Learning Strategy Design</h3>
+        <p>Align your learning investment to business priorities before selecting technology. Strategy first, tools second.</p>
+        <a class="cs-link" href="#">Explore Strategy Design <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+
+      <div class="cs-card">
+        <div class="cs-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M5 21V11l6-4 6 4v10" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 21v-5h4v5" stroke-linecap="round"/><path d="M2 21h18" stroke-linecap="round"/></svg></div>
+        <h3>Managed Training</h3>
+        <p>Once your technology architecture is in place, Edstellar can manage the entire L&amp;D operation — LMS admin, vendors, and governance.</p>
+        <a class="cs-link" href="#">Explore Managed Training <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+
+      <div class="cs-card">
+        <div class="cs-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="var(--lime)" stroke-width="1.8"><path d="M3 14l4-8 4 5 3-3 3 6" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="3" width="18" height="16" rx="3"/></svg></div>
+        <h3>Skills Intelligence</h3>
+        <p>Connect your learning ecosystem to skills taxonomy, gap analysis, and workforce dashboards for a complete data-driven picture.</p>
+        <a class="cs-link" href="#">Explore Skills Intelligence <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FAQ
+     ═══════════════════════════════════════════════════ -->
+
+<section id="faq-section" class="section">
+  <div class="section-inner">
+
+    <h2><span class="dark">Frequently asked questions on</span> <span class="accent">learning technology consulting</span></h2>
+    <p>Everything you need to know about Edstellar's learning technology consulting services</p>
+
+    <div class="faq-list">
+
+      <div class="faq-item active" data-faq>
+        <div class="faq-question">
+          <h3>What is learning technology consulting?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Learning technology consulting is the strategic advisory service that helps organizations select, implement, and optimize their learning technology stack — including LMS, LXP, authoring tools, analytics platforms, and integrations — aligned to business goals, learner needs, and IT requirements. It goes beyond platform selection to address data flows, integration patterns, governance frameworks, and long-term scalability.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-faq>
+        <div class="faq-question">
+          <h3>What does LMS selection and implementation involve?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>LMS selection involves a vendor-neutral evaluation across 40+ criteria including functional fit, integration capability, scalability, security, and total cost of ownership. Implementation covers end-to-end system configuration — user roles, course structure, SCORM/xAPI content import, HRIS integrations, reporting dashboards, testing, and administrator training. Edstellar manages the full process with no vendor bias.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-faq>
+        <div class="faq-question">
+          <h3>Can Edstellar integrate learning technology with our existing HR systems?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes. Edstellar designs integration architectures connecting your learning platform to HRIS, talent management, performance management, and skills intelligence systems. We map data flows, define API requirements, configure SSO, and ensure unified reporting across your HR technology ecosystem — including SAP SuccessFactors, Workday, Oracle HCM, and Microsoft Viva.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-faq>
+        <div class="faq-question">
+          <h3>What is the difference between an LMS and an LXP?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>An LMS (Learning Management System) manages structured, compliance-driven training delivery — assignments, completions, certifications, and regulatory tracking. An LXP (Learning Experience Platform) enables self-directed, AI-curated content discovery, social learning, and personalised learning paths. Most enterprises benefit from both, and Edstellar helps architect the optimal configuration for your organization.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-faq>
+        <div class="faq-question">
+          <h3>How long does a learning technology consulting engagement take?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>A full engagement — from discovery audit through vendor evaluation and architecture blueprint — typically runs 8–12 weeks. Discovery and audit: 2–3 weeks. Requirements and design: 3–4 weeks. Vendor evaluation: 2–4 weeks. Implementation support is ongoing. Organizations with simpler requirements or an existing platform seeking optimization can complete in 4–6 weeks.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" data-faq>
+        <div class="faq-question">
+          <h3>What emerging learning technologies does Edstellar support?</h3>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Edstellar supports VR and AR immersive learning, gamification and simulation-based learning, AI-powered learning automation and intelligent content curation, mobile learning solutions for distributed workforces, blockchain-based credentialing and certification, and educational technology integration. Our consultants help organizations evaluate which emerging technologies are genuinely appropriate for their context — and implement them within a coherent learning ecosystem strategy.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FINAL CTA
+     ═══════════════════════════════════════════════════ -->
+
+<section id="final-cta">
+  <div class="section-inner">
+    <div class="eyebrow">Ready to Transform Your Learning Technology?</div>
+    <h2>Stop Buying Platforms. Start Designing Ecosystems.</h2>
+    <p>Edstellar's learning technology consulting gives your organization the clarity to invest wisely, integrate fully, and build a learning technology stack that actually drives talent transformation.</p>
+    <div class="cta-row">
+      <button class="btn-lime">Schedule a Learning Technology Consultation <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="btn-outline">Download the Architecture Blueprint (PDF)</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FORM
+     ═══════════════════════════════════════════════════ -->
+
+<section id="form-section" class="section">
+  <div class="section-inner">
+
+    <div class="form-image">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="8" stroke="currentColor" stroke-width="2"/><path d="M18 30l6-8 4 5 6-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Form image placeholder</span>
+    </div>
+
+    <div class="form-panel">
+      <h2>Schedule a Learning Technology Consultation</h2>
+      <p>Tell us about your current learning technology challenges and we'll scope a custom proposal — delivered in 48 hours.</p>
+
+      <form onsubmit="return false;">
+        <div class="form-grid">
+          <div class="form-field"><input type="text" placeholder="Full name*" required></div>
+          <div class="form-field"><input type="email" placeholder="Work email*" required></div>
+          <div class="form-field"><input type="text" placeholder="Company name*" required></div>
+          <div class="form-field"><input type="text" placeholder="Job title*" required></div>
+        </div>
+
+        <div class="phone-row" style="margin-bottom:14px">
+          <div class="form-field">
+            <select onchange="this.classList.add('selected')">
+              <option value="" disabled selected>Select country</option>
+              <option>United States</option>
+              <option>United Kingdom</option>
+              <option>India</option>
+              <option>Germany</option>
+              <option>Singapore</option>
+              <option>UAE</option>
+              <option>Australia</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-field"><input type="tel" placeholder="Phone number*"></div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-field full">
+            <select onchange="this.classList.add('selected')">
+              <option value="" disabled selected>Select learning technology challenge*</option>
+              <option>LMS selection &amp; advisory</option>
+              <option>LMS implementation &amp; configuration</option>
+              <option>Learning ecosystem strategy</option>
+              <option>Learning analytics &amp; dashboards</option>
+              <option>Content migration &amp; platform transition</option>
+              <option>Managed learning platform services</option>
+              <option>Emerging technology (VR/AR/AI/Gamification)</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-field full">
+            <textarea placeholder="Tell us about your current learning technology stack and challenges..."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Request a Custom Proposal <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </form>
+
+      <div class="form-note">
+        <strong>What happens next?</strong> Our learning technology consultants will review your information and deliver a custom proposal scoped to your organization within 48 hours.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════════════ -->
+
+<script>
+/* ═══ Tab Pills (Architecture Layers) ═══ */
+(function() {
+  var pills = document.querySelectorAll('#architecture .tab-pill');
+  var panels = document.querySelectorAll('#archPanels .detail-panel');
+  pills.forEach(function(pill) {
+    pill.addEventListener('click', function() {
+      var idx = parseInt(this.getAttribute('data-tab'));
+      pills.forEach(function(p) { p.classList.remove('active'); });
+      this.classList.add('active');
+      panels.forEach(function(panel, i) {
+        panel.classList.toggle('active', i === idx);
+      });
+    }.bind(pill));
+  });
+})();
+
+/* ═══ FAQ Accordion ═══ */
+(function() {
+  var faqItems = document.querySelectorAll('#faq-section .faq-item');
+  faqItems.forEach(function(item) {
+    item.addEventListener('click', function() {
+      var wasActive = this.classList.contains('active');
+      faqItems.forEach(function(el) { el.classList.remove('active'); });
+      if (!wasActive) this.classList.add('active');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

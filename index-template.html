@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edstellar Design Library — Section Catalog</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#2D2F6B;--lime:#C5E826;--dark:#1a1c4a;--bg:#f4f5f7;
+    --card:#fff;--text:#333;--muted:#6b7280;--border:#e5e7eb;
+    --sidebar-w:280px;--header-h:64px;
+  }
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow:hidden;height:100vh}
+  .header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--navy);display:flex;align-items:center;padding:0 24px;gap:20px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+  .header-logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:20px;white-space:nowrap}
+  .header-logo .dot{width:10px;height:10px;background:var(--lime);border-radius:50%}
+  .header-search{flex:1;max-width:420px;position:relative}
+  .header-search input{width:100%;padding:8px 14px 8px 38px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.1);color:#fff;font-size:14px;outline:none;transition:.2s}
+  .header-search input::placeholder{color:rgba(255,255,255,.5)}
+  .header-search input:focus{background:rgba(255,255,255,.18);border-color:var(--lime)}
+  .header-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:rgba(255,255,255,.4)}
+  .header-count{color:rgba(255,255,255,.6);font-size:13px;font-weight:500;white-space:nowrap}
+  .header-count span{color:var(--lime);font-weight:700}
+  .view-toggle{display:flex;gap:4px;background:rgba(255,255,255,.1);padding:4px;border-radius:8px}
+  .view-btn{padding:6px 10px;border:none;background:none;color:rgba(255,255,255,.5);cursor:pointer;border-radius:6px;transition:.2s;display:flex;align-items:center}
+  .view-btn.active{background:rgba(255,255,255,.15);color:#fff}
+  .view-btn:hover{color:#fff}
+  .sidebar{position:fixed;top:var(--header-h);left:0;bottom:0;width:var(--sidebar-w);background:#fff;border-right:1px solid var(--border);overflow-y:auto;padding:16px 0;z-index:90}
+  .sidebar::-webkit-scrollbar{width:4px}
+  .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+  .sidebar-title{padding:0 20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;font-size:13.5px;font-weight:500;color:var(--text);transition:.15s;border-left:3px solid transparent}
+  .nav-item:hover{background:#f9fafb;color:var(--navy)}
+  .nav-item.active{background:#f0f1ff;color:var(--navy);border-left-color:var(--navy);font-weight:600}
+  .nav-item .icon{font-size:16px;width:22px;text-align:center;flex-shrink:0}
+  .nav-item .count{margin-left:auto;font-size:11px;font-weight:600;background:var(--bg);color:var(--muted);padding:2px 7px;border-radius:10px}
+  .nav-item.active .count{background:var(--navy);color:#fff}
+  .main{margin-left:var(--sidebar-w);margin-top:var(--header-h);height:calc(100vh - var(--header-h));overflow-y:auto;padding:28px 32px 60px}
+  .main::-webkit-scrollbar{width:6px}
+  .main::-webkit-scrollbar-thumb{background:#ccc;border-radius:4px}
+  .category-heading{margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--navy)}
+  .category-heading h2{font-size:22px;font-weight:700;color:var(--navy)}
+  .category-heading p{font-size:13px;color:var(--muted);margin-top:4px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:24px;margin-bottom:48px}
+  .card{background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--border);transition:.25s;position:relative}
+  .card:hover{box-shadow:0 8px 30px rgba(45,47,107,.12);transform:translateY(-2px);border-color:var(--navy)}
+  .card-preview{position:relative;height:300px;overflow:hidden;background:#f8f9fa;border-bottom:1px solid var(--border)}
+  .card-preview iframe{width:200%;height:200%;transform:scale(0.5);transform-origin:top left;border:none;pointer-events:none}
+  .card-overlay{position:absolute;inset:0;background:rgba(45,47,107,.0);transition:.3s;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .card:hover .card-overlay{background:rgba(45,47,107,.4)}
+  .preview-btn{opacity:0;transform:scale(.9);transition:.3s;background:var(--lime);color:var(--navy);border:none;padding:10px 20px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px}
+  .card:hover .preview-btn{opacity:1;transform:scale(1)}
+  .card-body{padding:16px 20px 20px}
+  .card-code{display:inline-block;font-family:'JetBrains Mono','Fira Code',monospace;font-size:12px;font-weight:700;background:var(--navy);color:var(--lime);padding:3px 10px;border-radius:5px;margin-bottom:8px;letter-spacing:.5px}
+  .card-name{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:4px}
+  .card-desc{font-size:12.5px;color:var(--muted);line-height:1.5;margin-bottom:10px}
+  .card-tags{display:flex;flex-wrap:wrap;gap:5px}
+  .card-tag{font-size:10.5px;font-weight:600;padding:3px 8px;border-radius:4px;background:#f0f1ff;color:var(--navy)}
+  .card-tag.layout{background:#ecfdf5;color:#065f46}
+  .card-tag.interactive{background:#fff7ed;color:#9a3412}
+  .list{display:flex;flex-direction:column;gap:12px;margin-bottom:48px}
+  .list .card{display:flex;flex-direction:row;height:140px}
+  .list .card-preview{width:260px;height:100%;flex-shrink:0;border-bottom:none;border-right:1px solid var(--border)}
+  .list .card-preview iframe{width:400%;height:400%;transform:scale(0.25);transform-origin:top left}
+  .list .card-body{display:flex;flex-direction:column;justify-content:center;padding:12px 20px;flex:1}
+  .list .card-desc{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:30px;overflow-y:auto;backdrop-filter:blur(4px)}
+  .modal-backdrop.open{display:flex}
+  .modal{background:#fff;border-radius:16px;width:100%;max-width:1300px;overflow:hidden;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:modalIn .3s ease}
+  @keyframes modalIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;background:var(--navy);color:#fff}
+  .modal-header h3{font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px}
+  .modal-header .modal-code{font-family:'JetBrains Mono',monospace;font-size:12px;background:rgba(197,232,38,.2);color:var(--lime);padding:3px 10px;border-radius:5px}
+  .modal-close{background:none;border:none;color:#fff;cursor:pointer;padding:6px;border-radius:6px;transition:.2s}
+  .modal-close:hover{background:rgba(255,255,255,.15)}
+  .modal-meta{display:flex;gap:20px;padding:12px 24px;background:#f8f9fa;border-bottom:1px solid var(--border);font-size:12px;color:var(--muted);flex-wrap:wrap}
+  .modal-meta .meta-item{display:flex;align-items:center;gap:5px}
+  .modal-meta .meta-label{font-weight:700;color:var(--text)}
+  .modal-iframe-wrap{width:100%;height:70vh;overflow:auto;background:#fff}
+  .modal-iframe-wrap iframe{width:100%;height:100%;border:none}
+  .empty-state{text-align:center;padding:80px 20px;color:var(--muted)}
+  .empty-state svg{width:48px;height:48px;margin-bottom:12px;opacity:.4}
+  .empty-state h3{font-size:16px;color:var(--text);margin-bottom:6px}
+  .back-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.2);z-index:50;transition:.2s}
+  .back-top:hover{background:var(--lime);color:var(--navy);transform:scale(1.05)}
+  .back-top.show{display:flex}
+  @media(max-width:900px){.sidebar{display:none}.main{margin-left:0}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-logo"><div class="dot"></div>EdDesigns</div>
+  <div class="header-search">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+    <input type="text" id="searchInput" placeholder="Search components by name, code, or keyword...">
+  </div>
+  <div class="header-count"><span id="visibleCount">0</span> / <span id="totalCount">0</span> components</div>
+  <div class="view-toggle">
+    <button class="view-btn active" data-view="grid" title="Grid view"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg></button>
+    <button class="view-btn" data-view="list" title="List view"><svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><rect x="1" y="2" width="14" height="3" rx="1"/><rect x="1" y="7" width="14" height="3" rx="1"/><rect x="1" y="12" width="14" height="3" rx="1"/></svg></button>
+  </div>
+</header>
+<nav class="sidebar" id="sidebar"></nav>
+<main class="main" id="mainContent"></main>
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <div class="modal-header">
+      <h3><span class="modal-code" id="modalCode"></span> <span id="modalTitle"></span></h3>
+      <button class="modal-close" id="modalClose"><svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal-meta" id="modalMeta"></div>
+    <div class="modal-iframe-wrap"><iframe id="modalIframe" title="Component Preview"></iframe></div>
+  </div>
+</div>
+<button class="back-top" id="backTop"><svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/></svg></button>
+
+<!--LIBRARY_DATA_SLOT-->
+
+<script>
+(function(){
+  var EMBEDDED_HTML = {};
+  try {
+    var dataEl = document.getElementById('libraryData');
+    if (dataEl) EMBEDDED_HTML = JSON.parse(dataEl.textContent);
+  } catch(e) { console.warn('Failed to parse library data:', e); }
+
+  var CATEGORIES = [
+    { key:"hero", icon:"\u{1F3AF}", label:"Hero & Intro", desc:"Full-width hero banners with headlines, trust signals, and CTAs", items:[
+      { code:"HERO-01", name:"Hero Classic Split", file:"edstellar-hero-classic-split.html", layout:"Split 55/45", tags:["breadcrumb","logo strip","dual CTA"], best:"Standard consulting service pages" }
+    ]},
+    { key:"value", icon:"\u{1F48E}", label:"Value Proposition & Benefits", desc:"Stats, benefit pillars, three-pillar introductions, and definitional content", items:[
+      { code:"STATS-01", name:"Stats Card Grid", file:"edstellar-stats-card-grid.html", layout:"4-column navy cards", tags:["lime accents","responsive"], best:"Stats section below hero" },
+      { code:"STATS-02", name:"Stats Icon Cards", file:"edstellar-stats-icon-cards.html", layout:"Left heading + 2x2 grid", tags:["icon circles","editorial heading"], best:"Stats with narrative context" },
+      { code:"DEF-01", name:"Definitional Intro", file:"edstellar-definitional-intro.html", layout:"Centered narrow container", tags:["lime accent bar","centered"], best:"What-is intro paragraphs" },
+      { code:"BEN-01", name:"Benefit Pillars 4-Col", file:"edstellar-benefit-pillars-4col.html", layout:"4-column on navy", tags:["numbered cards","navy bg"], best:"Why-work-with-us value props" },
+      { code:"PIL-01", name:"Three Pillars Cards", file:"edstellar-three-pillars-cards.html", layout:"3-column card grid", tags:["lime top accent","icons"], best:"3-pillar service intro" },
+      { code:"DIFF-01", name:"Differentiators Image List", file:"edstellar-differentiators-option-a.html", layout:"Left image + right list", tags:["accent bars","6 items"], best:"Why Edstellar section" }
+    ]},
+    { key:"services", icon:"\u{1F4E6}", label:"Services & Offerings", desc:"Interactive service explorers, card grids, and sub-service linking sections", items:[
+      { code:"SVC-01", name:"Services Sidebar Carousel", file:"edstellar-services-option-a.html", layout:"Left sidebar + rotating card", tags:["interactive","navy bg","carousel"], best:"Reference-style carousel" },
+      { code:"SVC-02", name:"Services Tab Pills", file:"edstellar-services-option-b.html", layout:"Pill tabs + detail panel", tags:["interactive","image area","features"], best:"Detailed service exploration" },
+      { code:"SGRID-01", name:"Services Grid 12-Col", file:"edstellar-services-grid-12col.html", layout:"4x3 card grid", tags:["12 cards","SVG icons","links"], best:"Large service listing (10-12+)" },
+      { code:"SUBSVC-01", name:"Sub-Services Image Cards", file:"edstellar-subservices-for-linking-with-image.html", layout:"3x2 image cards", tags:["hover zoom","lime accent","links"], best:"Linking to sub-service pages" },
+      { code:"CFMT-01", name:"Content Formats 2-Col", file:"edstellar-content-formats-2col.html", layout:"2-column numbered list", tags:["split header","rank badges"], best:"Content type inventories" }
+    ]},
+    { key:"detail", icon:"\u{1F4D6}", label:"Detailed Explanations", desc:"Deep-dive capability breakdowns with images, accordions, and sub-features", items:[
+      { code:"DETAIL-01", name:"Detail Stacked Blocks", file:"edstellar-service-explained-in-detail-option-with-image.html", layout:"Alternating image+text", tags:["image zoom","sub-features"], best:"Detailed capability breakdown" },
+      { code:"DETAIL-02", name:"Detail Accordion", file:"edstellar-detailed-explanation-of-service-with-image-and-accordion.html", layout:"Expandable numbered blocks", tags:["interactive","numbered","images"], best:"Compact interactive exploration" },
+      { code:"AI-01", name:"AI-Powered Split", file:"edstellar-ai-powered-split.html", layout:"Navy split with cards right", tags:["navy bg","numbered cards","CTA"], best:"Tech/AI differentiator sections" },
+      { code:"OUT-01", name:"Outcomes Horizontal Tabs", file:"edstellar-outcomes-horizontal-tabs.html", layout:"Numbered tabs + split rich-embed panels", tags:["interactive","rich HTML embeds","6 tabs","charts"], best:"Outcomes & deliverables with data viz" }
+    ]},
+    { key:"problems", icon:"\u{26A1}", label:"Problem & Solution", desc:"Challenge framing with red indicators, and transformation phase comparisons", items:[
+      { code:"PROB-01", name:"Challenges Card Grid", file:"edstellar-challenges-section.html", layout:"3x2 cards, red accents", tags:["red borders","icons","CTA"], best:"Clean problem framing" },
+      { code:"PROB-02", name:"Challenges Image List", file:"edstellar-challenges-section-with-image.html", layout:"Sticky image + pain points", tags:["red icons","impact tags","sticky"], best:"Visual storytelling with image" },
+      { code:"TRANS-01", name:"Transformation Phase Cards", file:"edstellar-transformation-phase-cards.html", layout:"4-column phase cards", tags:["tri-colour","before/after"], best:"Before/after transformation" }
+    ]},
+    { key:"process", icon:"\u{1F504}", label:"Process & Methodology", desc:"Step-by-step delivery workflows with timelines, steppers, and cycle diagrams", items:[
+      { code:"PROC-01", name:"Process Horizontal Timeline", file:"edstellar-process-horizontal-timeline.html", layout:"5-step horizontal line", tags:["timeline","duration badges","responsive"], best:"Standard left-to-right flow" },
+      { code:"PROC-02", name:"Process Vertical Stepper", file:"edstellar-process-vertical-stepper.html", layout:"Navy vertical timeline", tags:["navy bg","detailed steps","checkmarks"], best:"Premium dark process section" },
+      { code:"PROC-03", name:"Process Card Grid", file:"edstellar-process-card-grid.html", layout:"3+2 expandable cards", tags:["interactive","expandable","badges"], best:"Interactive compact process" },
+      { code:"LOOP-01", name:"Closed Loop Cycle", file:"edstellar-closed-loop-cycle.html", layout:"4-step circular model", tags:["connecting line","navy callout"], best:"Cyclical process models" }
+    ]},
+    { key:"industries", icon:"\u{1F3ED}", label:"Industries & Audiences", desc:"Industry grids, selectable tiles, and ranked service leaderboards", items:[
+      { code:"IND-01", name:"Industries Icon Grid", file:"edstellar-industries-icon-grid.html", layout:"3x3 icon cards", tags:["hover effects","9 industries"], best:"Clean scannable grid" },
+      { code:"IND-02", name:"Industries Selectable Tiles", file:"edstellar-industries-selectable-tiles.html", layout:"Clickable pill tiles", tags:["interactive","detail panel","stats"], best:"Maximum detail per industry" },
+      { code:"RANK-01", name:"Ranked Leaderboard", file:"edstellar-ranked-leaderboard.html", layout:"Navy numbered row list", tags:["navy bg","volume counts","NEW badge"], best:"Ranked service categories" }
+    ]},
+    { key:"social", icon:"\u{2B50}", label:"Social Proof & Trust", desc:"Success stories, testimonials, client logos, and trust signals", items:[
+      { code:"CASE-01", name:"Success Stories Light", file:"edstellar-success-stories-light-version-with-image.html", layout:"Light split carousel", tags:["carousel","stats row","image"], best:"Light background case studies" },
+      { code:"CASE-02", name:"Success Stories Dark", file:"edstellar-success-stories-dark-version-with-image.html", layout:"Navy card carousel", tags:["navy card","counter nav","quote"], best:"Premium dark case studies" },
+      { code:"TEST-01", name:"Testimonials Carousel", file:"edstellar-testimonials-section-with-small-user-thumbnail.html", layout:"Left heading + right carousel", tags:["avatars","4 quotes","arrows"], best:"Standard testimonial section" },
+      { code:"LOGO-01", name:"Logo Wall Navy", file:"edstellar-logo-wall.html", layout:"Flex-wrap brand tags", tags:["navy bg","20+ brands","hover"], best:"Client name social proof" }
+    ]},
+    { key:"cta", icon:"\u{1F680}", label:"CTA & Conversion", desc:"Lead capture forms, download assets, and conversion-focused banners", items:[
+      { code:"FORM-01", name:"Lead Capture Form", file:"edstellar-form-section.html", layout:"Left image + right form", tags:["8 fields","dropdowns"], best:"Standard consultation form" },
+      { code:"DL-01", name:"Download Split Preview", file:"edstellar-download-asset-option-a.html", layout:"Left card + right CTA", tags:["light bg","thumbnail"], best:"Clean asset download" },
+      { code:"DL-02", name:"Download Banner Card", file:"edstellar-download-asset-option-c.html", layout:"Single navy card", tags:["navy bg","dual CTAs","badges"], best:"Compact self-contained download" },
+      { code:"CTA-01", name:"CTA Banner Lime", file:"edstellar-cta-banner-lime.html", layout:"Full-width lime strip", tags:["high contrast","navy button"], best:"Conversion strip between sections" }
+    ]},
+    { key:"supporting", icon:"\u{1F4CE}", label:"Supporting Sections", desc:"Cross-sell links, resource cards, FAQ, and site footer", items:[
+      { code:"CROSS-01", name:"Connected Card Strip", file:"edstellar-connected-services-card-strip.html", layout:"3-column link cards", tags:["hover effects","arrow links"], best:"Standard cross-sell section" },
+      { code:"CROSS-02", name:"Connected Navy Scroll", file:"edstellar-connected-services-navy-scroll.html", layout:"Navy horizontal scroll", tags:["navy bg","arrow nav","5 cards"], best:"4-5+ connected services" },
+      { code:"CROSS-03", name:"Connected Compact Strip", file:"edstellar-connected-services-compact-strip.html", layout:"Minimal single-row", tags:["compact","3 items","near-footer"], best:"Minimal cross-sell strip" },
+      { code:"RES-01", name:"Resources Blog Cards", file:"edstellar-resources-section.html", layout:"3-column blog cards", tags:["image zoom","category tags","date"], best:"Blog/resource cards" },
+      { code:"FAQ-01", name:"FAQ Accordion", file:"edstellar-faq-section.html", layout:"Accordion list", tags:["interactive","expand/collapse"], best:"Standard FAQ section" },
+      { code:"FOOT-01", name:"Footer Centered", file:"edstellar-footer.html", layout:"Centered footer", tags:["ISO certs","social icons","dark navy"], best:"Standard site footer" }
+    ]}
+  ];
+
+  var ALL_ITEMS = [];
+  CATEGORIES.forEach(function(cat) { cat.items.forEach(function(item) { item.category = cat.key; item.categoryLabel = cat.label; ALL_ITEMS.push(item); }); });
+
+  var sidebar = document.getElementById('sidebar');
+  var sHTML = '<div class="sidebar-title">Categories</div>';
+  sHTML += '<div class="nav-item active" data-filter="all"><span class="icon">\u{1F4CB}</span>All Components<span class="count">' + ALL_ITEMS.length + '</span></div>';
+  CATEGORIES.forEach(function(cat) { sHTML += '<div class="nav-item" data-filter="' + cat.key + '"><span class="icon">' + cat.icon + '</span>' + cat.label + '<span class="count">' + cat.items.length + '</span></div>'; });
+  sidebar.innerHTML = sHTML;
+
+  function renderCards(filter, search) {
+    var main = document.getElementById('mainContent');
+    var viewMode = document.querySelector('.view-btn.active').dataset.view;
+    var html = '';
+    var visibleCount = 0;
+    CATEGORIES.forEach(function(cat) {
+      if (filter !== 'all' && filter !== cat.key) return;
+      var filtered = cat.items.filter(function(item) {
+        if (!search) return true;
+        var s = search.toLowerCase();
+        return item.code.toLowerCase().indexOf(s) > -1 || item.name.toLowerCase().indexOf(s) > -1 || item.best.toLowerCase().indexOf(s) > -1 || item.tags.some(function(t) { return t.toLowerCase().indexOf(s) > -1; }) || cat.label.toLowerCase().indexOf(s) > -1;
+      });
+      if (filtered.length === 0) return;
+      visibleCount += filtered.length;
+      html += '<div class="category-section" id="cat-' + cat.key + '"><div class="category-heading"><h2>' + cat.icon + ' ' + cat.label + '</h2><p>' + cat.desc + '</p></div><div class="' + viewMode + '">';
+      filtered.forEach(function(item) {
+        var tagHTML = item.tags.map(function(t, i) { var cls = t.toLowerCase().indexOf('interactive') > -1 ? 'interactive' : (i === 0 ? 'layout' : ''); return '<span class="card-tag ' + cls + '">' + t + '</span>'; }).join('');
+        html += '<div class="card" data-file="' + item.file + '" data-code="' + item.code + '" data-name="' + item.name + '" data-best="' + item.best + '" data-layout="' + item.layout + '" data-category="' + cat.label + '"><div class="card-preview"><iframe data-embed="' + item.file + '" loading="lazy" title="' + item.name + '"></iframe><div class="card-overlay" onclick="openModal(this.parentElement.parentElement)"><button class="preview-btn"><svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> Preview Full Size</button></div></div><div class="card-body"><span class="card-code">' + item.code + '</span><div class="card-name">' + item.name + '</div><div class="card-desc">' + item.best + ' \u2014 ' + item.layout + '</div><div class="card-tags">' + tagHTML + '</div></div></div>';
+      });
+      html += '</div></div>';
+    });
+    if (visibleCount === 0) html = '<div class="empty-state"><h3>No components found</h3><p>Try a different search term or category</p></div>';
+    main.innerHTML = html;
+    main.querySelectorAll('iframe[data-embed]').forEach(function(iframe) { var f = iframe.getAttribute('data-embed'); if (EMBEDDED_HTML[f]) iframe.srcdoc = EMBEDDED_HTML[f]; });
+    document.getElementById('visibleCount').textContent = visibleCount;
+  }
+
+  var currentFilter = 'all';
+  renderCards('all', '');
+  document.getElementById('totalCount').textContent = ALL_ITEMS.length;
+
+  sidebar.addEventListener('click', function(e) { var item = e.target.closest('.nav-item'); if (!item) return; sidebar.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); }); item.classList.add('active'); currentFilter = item.dataset.filter; renderCards(currentFilter, document.getElementById('searchInput').value); document.getElementById('mainContent').scrollTop = 0; });
+  document.getElementById('searchInput').addEventListener('input', function(e) { renderCards(currentFilter, e.target.value); });
+  document.querySelectorAll('.view-btn').forEach(function(btn) { btn.addEventListener('click', function() { document.querySelectorAll('.view-btn').forEach(function(b) { b.classList.remove('active'); }); btn.classList.add('active'); renderCards(currentFilter, document.getElementById('searchInput').value); }); });
+
+  window.openModal = function(card) {
+    var file = card.dataset.file;
+    document.getElementById('modalCode').textContent = card.dataset.code;
+    document.getElementById('modalTitle').textContent = card.dataset.name;
+    document.getElementById('modalMeta').innerHTML = '<div class="meta-item"><span class="meta-label">Category:</span> ' + card.dataset.category + '</div><div class="meta-item"><span class="meta-label">Layout:</span> ' + card.dataset.layout + '</div><div class="meta-item"><span class="meta-label">Best for:</span> ' + card.dataset.best + '</div><div class="meta-item"><span class="meta-label">File:</span> ' + file + '</div>';
+    document.getElementById('modalIframe').srcdoc = EMBEDDED_HTML[file] || '<p>File not found</p>';
+    document.getElementById('modalBackdrop').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalBackdrop').addEventListener('click', function(e) { if (e.target === e.currentTarget) closeModal(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+  function closeModal() { document.getElementById('modalBackdrop').classList.remove('open'); document.getElementById('modalIframe').srcdoc = ''; document.body.style.overflow = ''; }
+
+  var mainEl = document.getElementById('mainContent');
+  var topBtn = document.getElementById('backTop');
+  mainEl.addEventListener('scroll', function() { topBtn.classList.toggle('show', mainEl.scrollTop > 400); });
+  topBtn.addEventListener('click', function() { mainEl.scrollTo({top:0, behavior:'smooth'}); });
+})();
+</script>
+</body>
+</html>
