@@ -195,6 +195,17 @@ export default function PageBuilder() {
 
   const showPicker = !!pickerPending || !!changingUid;
 
+  /* ── Lookup design label from library index ── */
+  const getDesignLabel = (moduleFile: string): { category: string; variant: string; layout: string } | null => {
+    if (!library) return null;
+    for (const [, cat] of Object.entries(library.sections)) {
+      for (const v of cat.variants) {
+        if (v.file === moduleFile) return { category: cat.label, variant: v.id, layout: v.layout };
+      }
+    }
+    return null;
+  };
+
   /* ── Render ── */
   return (
     <div className="h-screen bg-[#0a0a0f] text-white flex flex-col font-sans overflow-hidden">
@@ -236,26 +247,32 @@ export default function PageBuilder() {
               <p className="text-[10px] text-gray-500 mt-1">Drag sections to the canvas</p>
             </div>
             <div className="flex-1 overflow-y-auto p-3 space-y-2">
-              {sections.map(section => (
-                <div
-                  key={section.index}
-                  draggable
-                  onDragStart={e => {
-                    e.dataTransfer.setData("sectionIndex", String(section.index));
-                    e.dataTransfer.effectAllowed = "copy";
-                  }}
-                  className="bg-white/[0.03] border border-white/8 rounded-lg p-3 cursor-grab active:cursor-grabbing hover:border-[#C5E826]/30 transition-all group"
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-bold text-[#C5E826]/60 shrink-0">S{String(section.index).padStart(2, "0")}</span>
-                    <span className="text-xs font-medium text-white truncate">{section.title}</span>
+              {sections.map(section => {
+                const design = getDesignLabel(section.module);
+                return (
+                  <div
+                    key={section.index}
+                    draggable
+                    onDragStart={e => {
+                      e.dataTransfer.setData("sectionIndex", String(section.index));
+                      e.dataTransfer.effectAllowed = "copy";
+                    }}
+                    className="bg-white/[0.03] border border-white/8 rounded-lg p-3 cursor-grab active:cursor-grabbing hover:border-[#C5E826]/30 transition-all group"
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-bold text-[#C5E826]/60 shrink-0">S{String(section.index).padStart(2, "0")}</span>
+                      <span className="text-xs font-medium text-white truncate">{section.title}</span>
+                    </div>
+                    {design && (
+                      <div className="mb-1.5">
+                        <span className="text-[10px] font-semibold text-[#C5E826]/80">{design.category}</span>
+                        <p className="text-[9px] text-gray-400 leading-snug mt-0.5 line-clamp-1">{design.layout}</p>
+                      </div>
+                    )}
+                    <p className="text-[10px] text-gray-600 line-clamp-2">{section.content.substring(0, 100)}</p>
                   </div>
-                  <p className="text-[10px] text-gray-500 mt-1 line-clamp-2">{section.content.substring(0, 120)}</p>
-                  <div className="text-[9px] text-gray-600 mt-1.5 font-mono truncate">
-                    {section.module.replace("edstellar-", "").replace(".html", "")}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
             {/* Quick add all */}
             <div className="p-3 border-t border-white/5">
