@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import * as cheerio from "cheerio";
 import fs from "fs/promises";
 import path from "path";
+import * as mammoth from "mammoth";
 
 // Function to provide a fallback/mock response in case no Gemini key is provided
 function getMockStrategy() {
@@ -32,20 +33,30 @@ function getMockStrategy() {
 
 export async function POST(req: Request) {
   try {
-    const { prompt } = await req.json();
+    // 1. Process FormData & Extract Docx Text
+    const formData = await req.formData();
+    const file = formData.get("document") as File | null;
 
-    // 1. Locate the Library
-    // Fallback switch removed: The application now explicitly packages a local copy
-    // of the library folder during both the `npm run dev` and `npm run build` steps.
-    const libraryPath = path.join(process.cwd(), "library");
-    const indexPath = path.join(libraryPath, "library-index.json");
-    
+    if (!file) {
+      return NextResponse.json({ error: "No document provided" }, { status: 400 });
+    }
+
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const extraction = await mammoth.extractRawText({ buffer });
+    const documentText = extraction.value;
+
+    // 2. Fetch the Library over HTTP (100% Vercel Proof)
+    const baseUrl = req.url.split("/api")[0];
     let indexData = "";
+    
     try {
-      indexData = await fs.readFile(indexPath, "utf-8");
+      const idxRes = await fetch(`${baseUrl}/library/library-index.json`);
+      if (!idxRes.ok) throw new Error("Failed to fetch library-index.json");
+      indexData = await idxRes.text();
     } catch(err) {
-      console.error("Could not read library index, looking at: ", indexPath);
-      return NextResponse.json({ error: "Library index not found." }, { status: 500 });
+      console.error("HTTP Fetch Error on library index:", err);
+      return NextResponse.json({ error: "Library index not reachable on CDN." }, { status: 500 });
     }
 
     let strategy;
@@ -60,17 +71,24 @@ export async function POST(req: Request) {
       });
       
       const sysPrompt = `
-        You are an expert AI Page Builder and Content Strategist.
-        The user wants to build a landing page with this intent: "${prompt}".
+        You are an expert Content Mapper and AI Page Assembler.
+        The user has uploaded a Word document containing their page strategy and copy.
         
-        Here is the library of available sections (JSON format):
+        DOCUMENT CONTENT:
+        """
+        ${documentText}
+        """
+        
+        AVAILABLE DESIGN LIBRARY (JSON):
+        """
         ${indexData}
+        """
         
         Your task:
-        1. Select 3 to 5 appropriate HTML sections from the library to build the page. 
-           Always start with a hero section (e.g., "edstellar-hero-classic-split.html").
-           End with "edstellar-footer.html".
-        2. Generate specific, targeted, keyword-rich text to overwrite the dummy content in those HTML files.
+        1. Read the user's document carefully.
+        2. Identify which sections the user wants (e.g., Hero, Features, Testimonials).
+        3. Match them against the closest file names in the Available Design Library.
+        4. Extract the exact text from the user's document and assign it to valid generic CSS selectors (h1, h2, p, span, .card, etc.) for that specific file.
         
         Output MUST be valid JSON in this exact format:
         {
@@ -78,14 +96,14 @@ export async function POST(req: Request) {
             {
               "file": "edstellar-hero-classic-split.html",
               "replacements": [
-                { "selector": "h1", "text": "Your custom headline" },
-                { "selector": ".hero-sub", "text": "Your custom subheadline" }
+                { "selector": "h1", "text": "Extracted headline" },
+                { "selector": ".hero-sub", "text": "Extracted subheadline" }
               ]
             }
           ]
         }
         
-        Only replace major text elements like h1, h2, p, and .tag. Use valid CSS selectors that would match generic elements inside those specific files. Try to replace .card titles, etc.
+        Only pick sections that actually exist in the library. If the document is vague about section names, infer the best sections to use based on the text. Always start with a hero and end with a footer.
       `;
       
       const result = await model.generateContent(sysPrompt);
@@ -103,12 +121,13 @@ export async function POST(req: Request) {
     let headFonts = "";
 
     for (const section of strategy.sections) {
-      const filePath = path.join(libraryPath, section.file);
       let htmlContent = "";
       try {
-        htmlContent = await fs.readFile(filePath, "utf-8");
+        const res = await fetch(`${baseUrl}/library/${section.file}`);
+        if (!res.ok) throw new Error("HTTP Not found");
+        htmlContent = await res.text();
       } catch(e) {
-        console.warn(`Skipping missing file: ${section.file}`);
+        console.warn(`Skipping missing HTTP file: ${section.file}`);
         continue;
       }
       

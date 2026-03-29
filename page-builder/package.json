@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "copy-lib": "node -e \"require('fs').cpSync('../library', './library', {recursive: true})\"",
+    "copy-lib": "node -e \"require('fs').cpSync('../library', './public/library', {recursive: true})\"",
     "dev": "npm run copy-lib && next dev",
     "build": "npm run copy-lib && next build",
     "start": "next start",
@@ -12,6 +12,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "cheerio": "^1.2.0",
+    "mammoth": "^1.12.0",
     "next": "16.2.1",
     "react": "19.2.4",
     "react-dom": "19.2.4"

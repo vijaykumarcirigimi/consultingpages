@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 
 export default function PageBuilder() {
-  const [prompt, setPrompt] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<"idle" | "working" | "complete" | "error">("idle");
   const [progressMsg, setProgressMsg] = useState("");
   const [htmlOutput, setHtmlOutput] = useState("");
@@ -11,19 +11,19 @@ export default function PageBuilder() {
 
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!prompt.trim()) return;
+    if (!file) return;
 
     setStatus("working");
-    setProgressMsg("Analyzing request & planning page structure...");
+    setProgressMsg("Extracting document intelligence & planning page structure...");
     setHtmlOutput("");
 
     try {
-      // Simulate steps for UI if streaming is complex, or let API send chunks.
-      // For now, doing a single API call.
+      const formData = new FormData();
+      formData.append("document", file);
+
       const response = await fetch("/api/generate", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt }),
+        body: formData,
       });
 
       if (!response.ok) throw new Error("Failed to generate page.");
@@ -66,18 +66,36 @@ export default function PageBuilder() {
 
             <form onSubmit={handleGenerate} className="flex flex-col gap-4 flex-1">
               <label className="text-sm font-semibold text-gray-300">
-                Page Intent & Topic
+                Strategic Brief & Content (.docx)
               </label>
-              <textarea
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                placeholder="e.g., A landing page for a B2B SaaS company offering AI-driven logistics in Berlin."
-                className="w-full h-40 bg-black/50 border border-white/10 rounded-xl p-4 text-gray-200 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all resize-none shadow-inner"
-              />
+              
+              <div className="w-full relative group">
+                <input
+                  type="file"
+                  accept=".docx"
+                  onChange={(e) => setFile(e.target.files?.[0] || null)}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                />
+                <div className={`w-full h-32 border-2 border-dashed rounded-xl flex flex-col items-center justify-center transition-all ${file ? 'border-indigo-500 bg-indigo-500/10' : 'border-white/10 bg-black/50 group-hover:border-white/20'}`}>
+                  {file ? (
+                    <>
+                      <svg className="w-8 h-8 text-indigo-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      <span className="text-sm font-medium text-indigo-300">{file.name}</span>
+                      <span className="text-xs text-gray-400 mt-1">Ready to process</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-8 h-8 text-gray-500 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+                      <span className="text-sm font-medium text-gray-300">Drop your .docx file here</span>
+                      <span className="text-xs text-gray-500 mt-1">or click to browse</span>
+                    </>
+                  )}
+                </div>
+              </div>
 
               <button
                 type="submit"
-                disabled={status === "working" || !prompt.trim()}
+                disabled={status === "working" || !file}
                 className="mt-4 w-full py-4 rounded-xl font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_25px_rgba(99,102,241,0.5)] active:scale-[0.98]"
               >
                 {status === "working" ? (
@@ -139,7 +157,7 @@ export default function PageBuilder() {
               {status === "idle" && !htmlOutput && (
                  <div className="absolute inset-0 bg-[#0a0a0f] flex flex-col items-center justify-center text-gray-500">
                     <svg className="w-16 h-16 mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    <p>Enter a prompt and hit generate to see the magic here.</p>
+                    <p>Upload a strategy document and hit generate to see the magic.</p>
                  </div>
               )}
               {activeTab === "preview" && htmlOutput && (
